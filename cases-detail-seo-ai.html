@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>支援事例：SEO×AI自動化でコンテンツ制作を刷新 | BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .cd-hero { background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 70%, #2563eb 100%); padding: 140px 0 80px; position: relative; overflow: hidden; }
+    .cd-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 60%, rgba(96,165,250,0.1) 0%, transparent 50%), radial-gradient(circle at 85% 20%, rgba(59,130,246,0.08) 0%, transparent 50%); }
+    .cd-hero::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .cd-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .cd-hero-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 12px; }
+    .cd-hero-breadcrumb a { color: rgba(147,197,253,0.7); text-decoration: none; }
+    .cd-hero-breadcrumb a:hover { color: rgba(147,197,253,1); }
+    .cd-hero-breadcrumb span { color: rgba(255,255,255,0.3); }
+    .cd-hero-breadcrumb .current { color: rgba(255,255,255,0.5); }
+    .cd-hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .cd-hero-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 100px; }
+    .cd-hero-tag.service { background: rgba(96,165,250,0.2); border: 1px solid rgba(96,165,250,0.4); color: #93c5fd; }
+    .cd-hero-tag.industry { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+    .cd-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(20px, 3.5vw, 34px); font-weight: 700; color: #fff; line-height: 1.5; margin-bottom: 20px; }
+    .cd-hero-summary { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.85; margin-bottom: 28px; max-width: 720px; }
+    .cd-kpi-bar { display: flex; gap: 0; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; margin-top: 8px; }
+    .cd-kpi-item { flex: 1; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .cd-kpi-item:last-child { border-right: none; }
+    .cd-kpi-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; color: #60a5fa; line-height: 1; margin-bottom: 6px; }
+    .cd-kpi-label { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    @media (max-width: 600px) { .cd-kpi-bar { flex-wrap: wrap; } .cd-kpi-item { flex: 1 1 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); } .cd-kpi-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); } .cd-kpi-item:last-child { border-bottom: none; } }
+    .cd-layout { max-width: 1100px; margin: 0 auto; padding: 64px 24px 100px; display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+    @media (max-width: 900px) { .cd-layout { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 480px) { .cd-layout { padding: 40px 16px 60px; } }
+    .cd-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid #f3f4f6; }
+    .cd-section-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.2em; color: #1e3a8a; font-weight: 600; }
+    .cd-section-title { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 700; color: #0d1f3c; }
+    .cd-client-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .cd-client-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; }
+    .cd-client-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #1e3a8a; text-transform: uppercase; margin-bottom: 6px; }
+    .cd-client-value { font-size: 14px; color: #374151; font-weight: 500; line-height: 1.5; }
+    .cd-article { margin-bottom: 56px; }
+    .cd-article-h2 { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700; color: #0d1f3c; border-left: 4px solid #1e3a8a; padding-left: 14px; margin: 40px 0 16px; line-height: 1.5; }
+    .cd-article-h3 { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 700; color: #1e3a8a; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+    .cd-article p { font-size: 15px; color: #374151; line-height: 2.0; margin-bottom: 18px; }
+    .cd-article ul { padding-left: 20px; margin-bottom: 18px; }
+    .cd-article ul li { font-size: 15px; color: #374151; line-height: 1.9; margin-bottom: 6px; }
+    .cd-article-highlight { background: #eff6ff; border-left: 4px solid #1e3a8a; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+    .cd-article-highlight p { margin: 0; font-size: 15px; color: #1e3a8a; font-weight: 500; line-height: 1.85; }
+    .cd-results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .cd-results-grid { grid-template-columns: 1fr; } }
+    .cd-results-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; }
+    .cd-results-card-title { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 700; color: #0d1f3c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .cd-results-card ul { padding-left: 18px; margin: 0; }
+    .cd-results-card ul li { font-size: 13px; color: #374151; line-height: 1.8; margin-bottom: 6px; }
+    .cd-voice-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px 28px 24px; margin-bottom: 24px; position: relative; }
+    .cd-voice-box::before { content: '"'; position: absolute; top: 12px; left: 24px; font-family: 'Cormorant Garamond', serif; font-size: 80px; color: #dbeafe; line-height: 1; pointer-events: none; }
+    .cd-voice-text { font-family: 'Noto Serif JP', serif; font-size: 15px; color: #0d1f3c; line-height: 1.9; position: relative; z-index: 1; margin-bottom: 16px; font-style: italic; }
+    .cd-voice-meta { font-size: 13px; color: #6b7280; font-weight: 500; }
+    .cd-cta-box { background: linear-gradient(135deg, #0d1f3c, #1e3a8a); border-radius: 14px; padding: 36px 32px; text-align: center; margin-bottom: 48px; position: relative; overflow: hidden; }
+    .cd-cta-box::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+    .cd-cta-box-inner { position: relative; z-index: 1; }
+    .cd-cta-box h3 { font-family: 'Noto Serif JP', serif; font-size: 20px; color: #fff; margin-bottom: 10px; }
+    .cd-cta-box p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 22px; }
+    .cd-cta-btn { display: inline-block; padding: 13px 32px; background: #fff; color: #1e3a8a; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; }
+    .cd-cta-btn:hover { background: #dbeafe; transform: translateY(-2px); }
+    .cd-sidebar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px 20px; margin-bottom: 20px; }
+    .cd-sidebar-card-title { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 700; color: #0d1f3c; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; }
+    .cd-sidebar-info-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f3f4f6; gap: 12px; }
+    .cd-sidebar-info-item:last-child { border-bottom: none; }
+    .cd-sidebar-info-label { font-size: 11px; color: #9ca3af; font-weight: 500; white-space: nowrap; }
+    .cd-sidebar-info-value { font-size: 13px; color: #374151; font-weight: 500; text-align: right; }
+    .cd-sidebar-cta-btn { display: block; text-align: center; padding: 12px; background: #1e3a8a; color: #fff; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.2s; margin-top: 14px; }
+    .cd-sidebar-cta-btn:hover { background: #1e40af; }
+    .cd-related { margin-top: 64px; }
+    .cd-related-title { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700; color: #0d1f3c; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #f3f4f6; }
+    .cd-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 700px) { .cd-related-grid { grid-template-columns: 1fr; } }
+    .cd-related-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; text-decoration: none; display: block; transition: transform 0.2s, box-shadow 0.2s; }
+    .cd-related-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .cd-related-img { aspect-ratio: 16/9; background: linear-gradient(135deg, #dbeafe, #bfdbfe); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cd-related-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cd-related-body { padding: 14px 16px; }
+    .cd-related-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #dbeafe; color: #1e3a8a; margin-bottom: 8px; display: inline-block; }
+    .cd-related-card-title { font-family: 'Noto Serif JP', serif; font-size: 13px; font-weight: 700; color: #0d1f3c; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="dropdown-nav" id="dropdown-nav">
+        <ul>
+          <li><a href="index.html#message" onclick="closeDropdown()">メッセージ</a></li>
+          <li><a href="index.html#services" onclick="closeDropdown()">サービス</a></li>
+          <li><a href="cases-list.html" onclick="closeDropdown()">ご支援事例</a></li>
+          <li><a href="knowledge-list.html" onclick="closeDropdown()">コラム・知見</a></li>
+          <li><a href="index.html#contact" onclick="closeDropdown()">お問合せ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cd-hero">
+    <div class="cd-hero-inner">
+      <nav class="cd-hero-breadcrumb">
+        <a href="index.html">HOME</a>
+        <span>›</span>
+        <a href="cases-list.html">ご支援事例</a>
+        <span>›</span>
+        <span class="current">SEO×AI自動化支援</span>
+      </nav>
+      <div class="cd-hero-tags">
+        <span class="cd-hero-tag service">AIの右腕</span>
+        <span class="cd-hero-tag service">SEO・コンテンツ</span>
+        <span class="cd-hero-tag industry">メディア・EC</span>
+        <span class="cd-hero-tag industry">従業員 約30名</span>
+      </div>
+      <h1 class="cd-hero-title">「1記事に2週間」のSEOコンテンツ制作を、AI自動化ダッシュボードで刷新——高速PDCAと月間PV3倍を実現</h1>
+      <p class="cd-hero-summary">メディア運営とEC事業を展開する企業。SEOコンテンツの制作に1記事あたり2週間以上かかり、競合の動向に対応できないスピード感が課題でした。BWH総合研究所では、キーワード調査から構成・執筆・公開までを一貫してAIが支援するダッシュボードを開発し、制作リードタイムを大幅に短縮。月間PVを3倍に伸ばすことに成功しました。</p>
+      <div class="cd-kpi-bar">
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">×3</div>
+          <div class="cd-kpi-label">月間PV成長</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">▲75%</div>
+          <div class="cd-kpi-label">制作リードタイム短縮</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">×5</div>
+          <div class="cd-kpi-label">月間公開記事数</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">TOP10</div>
+          <div class="cd-kpi-label">主要KWの検索順位</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cd-layout">
+    <main class="cd-main">
+      <section style="margin-bottom: 48px;">
+        <div class="cd-section-heading">
+          <span class="cd-section-num">01</span>
+          <h2 class="cd-section-title">クライアント概要</h2>
+        </div>
+        <div class="cd-client-grid">
+          <div class="cd-client-item">
+            <div class="cd-client-label">業種</div>
+            <div class="cd-client-value">メディア・EC</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">企業規模</div>
+            <div class="cd-client-value">従業員 約30名</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援期間</div>
+            <div class="cd-client-value">約6ヶ月間</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援テーマ</div>
+            <div class="cd-client-value">SEOコンテンツ制作のAI自動化・高速PDCA体制構築</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:#9ca3af;">※企業名は非公開としています。</p>
+      </section>
+
+      <article class="cd-article">
+        <h2 class="cd-article-h2">支援の背景・きっかけ</h2>
+        <p>同社は、自社メディアを中心としたコンテンツSEOを主要な集客チャネルとして運営していました。しかし、コンテンツ制作の現場では深刻な課題を抱えていました。キーワード調査から構成作成、ライティング、校正、公開まで、1記事を仕上げるのに平均2週間以上かかっていたのです。</p>
+        <p>その結果、月間の公開記事数は4〜5本程度にとどまり、競合メディアが週単位で新記事を投入する中、検索順位の改善が思うように進みませんでした。「もっとスピードを上げたい」という意向はあるものの、ライターのリソースを増やすだけでは根本的な解決にならないと感じておられました。</p>
+        <p>「AIを使えばコンテンツ制作が速くなると聞いたが、何をどう使えばいいのか分からない」——そうした状況の中、BWH総合研究所にご相談いただいたことが支援のきっかけとなりました。</p>
+        <div class="cd-article-highlight">
+          <p><strong>課題のポイント</strong><br>
+          ・1記事の制作に平均2週間以上かかり、競合に対してスピードで劣後<br>
+          ・月間公開記事数が4〜5本程度にとどまり、検索順位の改善が停滞<br>
+          ・AIの活用方法が分からず、ツールの乱立だけが進んでいた<br>
+          ・キーワード調査・構成・執筆・分析のプロセスが分断されており、PDCAが回りにくい</p>
+        </div>
+
+        <h2 class="cd-article-h2">支援のアプローチ</h2>
+        <p>BWH総合研究所では、「AIを点で使うのではなく、コンテンツ制作の全工程をつなぐ仕組みを作る」ことを基本方針としました。個別のAIツールを導入するだけでなく、キーワード調査から公開後の分析まで一気通貫で管理できるダッシュボードを開発し、制作フローそのものを再設計しました。</p>
+
+        <h3 class="cd-article-h3">Phase 1：コンテンツ制作フローの現状分析と課題特定</h3>
+        <p>まず、現行の制作フローを詳細にヒアリングし、どの工程にどれだけの時間がかかっているかを可視化しました。その結果、最も時間を要していたのはキーワード調査と記事構成の設計段階であることが判明しました。ライティング自体よりも、「何を書くか」「どう構成するか」の意思決定に多くの時間が費やされていたのです。</p>
+
+        <h3 class="cd-article-h3">Phase 2：AI自動化ダッシュボードの開発</h3>
+        <p>課題を踏まえ、コンテンツ制作の全工程を一元管理できるAI自動化ダッシュボードを開発しました。このダッシュボードは、キーワード候補の自動抽出と競合分析、検索意図の分類と優先度付け、記事構成（見出し案）の自動生成、初稿ドラフトの生成と編集支援、公開後の順位・PV・CVRの自動集計という5つの機能を統合しています。</p>
+        <p>特に重視したのは、AIが生成したコンテンツを人間が効率よくレビュー・編集できるインターフェースの設計です。「AIが書いたものをそのまま使う」のではなく、「AIが下書きし、人間が磨く」ワークフローを確立することで、品質と速度を両立させました。</p>
+
+        <h3 class="cd-article-h3">Phase 3：PDCA体制の構築と運用定着</h3>
+        <p>ダッシュボードの開発と並行して、週次でのコンテンツPDCAを回す運用体制を整備しました。毎週の定例ミーティングで前週公開記事の初期データを確認し、翌週の制作優先度を決定するサイクルを確立。「感覚でなくデータで判断する」文化を組織に根付かせることを重視しました。</p>
+        <p>また、ライター・編集者向けのダッシュボード活用研修を実施し、AIツールへの心理的なハードルを下げる取り組みも並行して行いました。「AIに仕事を奪われる」という不安ではなく、「AIと協働することで自分の仕事の質と量が上がる」という体験を積んでもらうことを意識した研修設計としました。</p>
+
+        <h2 class="cd-article-h2">支援の成果</h2>
+        <div class="cd-results-grid">
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定量的な成果</div>
+            <ul>
+              <li>制作リードタイムを平均2週間から3〜4日に短縮（約75%削減）</li>
+              <li>月間公開記事数が4〜5本から20〜25本に増加（約5倍）</li>
+              <li>支援開始から6ヶ月で月間PVが約3倍に成長</li>
+              <li>主要ターゲットキーワードの検索順位がTOP10圏内に複数入圏</li>
+            </ul>
+          </div>
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定性的な成果</div>
+            <ul>
+              <li>「何を書くか」の意思決定がデータドリブンになり、感覚的な判断から脱却できた</li>
+              <li>ライター・編集者がAIを「使いこなす」感覚を持てるようになり、チームの自信につながった</li>
+              <li>週次PDCAが定着し、コンテンツ戦略の改善サイクルが自走するようになった</li>
+              <li>競合の動向に対して、スピード感を持って対応できる体制が整った</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <div class="cd-voice-box">
+        <p class="cd-voice-text">「以前は1記事に2週間かかっていたのが、今では3〜4日で公開できるようになりました。スピードが上がったことで、競合の動向に対して素早く対応できるようになり、検索順位の改善も実感しています。」</p>
+        <div class="cd-voice-meta">ご担当者様</div>
+      </div>
+      <div class="cd-voice-box" style="margin-bottom:48px;">
+        <p class="cd-voice-text">「AIが書いたものをそのまま使うのではなく、AIと一緒に作るという感覚が大切だと分かりました。ダッシュボードのおかげで、チーム全員がAIを活用できるようになっています。」</p>
+        <div class="cd-voice-meta">ご担当者様</div>
+      </div>
+
+      <div class="cd-cta-box">
+        <div class="cd-cta-box-inner">
+          <h3>SEOコンテンツ制作の効率化にお悩みですか？</h3>
+          <p>AIを活用したコンテンツ制作の仕組みづくりから、PDCAの定着まで一貫して支援します。<br>まずはお気軽にご相談ください。</p>
+          <a href="index.html#contact" class="cd-cta-btn">無料相談を申し込む</a>
+        </div>
+      </div>
+
+      <div class="cd-related">
+        <h2 class="cd-related-title">関連する支援事例</h2>
+        <div class="cd-related-grid">
+          <a href="cases-detail-ai-dx.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:#1e40af;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">AIの右腕</span>
+              <div class="cd-related-card-title">スプレッドシート依存・SaaS乱立の中小企業が、業務フローの再構築とAI導入で"迷わない"業務運営を実現</div>
+            </div>
+          </a>
+          <a href="cases-detail-d2c-kanpo.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:#1e40af;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              </div>
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">戦略の右腕</span>
+              <div class="cd-related-card-title">「漢方×D2C」の新市場を切り拓く——ゼロからの事業設計で、初年度売上1,000万円を突破</div>
+            </div>
+          </a>
+          <a href="cases-detail-allconnect.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <img src="img/case-allconnect.jpg" alt="ALLCONNECT">
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">業務改善</span>
+              <div class="cd-related-card-title">「担当者の頭の中にしかない」業務マニュアルの暗黙知を形式知化し、誰でも再現できる運用体制を構築</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <aside class="cd-sidebar">
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">支援概要</div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">クライアント</span>
+          <span class="cd-sidebar-info-value">メディア・EC企業（非公開）</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">業種</span>
+          <span class="cd-sidebar-info-value">メディア・EC</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">規模</span>
+          <span class="cd-sidebar-info-value">従業員 約30名</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援期間</span>
+          <span class="cd-sidebar-info-value">約6ヶ月間</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援領域</span>
+          <span class="cd-sidebar-info-value">AIの右腕 / SEO・コンテンツ</span>
+        </div>
+        <a href="index.html#contact" class="cd-sidebar-cta-btn">この事例について相談する</a>
+      </div>
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">関連するご支援領域</div>
+        <a href="cases-list.html?tag=AIの右腕" style="display:block;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;text-decoration:none;">AIの右腕</a>
+        <a href="cases-list.html?tag=SEO" style="display:block;padding:10px 0;font-size:13px;color:#374151;text-decoration:none;">SEO・コンテンツ</a>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </div>
+      <p class="footer-copy">© 2024 合同会社 BWH総合研究所. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

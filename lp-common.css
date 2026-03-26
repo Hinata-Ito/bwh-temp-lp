@@ -1,0 +1,218 @@
+/* ============================================================
+   LP Common CSS — BWH総合研究所
+   共通リセット・変数・ユーティリティ
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --font-serif: 'Noto Serif JP', 'Georgia', serif;
+  --font-sans:  'Noto Sans JP', 'Helvetica Neue', sans-serif;
+  --font-en:    'Cormorant Garamond', 'Georgia', serif;
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+img  { max-width: 100%; height: auto; display: block; }
+a    { text-decoration: none; }
+
+/* ── Scroll animation ── */
+.lp-fade { opacity: 0; transform: translateY(32px); transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out); }
+.lp-fade.visible { opacity: 1; transform: translateY(0); }
+.lp-fade-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out); }
+.lp-fade-left.visible  { opacity: 1; transform: translateX(0); }
+.lp-fade-right { opacity: 0; transform: translateX(40px); transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out); }
+.lp-fade-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ── LP Header ── */
+.lp-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+.lp-header.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 1px 12px rgba(0,0,0,0.08); backdrop-filter: blur(8px); }
+.lp-header-logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-serif); font-size: 14px; font-weight: 700; letter-spacing: 0.05em; }
+.lp-header-logo .logo-mark { font-size: 16px; font-weight: 900; }
+.lp-header-back { font-size: 12px; letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+.lp-header-back:hover { opacity: 0.6; }
+.lp-header-back::before { content: '←'; font-size: 14px; }
+
+/* ── Section wrapper ── */
+.lp-section { padding: 120px 40px; }
+.lp-section-inner { max-width: 1100px; margin: 0 auto; }
+
+/* ── Section label ── */
+.lp-section-label { display: flex; flex-direction: column; gap: 4px; margin-bottom: 48px; }
+.lp-section-label-en { font-family: var(--font-en); font-size: 56px; font-weight: 300; letter-spacing: -0.02em; line-height: 1; }
+.lp-section-label-ja { font-size: 12px; letter-spacing: 0.2em; font-weight: 400; }
+
+/* ── CTA Buttons ── */
+.lp-cta-group { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.lp-btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 40px; font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+  border-radius: 2px; transition: all 0.3s var(--ease-out); cursor: pointer; border: none;
+}
+.lp-btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 40px; font-size: 14px; font-weight: 500; letter-spacing: 0.1em;
+  border-radius: 2px; transition: all 0.3s var(--ease-out); cursor: pointer;
+  background: transparent; border: 1.5px solid currentColor;
+}
+.lp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.lp-btn-secondary:hover { transform: translateY(-2px); }
+
+/* ── Problem list ── */
+.lp-problem-list { display: grid; gap: 32px; }
+.lp-problem-item { display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start; }
+.lp-problem-num { font-family: var(--font-en); font-size: 48px; font-weight: 300; line-height: 1; letter-spacing: -0.03em; }
+.lp-problem-text h3 { font-family: var(--font-serif); font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.5; }
+.lp-problem-text p  { font-size: 14px; line-height: 1.9; }
+
+/* ── Solution list ── */
+.lp-solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+@media (max-width: 768px) { .lp-solution-grid { grid-template-columns: 1fr; } }
+.lp-solution-card { padding: 36px 32px; border-radius: 4px; }
+.lp-solution-card-num { font-family: var(--font-en); font-size: 36px; font-weight: 300; margin-bottom: 16px; line-height: 1; }
+.lp-solution-card h3 { font-family: var(--font-serif); font-size: 17px; font-weight: 700; margin-bottom: 12px; line-height: 1.5; }
+.lp-solution-card p  { font-size: 13px; line-height: 1.9; }
+
+/* ── Model section ── */
+.lp-model-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+@media (max-width: 768px) { .lp-model-flow { grid-template-columns: 1fr 1fr; gap: 16px; } }
+.lp-model-step { padding: 32px 24px; text-align: center; position: relative; }
+.lp-model-step:not(:last-child)::after {
+  content: '→'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+  font-size: 20px; z-index: 1;
+}
+@media (max-width: 768px) { .lp-model-step::after { display: none; } }
+.lp-model-step-num { font-family: var(--font-en); font-size: 40px; font-weight: 300; line-height: 1; margin-bottom: 12px; }
+.lp-model-step h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.lp-model-step p  { font-size: 12px; line-height: 1.8; }
+
+/* ── Cases cards (same as HP) ── */
+.lp-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+@media (max-width: 900px) { .lp-cases-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .lp-cases-grid { grid-template-columns: 1fr; } }
+.lp-case-card { border-radius: 4px; overflow: hidden; cursor: pointer; transition: transform 0.3s var(--ease-out), box-shadow 0.3s; }
+.lp-case-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+.lp-case-card-img { height: 180px; display: flex; align-items: center; justify-content: center; }
+.lp-case-card-body { padding: 20px 24px 24px; }
+.lp-case-tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 2px; margin-bottom: 10px; }
+.lp-case-title { font-family: var(--font-serif); font-size: 16px; font-weight: 700; line-height: 1.5; margin-bottom: 8px; }
+.lp-case-body  { font-size: 13px; line-height: 1.8; margin-bottom: 12px; }
+.lp-case-link  { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
+
+/* ── FAQ ── */
+.lp-faq-list { display: grid; gap: 0; }
+.lp-faq-item { border-bottom: 1px solid; }
+.lp-faq-q { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; cursor: pointer; font-family: var(--font-serif); font-size: 16px; font-weight: 700; gap: 16px; }
+.lp-faq-q::after { content: '+'; font-size: 24px; font-weight: 300; flex-shrink: 0; transition: transform 0.3s; }
+.lp-faq-item.open .lp-faq-q::after { transform: rotate(45deg); }
+.lp-faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease-in-out), padding 0.3s; font-size: 14px; line-height: 1.9; }
+.lp-faq-item.open .lp-faq-a { max-height: 300px; padding-bottom: 24px; }
+
+/* ── Final CTA section ── */
+.lp-final-cta { padding: 120px 40px; text-align: center; }
+.lp-final-cta h2 { font-family: var(--font-serif); font-size: clamp(28px, 4vw, 48px); font-weight: 700; line-height: 1.4; margin-bottom: 24px; }
+.lp-final-cta p  { font-size: 15px; line-height: 1.9; margin-bottom: 48px; }
+.lp-final-cta .lp-cta-group { justify-content: center; }
+
+/* ── LP Footer ── */
+.lp-footer { padding: 40px; text-align: center; font-size: 12px; letter-spacing: 0.1em; border-top: 1px solid; }
+
+/* ── Hero sub 1-line on PC ── */
+.lp-hero-sub-nowrap {
+  white-space: nowrap;
+  overflow: visible;
+}
+
+/* ── Model step icon ── */
+.lp-model-step-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  height: 48px;
+}
+.lp-model-step-icon svg {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+/* ── Solution notice ── */
+.lp-solution-notice {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 32px;
+  padding: 12px 16px;
+  border-left: 3px solid #e0ddd8;
+  background: #fafafa;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .lp-section { padding: 80px 24px; }
+  .lp-header { padding: 0 20px; }
+  .lp-section-label-en { font-size: 40px; }
+  .lp-problem-item { grid-template-columns: 40px 1fr; gap: 16px; }
+  .lp-hero-sub-nowrap { white-space: normal; }
+  .lp-problem-num { font-size: 36px; }
+  .lp-model-flow { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .lp-final-cta { padding: 80px 24px; }
+  .lp-footer { padding: 32px 24px; }
+}
+
+/* ── 480px以下（スマホ縦向き）追加対応 ── */
+@media (max-width: 480px) {
+  .lp-section { padding: 60px 16px; }
+  .lp-header { padding: 0 16px; height: 56px; }
+  .lp-section-label-en { font-size: 32px; }
+  .lp-section-label { margin-bottom: 32px; }
+
+  /* CTAボタンをフルワイド */
+  .lp-cta-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lp-btn-primary,
+  .lp-btn-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 13px;
+  }
+
+  /* Problem list */
+  .lp-problem-item {
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+  }
+  .lp-problem-num { font-size: 28px; }
+  .lp-problem-text h3 { font-size: 15px; }
+  .lp-problem-text p { font-size: 13px; }
+
+  /* Solution grid */
+  .lp-solution-grid { grid-template-columns: 1fr; gap: 20px; }
+  .lp-solution-card { padding: 24px 20px; }
+
+  /* Model flow */
+  .lp-model-flow { grid-template-columns: 1fr; gap: 12px; }
+  .lp-model-step { padding: 24px 16px; }
+
+  /* Cases grid */
+  .lp-cases-grid { grid-template-columns: 1fr; }
+
+  /* Final CTA */
+  .lp-final-cta { padding: 60px 16px; }
+  .lp-final-cta h2 { font-size: clamp(22px, 6vw, 32px); }
+  .lp-final-cta p { font-size: 14px; margin-bottom: 32px; }
+
+  /* Footer */
+  .lp-footer { padding: 24px 16px; font-size: 11px; }
+}

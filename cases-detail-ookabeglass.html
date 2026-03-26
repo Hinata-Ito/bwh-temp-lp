@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>支援事例：OOKABE GLASS株式会社 | BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .cd-hero {
+      background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 70%, #2563eb 100%);
+      padding: 140px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cd-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 60%, rgba(96,165,250,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 85% 20%, rgba(59,130,246,0.08) 0%, transparent 50%);
+    }
+    .cd-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cd-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .cd-hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      font-size: 12px;
+    }
+    .cd-hero-breadcrumb a { color: rgba(147,197,253,0.7); text-decoration: none; }
+    .cd-hero-breadcrumb a:hover { color: rgba(147,197,253,1); }
+    .cd-hero-breadcrumb span { color: rgba(255,255,255,0.3); }
+    .cd-hero-breadcrumb .current { color: rgba(255,255,255,0.5); }
+    .cd-hero-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .cd-hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+    .cd-hero-tag.service { background: rgba(96,165,250,0.2); border: 1px solid rgba(96,165,250,0.4); color: #93c5fd; }
+    .cd-hero-tag.industry { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+    .cd-hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(20px, 3.5vw, 34px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .cd-hero-summary {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.85;
+      margin-bottom: 28px;
+      max-width: 720px;
+    }
+    .cd-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 24px 100px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .cd-layout { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 480px) {
+      .cd-layout { padding: 40px 16px 60px; }
+    }
+    .cd-section-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+    .cd-section-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+    .cd-section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0d1f3c;
+    }
+    .cd-client-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+    .cd-client-item {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .cd-client-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .cd-client-value {
+      font-size: 14px;
+      color: #374151;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    .cd-client-photo {
+      width: 100%;
+      aspect-ratio: 16/7;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 32px;
+      display: block;
+    }
+    .cd-article { margin-bottom: 56px; }
+    .cd-article-h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0d1f3c;
+      border-left: 4px solid #1e3a8a;
+      padding-left: 14px;
+      margin: 40px 0 16px;
+      line-height: 1.5;
+    }
+    .cd-article-h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e3a8a;
+      margin: 28px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cd-article p {
+      font-size: 15px;
+      color: #374151;
+      line-height: 2.0;
+      margin-bottom: 18px;
+    }
+    .cd-article ul {
+      padding-left: 20px;
+      margin-bottom: 18px;
+    }
+    .cd-article ul li {
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.9;
+      margin-bottom: 6px;
+    }
+    .cd-article-highlight {
+      background: #eff6ff;
+      border-left: 4px solid #1e3a8a;
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+      margin: 24px 0;
+    }
+    .cd-article-highlight p {
+      margin: 0;
+      font-size: 15px;
+      color: #1e3a8a;
+      font-weight: 500;
+      line-height: 1.85;
+    }
+    .cd-results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 600px) { .cd-results-grid { grid-template-columns: 1fr; } }
+    .cd-results-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .cd-results-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0d1f3c;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .cd-results-card ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+    .cd-results-card ul li {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.8;
+      margin-bottom: 6px;
+    }
+    .cd-voice-box {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 28px 28px 24px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .cd-voice-box::before {
+      content: '"';
+      position: absolute;
+      top: 12px;
+      left: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      color: #dbeafe;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .cd-voice-text {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px;
+      color: #0d1f3c;
+      line-height: 1.9;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .cd-voice-meta {
+      font-size: 13px;
+      color: #6b7280;
+      font-weight: 500;
+    }
+    .cd-cta-box {
+      background: linear-gradient(135deg, #0d1f3c, #1e3a8a);
+      border-radius: 14px;
+      padding: 36px 32px;
+      text-align: center;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cd-cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .cd-cta-box-inner { position: relative; z-index: 1; }
+    .cd-cta-box h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cd-cta-box p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 22px; }
+    .cd-cta-btn {
+      display: inline-block;
+      padding: 13px 32px;
+      background: #fff;
+      color: #1e3a8a;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cd-cta-btn:hover { background: #dbeafe; transform: translateY(-2px); }
+    .cd-sidebar {}
+    .cd-sidebar-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px 20px;
+      margin-bottom: 20px;
+    }
+    .cd-sidebar-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0d1f3c;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .cd-sidebar-info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      gap: 12px;
+    }
+    .cd-sidebar-info-item:last-child { border-bottom: none; }
+    .cd-sidebar-info-label { font-size: 11px; color: #9ca3af; font-weight: 500; white-space: nowrap; }
+    .cd-sidebar-info-value { font-size: 13px; color: #374151; font-weight: 500; text-align: right; }
+    .cd-sidebar-cta-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: #1e3a8a;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s;
+      margin-top: 14px;
+    }
+    .cd-sidebar-cta-btn:hover { background: #1e40af; }
+    .cd-related { margin-top: 64px; }
+    .cd-related-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0d1f3c;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f3f4f6;
+    }
+    .cd-related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 700px) { .cd-related-grid { grid-template-columns: 1fr; } }
+    .cd-related-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cd-related-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .cd-related-img {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .cd-related-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cd-related-img svg { width: 32px; height: 32px; color: #1e40af; }
+    .cd-related-body { padding: 14px 16px; }
+    .cd-related-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .cd-related-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0d1f3c;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="dropdown-nav" id="dropdown-nav">
+        <ul>
+          <li><a href="index.html#message" onclick="closeDropdown()">メッセージ</a></li>
+          <li><a href="index.html#services" onclick="closeDropdown()">サービス</a></li>
+          <li><a href="cases-list.html" onclick="closeDropdown()">ご支援事例</a></li>
+          <li><a href="knowledge-list.html" onclick="closeDropdown()">コラム・知見</a></li>
+          <li><a href="index.html#contact" onclick="closeDropdown()">お問合せ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="cd-hero">
+    <div class="cd-hero-inner">
+      <nav class="cd-hero-breadcrumb">
+        <a href="index.html">HOME</a>
+        <span>›</span>
+        <a href="cases-list.html">ご支援事例</a>
+        <span>›</span>
+        <span class="current">OOKABE GLASS株式会社</span>
+      </nav>
+
+      <div class="cd-hero-tags">
+        <span class="cd-hero-tag service">組織の右腕</span>
+        <span class="cd-hero-tag service">戦略の右腕</span>
+        <span class="cd-hero-tag industry">EC・製造加工</span>
+        <span class="cd-hero-tag industry">従業員 約60名</span>
+        <span class="cd-hero-tag industry">福井県</span>
+      </div>
+
+      <h1 class="cd-hero-title">頭の中にあった構想を整理・言語化する推進力を獲得できた——ガラス・鏡のネットオーダー企業が、経営の"OS"をアップデートするまで</h1>
+
+      <p class="cd-hero-summary">福井県に拠点を構え、ガラス・鏡のネットオーダー専門店を運営するOOKABE GLASS株式会社。成長を続ける一方で、経営者の哲学を共有し、自律的に駆動する次の組織レベルへの進化を模索していた。BWH総合研究所では、2025年12月より経営会議体の再設計、新規事業の立ち上げ伴走、業界講演の企画支援、そして創業者の経営手法のモデル化まで、多角的な支援を継続しています。</p>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <div class="cd-layout">
+    <!-- Main Content -->
+    <main class="cd-main">
+
+      <!-- クライアント写真 -->
+      <img src="img/case-ookabeglass.png" alt="OOKABE GLASS株式会社" class="cd-client-photo">
+
+      <!-- 01 クライアント情報 -->
+      <section style="margin-bottom: 48px;">
+        <div class="cd-section-heading">
+          <span class="cd-section-num">01</span>
+          <h2 class="cd-section-title">クライアント概要</h2>
+        </div>
+        <div class="cd-client-grid">
+          <div class="cd-client-item">
+            <div class="cd-client-label">業種</div>
+            <div class="cd-client-value">ガラス・鏡のネットオーダー専門店の運営（EC・製造加工）</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">企業規模</div>
+            <div class="cd-client-value">従業員 約60名</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援期間</div>
+            <div class="cd-client-value">2025年12月〜現在（継続中）</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援テーマ</div>
+            <div class="cd-client-value">経営基盤の強化（経営会議体・新規事業・講演・経営手法のモデル化）</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 記事本文 -->
+      <article class="cd-article">
+
+        <h2 class="cd-article-h2">支援の背景・きっかけ</h2>
+
+        <p>OOKABE GLASS株式会社は、ガラス・鏡のオンライン販売を中核事業とし、サイズオーダーなどの特注対応からコールセンター運営、加工・出荷アトリエの運営までを一貫して手がける企業です。ニッチな市場においてEC×製造加工という独自のポジションを確立し、着実に事業を拡大してきました。</p>
+
+        <p>しかし、事業規模の拡大に伴い、経営者が積み上げてきた哲学や判断軸を組織全体に共有し、社員一人ひとりが自律的に動ける次の組織レベルへと進化させることの難しさを感じておられました。経営者の頭の中には明確な構想があるものの、それを言語化・体系化し、組織が自走できる形に落とし込む推進力が不足していた——多くの成長企業が直面する課題に、同社も例外なく向き合っていました。</p>
+
+        <p>そうした中、福井県主催の若手起業家支援のピッチイベントにおいて、BWH総合研究所との接点が生まれました。経営者の哲学・構想を外部の知見を借りて整理・言語化し、組織が自律的に駆動できる体制を整えたいというご意向が、支援開始のきっかけとなりました。</p>
+
+        <div class="cd-article-highlight">
+          <p><strong>課題のポイント</strong><br>
+          ・経営者の哲学・構想が暗黙知のまま組織に伝わりにくく、自律的な行動につながっていない<br>
+          ・経営会議体のフォーマットが成長フェーズに追いついていない<br>
+          ・新規事業の立ち上げを推進するためのリソースと壁打ち相手が不足<br>
+          ・業界内での発信力強化（講演等）に向けた企画・制作の体制がない</p>
+        </div>
+
+        <h2 class="cd-article-h2">支援のアプローチ</h2>
+
+        <p>BWH総合研究所では、OOKABE GLASS様の支援にあたり、経営者の「右腕」として複数のテーマを同時並行で伴走するスタイルを採用しました。経営者の哲学・構想を整理・言語化することを軸に置きながら、それを組織が自律的に体現できる仕組みへと落とし込む——単一のプロジェクトを完結させるのではなく、経営全体を俯瞰しながら必要な打ち手を柔軟に設計・実行していくアプローチです。</p>
+
+        <h3 class="cd-article-h3">テーマ1：経営会議体のフォーマットのアップデート</h3>
+
+        <p>支援の起点として取り組んだのが、経営会議体の再設計です。従来の会議体は情報共有が中心となっており、経営判断に直結する議論が十分にできる構造になっていませんでした。</p>
+
+        <p>BWH総合研究所では、会議のアジェンダ設計や議論のフレームワークを見直し、「意思決定の質とスピードを上げる」ことを目的としたフォーマットへとアップデートしました。経営者の思考プロセスを可視化し、チームが同じ判断基準で議論できる土台づくりを進めています。</p>
+
+        <h3 class="cd-article-h3">テーマ2：新規事業の立ち上げ伴走</h3>
+
+        <p>OOKABE GLASS様が構想する新規事業について、アイデアの壁打ちから事業計画の設計まで、伴走型で支援を行っています。経営者の直感やビジョンを、市場分析や事業モデルの言語で再定義し、実行可能な計画に落とし込むプロセスを共に進めています。</p>
+
+        <h3 class="cd-article-h3">テーマ3：業界講演の企画・資料作成</h3>
+
+        <p>業界内での講演機会に向けて、講演内容の企画から資料作成までをBWH総合研究所が代行しています。経営者のメッセージを最大限に伝えるためのストーリー設計と、聴衆の心を動かすスライド制作を担い、経営者が本業に集中しながらも業界への発信力を高められる体制を整えています。</p>
+
+        <h3 class="cd-article-h3">テーマ4：創業者の経営手法のモデル化（書籍執筆中）</h3>
+
+        <p>最も長期的なプロジェクトとして、創業者の経営哲学や意思決定の手法を体系的にモデル化する取り組みを進めています。経営者へのヒアリングを重ね、暗黙知として蓄積されてきた経営のノウハウを言語化し、書籍としてまとめる作業を並行して行っています。</p>
+
+        <p>このプロジェクトは、単に書籍を出版するためだけのものではありません。経営手法をモデル化するプロセスそのものが、経営者自身の思考を整理し、組織に伝えるべきメッセージを明確にする効果を生んでいます。</p>
+
+        <h2 class="cd-article-h2">支援の成果</h2>
+
+        <div class="cd-results-grid">
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定量的な成果</div>
+            <ul>
+              <li>経営会議体のフォーマットを刷新し、新体制での運用を開始</li>
+              <li>新規事業の事業計画策定が進行中</li>
+              <li>業界講演の企画・資料作成を完了し、登壇を実施</li>
+              <li>書籍原稿の執筆が進行中</li>
+            </ul>
+          </div>
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定性的な成果</div>
+            <ul>
+              <li>経営者の哲学・構想が言語化・体系化され、組織に共有可能な形に整理された</li>
+              <li>経営会議の議論の質が向上し、意思決定のプロセスが明確になった</li>
+              <li>外部の「右腕」がいることで、経営者が本業に集中しながらも構想の言語化と組織の自律化を同時に推進できる体制が実現</li>
+              <li>経営手法のモデル化を通じて、経営者自身の思考がさらに深化・整理された</li>
+            </ul>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- クライアントの声 -->
+      <div class="cd-voice-box">
+        <p class="cd-voice-text">「自分の頭の中にあったものが、きれいに言語化されていく感覚がすごい。前に進んでいる実感がある。BWH総合研究所と一緒に、より会社の成長を加速させていきたい。」</p>
+        <div class="cd-voice-meta">OOKABE GLASS株式会社 代表</div>
+      </div>
+
+      <!-- CTA -->
+      <div class="cd-cta-box">
+        <div class="cd-cta-box-inner">
+          <h3>同じような課題を抱えていませんか？</h3>
+          <p>経営者の構想を言語化し、組織に伝える仕組みづくりをお手伝いします。<br>まずはお気軽にご相談ください。</p>
+          <a href="index.html#contact" class="cd-cta-btn">無料相談を申し込む</a>
+        </div>
+      </div>
+
+      <!-- 関連事例 -->
+      <div class="cd-related">
+        <h2 class="cd-related-title">関連する支援事例</h2>
+        <div class="cd-related-grid">
+          <a href="cases-detail-tenseidatenet.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <img src="img/case-tenseidatenet.jpg" alt="天晴データネット">
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">組織の右腕</span>
+              <div class="cd-related-card-title">「技術力の先にある提案力を」——IT企業がビジネススキル研修の内製化から、組織の次のステージへ挑む</div>
+            </div>
+          </a>
+          <a href="cases-detail-allconnect.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <img src="img/case-allconnect.jpg" alt="ALLCONNECT">
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">業務改善</span>
+              <div class="cd-related-card-title">「担当者の頭の中にしかない」業務マニュアルの暗黙知を形式知化し、誰でも再現できる運用体制を構築</div>
+            </div>
+          </a>
+          <a href="cases-detail-vision-workshop.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:#1e40af;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">組織の右腕</span>
+              <div class="cd-related-card-title">「理念は掲げているが、行動に落とし込めていない」産廃コンサルティング企業の経営理念浸透を実現</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="cd-sidebar">
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">支援概要</div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">クライアント</span>
+          <span class="cd-sidebar-info-value">OOKABE GLASS株式会社</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">業種</span>
+          <span class="cd-sidebar-info-value">EC・製造加工</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">規模</span>
+          <span class="cd-sidebar-info-value">従業員 約60名</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援期間</span>
+          <span class="cd-sidebar-info-value">2025年12月〜継続中</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援領域</span>
+          <span class="cd-sidebar-info-value">組織の右腕 / 戦略の右腕</span>
+        </div>
+        <a href="index.html#contact" class="cd-sidebar-cta-btn">この事例について相談する</a>
+      </div>
+
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">関連するご支援領域</div>
+        <a href="cases-list.html?tag=組織の右腕" style="display:block;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;text-decoration:none;">組織の右腕</a>
+        <a href="cases-list.html?tag=戦略の右腕" style="display:block;padding:10px 0;font-size:13px;color:#374151;text-decoration:none;">戦略の右腕</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </div>
+      <p class="footer-copy">© 2024 合同会社 BWH総合研究所. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>支援事例：漢方×D2Cの新市場を切り拓く | BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    .cd-hero { background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 70%, #2563eb 100%); padding: 140px 0 80px; position: relative; overflow: hidden; }
+    .cd-hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 60%, rgba(96,165,250,0.1) 0%, transparent 50%), radial-gradient(circle at 85% 20%, rgba(59,130,246,0.08) 0%, transparent 50%); }
+    .cd-hero::after { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px; }
+    .cd-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .cd-hero-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 12px; }
+    .cd-hero-breadcrumb a { color: rgba(147,197,253,0.7); text-decoration: none; }
+    .cd-hero-breadcrumb a:hover { color: rgba(147,197,253,1); }
+    .cd-hero-breadcrumb span { color: rgba(255,255,255,0.3); }
+    .cd-hero-breadcrumb .current { color: rgba(255,255,255,0.5); }
+    .cd-hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .cd-hero-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 100px; }
+    .cd-hero-tag.service { background: rgba(96,165,250,0.2); border: 1px solid rgba(96,165,250,0.4); color: #93c5fd; }
+    .cd-hero-tag.industry { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+    .cd-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(20px, 3.5vw, 34px); font-weight: 700; color: #fff; line-height: 1.5; margin-bottom: 20px; }
+    .cd-hero-summary { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.85; margin-bottom: 28px; max-width: 720px; }
+    .cd-kpi-bar { display: flex; gap: 0; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; margin-top: 8px; }
+    .cd-kpi-item { flex: 1; padding: 20px 24px; border-right: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .cd-kpi-item:last-child { border-right: none; }
+    .cd-kpi-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; color: #60a5fa; line-height: 1; margin-bottom: 6px; }
+    .cd-kpi-label { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; }
+    @media (max-width: 600px) { .cd-kpi-bar { flex-wrap: wrap; } .cd-kpi-item { flex: 1 1 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); } .cd-kpi-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); } .cd-kpi-item:last-child { border-bottom: none; } }
+    .cd-layout { max-width: 1100px; margin: 0 auto; padding: 64px 24px 100px; display: grid; grid-template-columns: 1fr 300px; gap: 56px; align-items: start; }
+    @media (max-width: 900px) { .cd-layout { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 480px) { .cd-layout { padding: 40px 16px 60px; } }
+    .cd-section-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 2px solid #f3f4f6; }
+    .cd-section-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; letter-spacing: 0.2em; color: #1e3a8a; font-weight: 600; }
+    .cd-section-title { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 700; color: #0d1f3c; }
+    .cd-client-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 48px; }
+    .cd-client-item { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px 16px; }
+    .cd-client-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: #1e3a8a; text-transform: uppercase; margin-bottom: 6px; }
+    .cd-client-value { font-size: 14px; color: #374151; font-weight: 500; line-height: 1.5; }
+    .cd-article { margin-bottom: 56px; }
+    .cd-article-h2 { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700; color: #0d1f3c; border-left: 4px solid #1e3a8a; padding-left: 14px; margin: 40px 0 16px; line-height: 1.5; }
+    .cd-article-h3 { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 700; color: #1e3a8a; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #e5e7eb; }
+    .cd-article p { font-size: 15px; color: #374151; line-height: 2.0; margin-bottom: 18px; }
+    .cd-article ul { padding-left: 20px; margin-bottom: 18px; }
+    .cd-article ul li { font-size: 15px; color: #374151; line-height: 1.9; margin-bottom: 6px; }
+    .cd-article-highlight { background: #eff6ff; border-left: 4px solid #1e3a8a; border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 24px 0; }
+    .cd-article-highlight p { margin: 0; font-size: 15px; color: #1e3a8a; font-weight: 500; line-height: 1.85; }
+    .cd-results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+    @media (max-width: 600px) { .cd-results-grid { grid-template-columns: 1fr; } }
+    .cd-results-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 20px; }
+    .cd-results-card-title { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 700; color: #0d1f3c; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e5e7eb; }
+    .cd-results-card ul { padding-left: 18px; margin: 0; }
+    .cd-results-card ul li { font-size: 13px; color: #374151; line-height: 1.8; margin-bottom: 6px; }
+    .cd-voice-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 28px 28px 24px; margin-bottom: 48px; position: relative; }
+    .cd-voice-box::before { content: '"'; position: absolute; top: 12px; left: 24px; font-family: 'Cormorant Garamond', serif; font-size: 80px; color: #dbeafe; line-height: 1; pointer-events: none; }
+    .cd-voice-text { font-family: 'Noto Serif JP', serif; font-size: 15px; color: #0d1f3c; line-height: 1.9; position: relative; z-index: 1; margin-bottom: 16px; font-style: italic; }
+    .cd-voice-meta { font-size: 13px; color: #6b7280; font-weight: 500; }
+    .cd-cta-box { background: linear-gradient(135deg, #0d1f3c, #1e3a8a); border-radius: 14px; padding: 36px 32px; text-align: center; margin-bottom: 48px; position: relative; overflow: hidden; }
+    .cd-cta-box::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+    .cd-cta-box-inner { position: relative; z-index: 1; }
+    .cd-cta-box h3 { font-family: 'Noto Serif JP', serif; font-size: 20px; color: #fff; margin-bottom: 10px; }
+    .cd-cta-box p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 22px; }
+    .cd-cta-btn { display: inline-block; padding: 13px 32px; background: #fff; color: #1e3a8a; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; }
+    .cd-cta-btn:hover { background: #dbeafe; transform: translateY(-2px); }
+    .cd-sidebar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px 20px; margin-bottom: 20px; }
+    .cd-sidebar-card-title { font-family: 'Noto Serif JP', serif; font-size: 14px; font-weight: 700; color: #0d1f3c; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f3f4f6; }
+    .cd-sidebar-info-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f3f4f6; gap: 12px; }
+    .cd-sidebar-info-item:last-child { border-bottom: none; }
+    .cd-sidebar-info-label { font-size: 11px; color: #9ca3af; font-weight: 500; white-space: nowrap; }
+    .cd-sidebar-info-value { font-size: 13px; color: #374151; font-weight: 500; text-align: right; }
+    .cd-sidebar-cta-btn { display: block; text-align: center; padding: 12px; background: #1e3a8a; color: #fff; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none; transition: background 0.2s; margin-top: 14px; }
+    .cd-sidebar-cta-btn:hover { background: #1e40af; }
+    .cd-related { margin-top: 64px; }
+    .cd-related-title { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700; color: #0d1f3c; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #f3f4f6; }
+    .cd-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 700px) { .cd-related-grid { grid-template-columns: 1fr; } }
+    .cd-related-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; text-decoration: none; display: block; transition: transform 0.2s, box-shadow 0.2s; }
+    .cd-related-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .cd-related-img { aspect-ratio: 16/9; background: linear-gradient(135deg, #dbeafe, #bfdbfe); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .cd-related-img img { width: 100%; height: 100%; object-fit: cover; }
+    .cd-related-body { padding: 14px 16px; }
+    .cd-related-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; background: #dbeafe; color: #1e3a8a; margin-bottom: 8px; display: inline-block; }
+    .cd-related-card-title { font-family: 'Noto Serif JP', serif; font-size: 13px; font-weight: 700; color: #0d1f3c; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="dropdown-nav" id="dropdown-nav">
+        <ul>
+          <li><a href="index.html#message" onclick="closeDropdown()">メッセージ</a></li>
+          <li><a href="index.html#services" onclick="closeDropdown()">サービス</a></li>
+          <li><a href="cases-list.html" onclick="closeDropdown()">ご支援事例</a></li>
+          <li><a href="knowledge-list.html" onclick="closeDropdown()">コラム・知見</a></li>
+          <li><a href="index.html#contact" onclick="closeDropdown()">お問合せ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="cd-hero">
+    <div class="cd-hero-inner">
+      <nav class="cd-hero-breadcrumb">
+        <a href="index.html">HOME</a>
+        <span>›</span>
+        <a href="cases-list.html">ご支援事例</a>
+        <span>›</span>
+        <span class="current">漢方×D2C新規事業立ち上げ</span>
+      </nav>
+      <div class="cd-hero-tags">
+        <span class="cd-hero-tag service">戦略の右腕</span>
+        <span class="cd-hero-tag service">新規事業</span>
+        <span class="cd-hero-tag industry">ヘルスケア・EC</span>
+        <span class="cd-hero-tag industry">スタートアップ</span>
+      </div>
+      <h1 class="cd-hero-title">「漢方×D2C」の新市場を切り拓く——ゼロからの事業設計で、初年度売上1,000万円を突破</h1>
+      <p class="cd-hero-summary">漢方の知識を持つ創業者が「現代人の健康課題に漢方で応える」というビジョンを持ちながら、事業化の方法が分からずにいました。BWH総合研究所では、市場調査・ターゲット設計・商品企画・EC構築・マーケティング戦略まで、D2C事業のゼロイチを一貫して支援。サービス開始から12ヶ月で累計売上1,000万円を達成しました。</p>
+      <div class="cd-kpi-bar">
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">1,000万</div>
+          <div class="cd-kpi-label">初年度累計売上</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">38%</div>
+          <div class="cd-kpi-label">リピート購入率</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">4.8</div>
+          <div class="cd-kpi-label">顧客満足度（5点満点）</div>
+        </div>
+        <div class="cd-kpi-item">
+          <div class="cd-kpi-num">×3.2</div>
+          <div class="cd-kpi-label">半年後の月次売上成長</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cd-layout">
+    <main class="cd-main">
+      <section style="margin-bottom: 48px;">
+        <div class="cd-section-heading">
+          <span class="cd-section-num">01</span>
+          <h2 class="cd-section-title">クライアント概要</h2>
+        </div>
+        <div class="cd-client-grid">
+          <div class="cd-client-item">
+            <div class="cd-client-label">業種</div>
+            <div class="cd-client-value">ヘルスケア・EC（D2C）</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">フェーズ</div>
+            <div class="cd-client-value">スタートアップ（創業期）</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援期間</div>
+            <div class="cd-client-value">約12ヶ月間</div>
+          </div>
+          <div class="cd-client-item">
+            <div class="cd-client-label">支援テーマ</div>
+            <div class="cd-client-value">漢方D2C事業のゼロイチ立ち上げ</div>
+          </div>
+        </div>
+        <p style="font-size:13px;color:#9ca3af;">※企業名は非公開としています。</p>
+      </section>
+
+      <article class="cd-article">
+        <h2 class="cd-article-h2">支援の背景・きっかけ</h2>
+        <p>創業者は、漢方薬局での勤務経験を持ち、「現代人が抱える慢性的な疲労・睡眠の質の低下・肌荒れといった健康課題に、漢方の力で応えたい」という強い想いを持っていました。しかし、漢方の専門知識はあっても、事業化・EC運営・マーケティングのノウハウがなく、「どこから手をつければいいか分からない」という状態でした。</p>
+        <p>市場調査も商品設計も、ECサイトの構築も、集客の方法も——全てが白紙の状態からのスタートです。「漢方をD2Cで販売する」というビジョンはあっても、それを事業として成立させるための設計図がありませんでした。</p>
+        <p>知人の紹介でBWH総合研究所に相談いただいたことが支援のきっかけとなりました。「ビジョンを事業に変えるパートナーが必要だ」という判断のもと、事業設計の最上流からご一緒することになりました。</p>
+        <div class="cd-article-highlight">
+          <p><strong>課題のポイント</strong><br>
+          ・漢方の専門知識はあるが、事業化・EC・マーケティングのノウハウがゼロ<br>
+          ・市場調査・ターゲット設計・商品企画・EC構築・集客まで全てが未着手<br>
+          ・競合との差別化ポイントが言語化できておらず、ブランドの輪郭が不明確<br>
+          ・初期投資を最小化しながら事業を立ち上げる必要がある</p>
+        </div>
+
+        <h2 class="cd-article-h2">支援のアプローチ</h2>
+        <p>BWH総合研究所では、「漢方の専門知識を最大の武器に変え、現代人の健康課題に刺さるD2Cブランドを設計する」ことを基本方針としました。創業者の強みである専門知識と、D2C事業の設計・運営ノウハウを掛け合わせ、段階的に事業を立ち上げていくアプローチを採りました。</p>
+
+        <h3 class="cd-article-h3">Phase 1：市場調査とターゲット・ポジショニングの設計</h3>
+        <p>まず、漢方×ヘルスケアのD2C市場を徹底的に調査しました。競合ブランドの商品ラインナップ・価格帯・訴求軸・販売チャネルを分析し、市場の空白地帯を特定しました。</p>
+        <p>調査の結果、「本格的な漢方は敷居が高い」と感じる20〜40代の働く女性層に対して、「毎日続けやすい形状・価格帯で、体質改善を実感できる」ポジションが空いていることが分かりました。この発見をもとに、ターゲットペルソナとブランドのポジショニングを明確化しました。</p>
+
+        <h3 class="cd-article-h3">Phase 2：商品企画とブランド設計</h3>
+        <p>ターゲットとポジショニングを踏まえ、初期ラインナップとなる3商品の企画を行いました。「疲労回復」「睡眠の質改善」「肌荒れ・美肌」という現代人が最も悩む3つのテーマに絞り込み、それぞれに対応する漢方処方を創業者の専門知識をもとに設計しました。</p>
+        <p>ブランドのコンセプトは「日常に溶け込む、現代の漢方」。伝統的な漢方のイメージを刷新し、スタイリッシュなパッケージデザインと、科学的な根拠に基づいた分かりやすい説明で、漢方初心者でも手に取りやすいブランドを構築しました。</p>
+
+        <h3 class="cd-article-h3">Phase 3：ECサイト構築と初期マーケティング</h3>
+        <p>Shopifyを活用したECサイトを構築し、コンテンツSEOとSNSマーケティングを組み合わせた初期集客戦略を設計・実行しました。特に、創業者の専門知識を活かした「漢方コラム」コンテンツが検索流入の主要チャネルとなり、「漢方を知りたい」という潜在顧客を自然に獲得する仕組みを構築しました。</p>
+        <p>また、初回購入のハードルを下げるためのトライアルセット設計と、リピート購入を促すサブスクリプションプランの導入により、LTV（顧客生涯価値）の最大化を図りました。</p>
+
+        <h3 class="cd-article-h3">Phase 4：データ分析と成長戦略の最適化</h3>
+        <p>サービス開始後は、購買データ・顧客レビュー・SNSの反応を継続的に分析し、商品ラインナップの拡充や訴求メッセージの改善を繰り返しました。「データで仮説を立て、素早く検証する」PDCAサイクルを定着させ、月次売上が半年で3.2倍に成長する軌道を作りました。</p>
+
+        <h2 class="cd-article-h2">支援の成果</h2>
+        <div class="cd-results-grid">
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定量的な成果</div>
+            <ul>
+              <li>サービス開始から12ヶ月で累計売上1,000万円を達成</li>
+              <li>リピート購入率38%を実現（業界平均の約2倍）</li>
+              <li>顧客満足度4.8点（5点満点）を継続維持</li>
+              <li>月次売上がサービス開始から半年で3.2倍に成長</li>
+            </ul>
+          </div>
+          <div class="cd-results-card">
+            <div class="cd-results-card-title">定性的な成果</div>
+            <ul>
+              <li>「漢方初心者でも始めやすい」という独自ポジションを確立し、競合との明確な差別化を実現</li>
+              <li>創業者の専門知識がブランドの信頼性につながり、顧客からの高い評価を獲得</li>
+              <li>コンテンツSEOが機能し、「漢方を知りたい」という潜在顧客の自然流入が安定的に増加</li>
+              <li>データドリブンなPDCAサイクルが定着し、創業者が自走できる体制が構築された</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <div class="cd-voice-box">
+        <p class="cd-voice-text">「漢方の知識はあっても、事業化の方法が全く分かりませんでした。BWH総合研究所と一緒に、市場調査から商品設計、ECの立ち上げまで一つひとつ丁寧に進めることができ、今では自分でPDCAを回せるようになっています。初年度で1,000万円を達成できたのは、確かな設計図があったからだと思います。」</p>
+        <div class="cd-voice-meta">創業者</div>
+      </div>
+
+      <div class="cd-cta-box">
+        <div class="cd-cta-box-inner">
+          <h3>新規事業の立ち上げをお考えですか？</h3>
+          <p>ビジョンを事業に変えるための設計から、立ち上げ後の成長まで一貫して伴走します。<br>まずはお気軽にご相談ください。</p>
+          <a href="index.html#contact" class="cd-cta-btn">無料相談を申し込む</a>
+        </div>
+      </div>
+
+      <div class="cd-related">
+        <h2 class="cd-related-title">関連する支援事例</h2>
+        <div class="cd-related-grid">
+          <a href="cases-detail-ookabeglass.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <img src="img/case-ookabeglass.png" alt="OOKABE GLASS">
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">戦略の右腕</span>
+              <div class="cd-related-card-title">「頭の中にある経営の全体像を、言葉にできていなかった」——OOKABE GLASS株式会社が経営の"OS"をアップデート</div>
+            </div>
+          </a>
+          <a href="cases-detail-seo-ai.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:#1e40af;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              </div>
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">AIの右腕</span>
+              <div class="cd-related-card-title">「1記事に2週間」のSEOコンテンツ制作を、AI自動化ダッシュボードで刷新し、高速PDCAの実現へ</div>
+            </div>
+          </a>
+          <a href="cases-detail-ai-dx.html" class="cd-related-card">
+            <div class="cd-related-img">
+              <div style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:#1e40af;"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+            </div>
+            <div class="cd-related-body">
+              <span class="cd-related-tag">AIの右腕</span>
+              <div class="cd-related-card-title">スプレッドシート依存・SaaS乱立の中小企業が、業務フローの再構築とAI導入で"迷わない"業務運営を実現</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <aside class="cd-sidebar">
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">支援概要</div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">クライアント</span>
+          <span class="cd-sidebar-info-value">漢方D2C企業（非公開）</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">業種</span>
+          <span class="cd-sidebar-info-value">ヘルスケア・EC</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">フェーズ</span>
+          <span class="cd-sidebar-info-value">スタートアップ（創業期）</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援期間</span>
+          <span class="cd-sidebar-info-value">約12ヶ月間</span>
+        </div>
+        <div class="cd-sidebar-info-item">
+          <span class="cd-sidebar-info-label">支援領域</span>
+          <span class="cd-sidebar-info-value">戦略の右腕 / 新規事業</span>
+        </div>
+        <a href="index.html#contact" class="cd-sidebar-cta-btn">この事例について相談する</a>
+      </div>
+      <div class="cd-sidebar-card">
+        <div class="cd-sidebar-card-title">関連するご支援領域</div>
+        <a href="cases-list.html?tag=戦略の右腕" style="display:block;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:13px;color:#374151;text-decoration:none;">戦略の右腕</a>
+        <a href="cases-list.html?tag=新規事業" style="display:block;padding:10px 0;font-size:13px;color:#374151;text-decoration:none;">新規事業</a>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </div>
+      <p class="footer-copy">© 2024 合同会社 BWH総合研究所. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="main.js"></script>
+</body>
+</html>

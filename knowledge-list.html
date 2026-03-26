@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>コラム・知見 | 合同会社 BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="pages.css">
+  <style>
+    /* ===== Hero ===== */
+    .kl-hero {
+      background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 60%, #1e40af 100%);
+      padding: 140px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .kl-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .kl-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .kl-hero-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .kl-hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+    .kl-hero-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.9;
+    }
+
+    /* ===== Sticky Filter Bar ===== */
+    .kl-filter-section {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 70px;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .kl-filter-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .kl-filter-inner::-webkit-scrollbar { display: none; }
+    .kl-filter-label {
+      font-size: 12px;
+      color: #6b7280;
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+    .kl-filter-btn {
+      padding: 7px 18px;
+      border-radius: 100px;
+      border: 1.5px solid #d1d5db;
+      background: transparent;
+      font-size: 13px;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #374151;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .kl-filter-btn:hover { border-color: #1e3a8a; color: #1e3a8a; background: #eff6ff; }
+    .kl-filter-btn.active                 { background: #1e3a8a; border-color: #1e3a8a; color: #fff; font-weight: 500; }
+    .kl-filter-btn.active.tag--strategy   { background: #1e3a8a; border-color: #1e3a8a; }
+    .kl-filter-btn.active.tag--hr         { background: #065f46; border-color: #065f46; }
+    .kl-filter-btn.active.tag--ai         { background: #4c1d95; border-color: #4c1d95; }
+    .kl-filter-btn.active.tag--lecture    { background: #92400e; border-color: #92400e; }
+
+    /* ===== Main ===== */
+    .kl-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+    .kl-count {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+    .kl-count span { font-weight: 700; color: #1e3a8a; }
+
+    /* ===== Grid ===== */
+    .kl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 900px) { .kl-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+    @media (max-width: 600px) { .kl-grid { grid-template-columns: 1fr; gap: 16px; } }
+
+    /* ===== Card ===== */
+    .kl-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .kl-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(30,58,138,0.12); }
+    .kl-card-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .kl-card-img img { width: 100%; height: 100%; object-fit: cover; }
+    .kl-card-img-ph {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .kl-card-img-ph svg { width: 44px; height: 44px; }
+    .kl-card-img-ph.strategy { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+    .kl-card-img-ph.strategy svg { color: #1e40af; }
+    .kl-card-img-ph.hr        { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+    .kl-card-img-ph.hr svg    { color: #065f46; }
+    .kl-card-img-ph.ai        { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+    .kl-card-img-ph.ai svg    { color: #4c1d95; }
+    .kl-card-img-ph.lecture   { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+    .kl-card-img-ph.lecture svg { color: #92400e; }
+
+    .kl-card-body { padding: 18px 20px 20px; flex: 1; display: flex; flex-direction: column; }
+    .kl-card-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .kl-card-date { font-size: 11px; color: #9ca3af; letter-spacing: 0.05em; }
+    .kl-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .kl-card-tag.strategy { background: #dbeafe; color: #1e3a8a; }
+    .kl-card-tag.hr       { background: #d1fae5; color: #065f46; }
+    .kl-card-tag.ai       { background: #ede9fe; color: #4c1d95; }
+    .kl-card-tag.lecture  { background: #fef3c7; color: #92400e; }
+    .kl-card-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0d1f3c;
+      line-height: 1.6;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+    .kl-card-excerpt {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.7;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .kl-card-link { font-size: 12px; color: #1e3a8a; font-weight: 600; }
+
+    /* ===== Search & Sort Bar ===== */
+    .kl-search-row {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 24px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .kl-search-wrap {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+    .kl-search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: #9ca3af;
+      pointer-events: none;
+    }
+    .kl-search-input {
+      width: 100%;
+      padding: 10px 16px 10px 40px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 100px;
+      font-size: 13px;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #374151;
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .kl-search-input:focus { border-color: #1e3a8a; }
+    .kl-sort-select {
+      padding: 10px 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 100px;
+      font-size: 13px;
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #374151;
+      background: #fff;
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 36px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+    .kl-sort-select:focus { border-color: #1e3a8a; }
+    .kl-result-summary {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 24px 0;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .kl-result-summary strong { color: #1e3a8a; font-weight: 700; }
+
+    /* ===== No Results ===== */
+    .kl-no-results {
+      text-align: center;
+      padding: 80px 0;
+      color: #9ca3af;
+      font-size: 15px;
+      display: none;
+    }
+
+    /* ===== Pagination ===== */
+    .kl-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 56px; }
+    .kl-page-btn {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      border: 1.5px solid #d1d5db;
+      background: transparent;
+      font-size: 14px;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kl-page-btn:hover { border-color: #1e3a8a; color: #1e3a8a; }
+    .kl-page-btn.active { background: #1e3a8a; border-color: #1e3a8a; color: #fff; }
+
+    /* ===== Lecture CTA ===== */
+    .kl-lecture-cta {
+      background: linear-gradient(135deg, #0d1f3c, #1e3a8a);
+      border-radius: 16px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kl-lecture-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .kl-lecture-cta-inner { position: relative; z-index: 1; }
+    .kl-lecture-cta h3 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(20px, 3vw, 28px);
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .kl-lecture-cta p { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 28px; line-height: 1.8; }
+    .kl-lecture-cta-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: #fff;
+      color: #1e3a8a;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .kl-lecture-cta-btn:hover { background: #dbeafe; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="dropdown-nav" id="dropdown-nav">
+        <ul>
+          <li><a href="index.html#message" onclick="closeDropdown()">メッセージ</a></li>
+          <li><a href="index.html#services" onclick="closeDropdown()">サービス</a></li>
+          <li><a href="cases-list.html" onclick="closeDropdown()">ご支援事例</a></li>
+          <li><a href="knowledge-list.html" onclick="closeDropdown()">コラム・知見</a></li>
+          <li><a href="index.html#contact" onclick="closeDropdown()">お問合せ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="kl-hero">
+    <div class="kl-hero-inner">
+      <p class="kl-hero-label">Knowledge &amp; Lecture</p>
+      <h1 class="kl-hero-title">コラム・知見</h1>
+      <p class="kl-hero-sub">現場の実践と研究の知識から生まれた知見をお届けします。<br>講演会のご依頼も受け付けています。</p>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <div class="kl-filter-section">
+    <div class="kl-filter-inner">
+      <span class="kl-filter-label">カテゴリ：</span>
+      <button class="kl-filter-btn active" data-filter="all">すべて</button>
+      <button class="kl-filter-btn tag--strategy" data-filter="strategy">戦略の右腕さん</button>
+      <button class="kl-filter-btn tag--hr" data-filter="hr">人事の右腕さん</button>
+      <button class="kl-filter-btn tag--ai" data-filter="ai">AIの右腕さん</button>
+      <button class="kl-filter-btn tag--lecture" data-filter="lecture">講演会</button>
+    </div>
+  </div>
+
+  <!-- Search & Sort -->
+  <div class="kl-search-row">
+    <div class="kl-search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" class="kl-search-input" id="kl-search" placeholder="キーワードで検索…" autocomplete="off">
+    </div>
+    <select class="kl-sort-select" id="kl-sort">
+      <option value="newest">新しい順</option>
+      <option value="oldest">古い順</option>
+    </select>
+  </div>
+  <div class="kl-result-summary" id="kl-result-summary"></div>
+  </div>
+
+  <!-- Main -->
+  <main class="kl-main">
+
+    <div class="kl-grid" id="article-grid">
+
+      <!-- 戦略番頭 -->
+      <a class="kl-card" href="knowledge-detail-strategy.html" data-genre="strategy">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph strategy">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 36l8-8 6 4 8-12 10 8"/><circle cx="38" cy="12" r="4"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.03.10</span>
+            <span class="kl-card-tag strategy">戦略の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">中小企業が「戦略」を持つべき理由 ― 現場から始める経営計画の作り方</h3>
+          <p class="kl-card-excerpt">多くの中小企業で戦略が形骸化する背景には、計画と現場の乖離があります。現場に根ざした経営計画の設計プロセスを解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-strategy.html" data-genre="strategy">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph strategy">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="16" width="32" height="24" rx="2"/><path d="M16 16v-4a8 8 0 0116 0v4"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.02.20</span>
+            <span class="kl-card-tag strategy">戦略の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">新規事業を「構想で終わらせない」ための3つの問い</h3>
+          <p class="kl-card-excerpt">新規事業が立ち上がらない企業に共通する思考パターンと、それを乗り越えるための実践的なフレームワークを紹介します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-strategy.html" data-genre="strategy">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph strategy">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="16"/><path d="M24 16v8l6 4"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.01.15</span>
+            <span class="kl-card-tag strategy">戦略の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">「意思決定の速い組織」をつくる ― 経営者が手放すべき仕事とは</h3>
+          <p class="kl-card-excerpt">経営者への集中が組織の成長を止める。権限委譲と意思決定の仕組みづくりについて、実践的な視点から解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <!-- 人事番頭 -->
+      <a class="kl-card" href="knowledge-detail-hr.html" data-genre="hr">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph hr">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="32" height="32" rx="2"/><path d="M16 20h16M16 26h10"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.03.01</span>
+            <span class="kl-card-tag hr">人事の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">人事評価制度が形骸化する3つの理由と、その処方箋</h3>
+          <p class="kl-card-excerpt">多くの企業で評価制度が機能不全に陥る背景には、共通したパターンがあります。現場での経験をもとに、根本的な解決策を解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-hr.html" data-genre="hr">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph hr">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="16" r="6"/><circle cx="30" cy="16" r="6"/><path d="M6 40c0-8 6-12 12-12s12 4 12 12"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.02.10</span>
+            <span class="kl-card-tag hr">人事の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">採用コストを下げながら質を上げる ― 中小企業の採用戦略</h3>
+          <p class="kl-card-excerpt">採用難の時代に、限られたリソースで優秀な人材を獲得するための採用設計の考え方と実践事例を紹介します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-hr.html" data-genre="hr">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph hr">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 36V20l12-8 12 8v16"/><rect x="18" y="26" width="12" height="10"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.01.25</span>
+            <span class="kl-card-tag hr">人事の右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">「育てる文化」をつくる ― OJTを機能させるための仕組みづくり</h3>
+          <p class="kl-card-excerpt">OJTが機能しない企業に共通する問題点と、育成が自然と回る組織をつくるための構造的なアプローチを解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <!-- AI番頭 -->
+      <a class="kl-card" href="knowledge-detail-ai.html" data-genre="ai">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph ai">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="8"/><path d="M24 8v4M24 36v4M8 24h4M36 24h4M13 13l3 3M32 32l3 3M13 35l3-3M32 16l3-3"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.01.20</span>
+            <span class="kl-card-tag ai">AIの右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">AIは「使えない」のではなく「使い方を知らない」だけ ― 現場導入の第一歩</h3>
+          <p class="kl-card-excerpt">AI活用の壁は技術ではなく、心理的なハードルにあります。現場で実際に使えるようになるための研修設計の考え方を解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-ai.html" data-genre="ai">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph ai">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="12" width="32" height="24" rx="3"/><path d="M16 22h4M16 28h8M28 22l4 3-4 3"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.02.05</span>
+            <span class="kl-card-tag ai">AIの右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">ChatGPTを業務に定着させる ― 失敗しないAI導入の3ステップ</h3>
+          <p class="kl-card-excerpt">多くの企業でAI導入が「試して終わり」になる理由と、現場に定着させるための段階的なアプローチを解説します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-ai.html" data-genre="ai">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph ai">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 38l8-16 6 8 6-12 8 20"/><circle cx="38" cy="10" r="4"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.03.05</span>
+            <span class="kl-card-tag ai">AIの右腕さん</span>
+          </div>
+          <h3 class="kl-card-title">生成AIで「作業時間を半分に」― 実際に効果が出た業務改善の事例集</h3>
+          <p class="kl-card-excerpt">議事録・メール・報告書・提案書。生成AIを活用して実際に業務時間を削減できた具体的な事例と、再現するためのポイントを紹介します。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <!-- 講演会 -->
+      <a class="kl-card" href="knowledge-detail-lecture.html" data-genre="lecture">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph lecture">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 36V16l16-8 16 8v20"/><rect x="18" y="24" width="12" height="12"/><circle cx="24" cy="14" r="3"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.02.15</span>
+            <span class="kl-card-tag lecture">講演会</span>
+          </div>
+          <h3 class="kl-card-title">中小企業における組織変革の実践 ― 変わる覚悟と伴走の重要性</h3>
+          <p class="kl-card-excerpt">2025年2月に開催した経営者向け講演会のレポートです。変革を阻む「見えない壁」と、それを乗り越えるための具体的なアプローチを紹介しました。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+      <a class="kl-card" href="knowledge-detail-lecture.html" data-genre="lecture">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph lecture">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 8l4 8 9 1.5-6.5 6 1.5 9L24 28l-8 4.5 1.5-9L11 17.5 20 16z"/></svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2025.01.10</span>
+            <span class="kl-card-tag lecture">講演会</span>
+          </div>
+          <h3 class="kl-card-title">AI時代の経営者に必要な「問いを立てる力」― 福井経営者フォーラム登壇レポート</h3>
+          <p class="kl-card-excerpt">福井経営者フォーラムにて登壇。AI時代に経営者が持つべき思考法と、組織をアップデートするための具体的なアクションについてお話しました。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+          <a class="kl-card" href="knowledge-detail-lecture.html" data-genre="lecture">
+        <div class="kl-card-img">
+          <div class="kl-card-img-ph lecture">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="8" width="32" height="32" rx="4"/><path d="M16 24h16M16 30h10"/></svg>svg>
+          </div>
+        </div>
+        <div class="kl-card-body">
+          <div class="kl-card-meta">
+            <span class="kl-card-date">2024.12.20</span>
+            <span class="kl-card-tag lecture">講演会</span>
+          </div>
+          <h3 class="kl-card-title">「地方企業の人材育成」をテーマに登壇 ― 滋賀県中小企業家同友会</h3>
+          <p class="kl-card-excerpt">滋賀県中小企業家同友会の研究会にて、地方企業が直面する人材育成の課題と、実践的な解決策についてお話しました。</p>
+          <span class="kl-card-link">続きを読む →</span>
+        </div>
+      </a>
+
+    </div><!-- /kl-grid -->
+
+    <p class="kl-no-results" id="no-results">該当する記事が見つかりませんでした。</p>
+
+    <!-- Pagination -->
+    <div class="kl-pagination">
+      <button class="kl-page-btn active">1</button>
+      <button class="kl-page-btn">2</button>
+      <button class="kl-page-btn">›</button>
+    </div>
+
+    <!-- Lecture CTA -->
+    <div class="kl-lecture-cta">
+      <div class="kl-lecture-cta-inner">
+        <h3>講演会・研修のご依頼</h3>
+        <p>経営戦略・組織人事・AI活用をテーマとした講演・研修を承っております。<br>企業内研修、経営者向けセミナー、業界団体の勉強会など、お気軽にご相談ください。</p>
+        <a href="index.html#contact" class="kl-lecture-cta-btn">講演のご依頼はこちら</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-mark">BWH</span>
+        <span class="logo-text">総合研究所</span>
+      </div>
+      <nav class="footer-nav">
+        <a href="index.html#message">メッセージ</a>
+        <a href="index.html#services">サービス</a>
+        <a href="cases-list.html">ご支援事例</a>
+        <a href="knowledge-list.html">コラム・知見</a>
+        <a href="index.html#contact">お問合せ</a>
+      </nav>
+      <p class="footer-copy">© 2023 合同会社 BWH総合研究所 ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script src="pages.js"></script>
+  <script>
+    // ===== State =====
+    let currentGenre = 'all';
+    let currentKeyword = '';
+    let currentSort = 'newest';
+
+    const filterBtns = document.querySelectorAll('.kl-filter-btn');
+    const allCards = Array.from(document.querySelectorAll('.kl-card'));
+    const noResults = document.getElementById('no-results');
+    const grid = document.getElementById('article-grid');
+    const searchInput = document.getElementById('kl-search');
+    const sortSelect = document.getElementById('kl-sort');
+    const resultSummary = document.getElementById('kl-result-summary');
+
+    // 各カードに日付データ属性を付与
+    allCards.forEach(card => {
+      const dateEl = card.querySelector('.kl-card-date');
+      if (dateEl) {
+        const d = dateEl.textContent.replace(/\./g, '-');
+        card.dataset.date = d;
+      }
+    });
+
+    function applyAll() {
+      let filtered = allCards.filter(card => {
+        // カテゴリフィルター
+        if (currentGenre !== 'all' && card.dataset.genre !== currentGenre) return false;
+        // キーワード検索（タイトル・抜粋・タグ）
+        if (currentKeyword) {
+          const text = (card.querySelector('.kl-card-title')?.textContent || '') +
+                       (card.querySelector('.kl-card-excerpt')?.textContent || '') +
+                       (card.querySelector('.kl-card-tag')?.textContent || '');
+          if (!text.includes(currentKeyword)) return false;
+        }
+        return true;
+      });
+
+      // ソート
+      filtered.sort((a, b) => {
+        const da = a.dataset.date || '';
+        const db = b.dataset.date || '';
+        return currentSort === 'newest' ? db.localeCompare(da) : da.localeCompare(db);
+      });
+
+      // 表示更新
+      allCards.forEach(c => { c.style.display = 'none'; });
+      filtered.forEach(c => {
+        c.style.display = 'flex';
+        grid.appendChild(c); // ソート順に並び替え
+      });
+
+      const count = filtered.length;
+      noResults.style.display = count === 0 ? 'block' : 'none';
+      grid.style.display = count === 0 ? 'none' : 'grid';
+
+      // 結果サマリー
+      const genreLabel = currentGenre === 'all' ? 'すべて' :
+        { strategy: '戦略の右腕さん', hr: '人事の右腕さん', ai: 'AIの右腕さん', lecture: '講演会' }[currentGenre];
+      const kwPart = currentKeyword ? `「${currentKeyword}」` : '';
+      resultSummary.innerHTML = `${kwPart}${genreLabel} の記事：<strong>${count}</strong> 件`;
+    }
+
+    // カテゴリフィルター
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentGenre = btn.dataset.filter;
+        const url = new URL(window.location);
+        currentGenre === 'all' ? url.searchParams.delete('genre') : url.searchParams.set('genre', currentGenre);
+        window.history.replaceState({}, '', url);
+        applyAll();
+      });
+    });
+
+    // キーワード検索（デバウンス）
+    let searchTimer;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        currentKeyword = searchInput.value.trim();
+        applyAll();
+      }, 250);
+    });
+
+    // ソート
+    sortSelect.addEventListener('change', () => {
+      currentSort = sortSelect.value;
+      applyAll();
+    });
+
+    // URLパラメータからフィルターを取得
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialGenre = urlParams.get('genre') || 'all';
+    if (initialGenre !== 'all') {
+      const targetBtn = document.querySelector(`[data-filter="${initialGenre}"]`);
+      if (targetBtn) {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        targetBtn.classList.add('active');
+        currentGenre = initialGenre;
+      }
+    }
+    applyAll();
+  </script>
+</body>
+</html>

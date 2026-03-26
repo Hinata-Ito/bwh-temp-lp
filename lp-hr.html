@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あなたの会社の人事番頭 | BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lp-common.css">
+  <style>
+    /* ── Light Future Corporate — 白〜淡グレー、オーロラグラデ、細線、角丸 ── */
+    :root {
+      --c-bg:      #f8f9fc;
+      --c-bg2:     #ffffff;
+      --c-ink:     #0d1f3c;
+      --c-ink2:    #3a4a6b;
+      --c-ink3:    #8a9ab8;
+      --c-accent:  #2563eb;
+      --c-accent2: #7c3aed;
+      --c-line:    #e4e8f0;
+      --c-card:    #ffffff;
+      --c-tag-bg:  #eff6ff;
+      --c-tag-txt: #1d4ed8;
+    }
+
+    body { background: var(--c-bg); color: var(--c-ink); }
+
+    /* Header */
+    .lp-header { background: transparent; }
+    .lp-header.scrolled { background: rgba(248,249,252,0.96); }
+    .lp-header-logo { color: var(--c-ink); }
+    .lp-header-back { color: var(--c-ink2); }
+
+    /* ── HERO ── */
+    .lp-hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 60px 100px; position: relative; overflow: visible;
+      background: #ffffff;
+    }
+    .lp-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .lp-hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .lp-hero-eyebrow {
+      font-family: var(--font-en); font-size: 13px; letter-spacing: 0.3em;
+      color: var(--c-accent); margin-bottom: 32px; text-transform: uppercase;
+    }
+    .lp-hero-title {
+      font-family: var(--font-serif); font-weight: 700;
+      font-size: clamp(40px, 6vw, 72px); line-height: 1.2;
+      letter-spacing: -0.02em; color: var(--c-ink); margin-bottom: 32px;
+    }
+    .lp-hero-title em { font-style: italic; background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .lp-hero-sub { font-size: 16px; color: var(--c-ink2); line-height: 1.9; margin-bottom: 48px; max-width: 520px; }
+    .hero-btn-primary {
+      padding: 16px 40px; background: var(--c-accent); color: #fff;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+      border: none; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+    }
+    .hero-btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+    .hero-btn-secondary {
+      padding: 15px 40px; background: transparent; color: var(--c-accent);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+      border: 1.5px solid var(--c-accent); cursor: pointer; transition: all 0.3s; border-radius: 4px;
+    }
+    .hero-btn-secondary:hover { background: #eff6ff; transform: translateY(-2px); }
+    .lp-hero-scroll {
+      position: absolute; bottom: 40px; right: 60px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-family: var(--font-en); font-size: 11px; letter-spacing: 0.2em;
+      color: var(--c-ink3);
+    }
+    .lp-hero-scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--c-accent), transparent); }
+
+    /* ── Section overrides ── */
+    .lp-section { background: var(--c-bg); }
+    .lp-section.alt { background: var(--c-bg2); }
+    .lp-section.accent-bg {
+      background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 50%, #fdf4ff 100%);
+    }
+    .lp-section-label-en { color: var(--c-line); }
+    .lp-section-label-ja { color: var(--c-ink3); }
+
+    /* ── Section title ── */
+    .lp-section-title {
+      font-family: var(--font-serif); font-size: clamp(26px, 4vw, 44px);
+      font-weight: 700; line-height: 1.3; letter-spacing: -0.01em;
+      margin-bottom: 16px; color: var(--c-ink);
+    }
+    .lp-section-desc { font-size: 15px; color: var(--c-ink2); line-height: 1.9; margin-bottom: 64px; max-width: 640px; }
+
+    /* ── Problem ── */
+    .lp-problem-num { color: var(--c-line); }
+    .lp-problem-text h3 { color: var(--c-ink); }
+    .lp-problem-text p  { color: var(--c-ink2); }
+    .lp-problem-item { border-top: 1px solid var(--c-line); padding-top: 32px; }
+
+    /* ── Solution cards ── */
+    .lp-solution-card {
+      background: var(--c-card); border: 1px solid var(--c-line);
+      border-radius: 12px; box-shadow: 0 2px 16px rgba(37,99,235,0.04);
+    }
+    .lp-solution-card:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.10); transform: translateY(-2px); transition: all 0.3s; }
+    .lp-solution-card-num { color: var(--c-accent); opacity: 0.3; }
+    .lp-solution-card h3 { color: var(--c-ink); }
+    .lp-solution-card p  { color: var(--c-ink2); }
+
+    /* ── Model ── */
+    .lp-model-flow {
+      background: #fff; border: 1px solid var(--c-line); border-radius: 12px;
+      overflow: hidden; box-shadow: 0 4px 24px rgba(37,99,235,0.06);
+    }
+    .lp-model-step { border-right: 1px solid var(--c-line); }
+    .lp-model-step:last-child { border-right: none; }
+    .lp-model-step::after { color: var(--c-line) !important; }
+    .lp-model-step-num { background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .lp-model-step h3 { color: var(--c-ink); }
+    .lp-model-step p  { color: var(--c-ink2); }
+
+    /* ── Cases ── */
+    .lp-case-card { background: var(--c-card); border: 1px solid var(--c-line); border-radius: 12px; }
+    .lp-case-card-img { background: linear-gradient(135deg, #eff6ff, #f5f3ff); border-radius: 12px 12px 0 0; }
+    .lp-case-tag { background: var(--c-tag-bg); color: var(--c-tag-txt); border-radius: 4px; }
+    .lp-case-title { color: var(--c-ink); }
+    .lp-case-body  { color: var(--c-ink2); }
+    .lp-case-link  { color: var(--c-accent); }
+
+    /* ── FAQ ── */
+    .lp-faq-item { border-bottom-color: var(--c-line); }
+    .lp-faq-q { color: var(--c-ink); }
+    .lp-faq-a { color: var(--c-ink2); }
+
+    /* ── Final CTA ── */
+    .lp-final-cta {
+      background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 50%, #2d1b69 100%);
+      color: #fff;
+    }
+    .lp-final-cta h2 { color: #fff; }
+    .lp-final-cta p  { color: rgba(255,255,255,0.7); }
+    .final-btn-primary {
+      padding: 16px 40px; background: #ffffff; color: var(--c-ink);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+      border: none; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+    }
+    .final-btn-primary:hover { background: #e8f0fe; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .final-btn-secondary {
+      padding: 15px 40px; background: transparent; color: #ffffff;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+      border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border-radius: 4px;
+    }
+    .final-btn-secondary:hover { border-color: #fff; transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    .lp-footer { background: #0d1f3c; color: rgba(255,255,255,0.35); border-top-color: rgba(255,255,255,0.08); }
+    .lp-footer a { color: rgba(255,255,255,0.5); }
+
+    /* ── Chapter num ── */
+    .lp-chapter-num {
+      font-family: var(--font-en); font-size: clamp(64px, 10vw, 120px);
+      font-weight: 300; line-height: 1; letter-spacing: -0.04em;
+      color: var(--c-line); margin-bottom: -16px; display: block;
+    }
+
+    .lp-divider { height: 1px; background: var(--c-line); margin: 0 40px; }
+
+    @media (max-width: 768px) {
+      .lp-hero { padding: 100px 24px 60px; min-height: 70vh; }
+      .lp-hero-scroll { right: 24px; }
+      .lp-hero-title { font-size: clamp(28px, 7vw, 44px); }
+      .lp-hero-sub { font-size: 14px; }
+      .lp-hero-cta { flex-direction: column; }
+      .hero-btn-primary, .hero-btn-secondary { width: 100%; text-align: center; padding: 14px 24px; }
+      .lp-divider { margin: 0 16px; }
+    }
+    @media (max-width: 480px) {
+      .lp-hero { padding: 90px 16px 48px; }
+      .lp-hero-title { font-size: clamp(24px, 8vw, 36px); }
+      .lp-chapter-num { font-size: clamp(48px, 15vw, 80px); margin-bottom: -12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="lp-header" id="lp-header">
+    <a href="index.html" class="lp-header-logo">
+      <span class="logo-mark">BWH</span>
+      <span class="logo-text">総合研究所</span>
+    </a>
+    <a href="index.html" class="lp-header-back">トップへ戻る</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="lp-hero" id="hero">
+    <canvas class="lp-hero-canvas" id="hr-canvas"></canvas>
+    <div class="lp-hero-content">
+      <p class="lp-hero-eyebrow">BWH 総合研究所 — Service 02</p>
+      <h1 class="lp-hero-title">
+        あなたの会社の<br><em>人事番頭</em>
+      </h1>
+      <p class="lp-hero-sub lp-hero-sub-nowrap">人事評価制度・教育制度・採用制度など、人と組織を育てる仕組みづくりを支援します。</p>
+      <div class="lp-hero-cta">
+        <a href="#contact" class="hero-btn-primary">問い合わせをする</a>
+        <a href="#contact" class="hero-btn-secondary">資料をダウンロード</a>
+      </div>
+    </div>
+    <div class="lp-hero-scroll">
+      <span>SCROLL</span>
+      <div class="lp-hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="lp-section" id="problem">
+    <div class="lp-section-inner">
+      <span class="lp-chapter-num">02</span>
+      <div class="lp-section-label lp-fade">
+        <span class="lp-section-label-en">Problem</span>
+        <span class="lp-section-label-ja">課題提起</span>
+      </div>
+      <h2 class="lp-section-title lp-fade">人と組織の課題、<br>後回しにしていませんか。</h2>
+      <p class="lp-section-desc lp-fade">多くの企業で、人事・組織の仕組みづくりは「いつかやらなければ」のまま止まっています。</p>
+
+      <div class="lp-problem-list">
+        <div class="lp-problem-item lp-fade">
+          <span class="lp-problem-num">01</span>
+          <div class="lp-problem-text">
+            <h3>人事評価が曖昧で、納得感ある運用ができていない</h3>
+            <p>評価基準が属人的だったり、役割や期待値が整理されていなかったりすることで、評価への納得感が生まれず、育成や配置にもつながりにくい状態になりがちです。</p>
+          </div>
+        </div>
+        <div class="lp-problem-item lp-fade">
+          <span class="lp-problem-num">02</span>
+          <div class="lp-problem-text">
+            <h3>教育・研修が単発で終わり、育成の仕組みになっていない</h3>
+            <p>研修やOJTは実施していても、誰に何をどの順番で育てるかが整理されておらず、人材育成が場当たり的になってしまう企業は少なくありません。</p>
+          </div>
+        </div>
+        <div class="lp-problem-item lp-fade">
+          <span class="lp-problem-num">03</span>
+          <div class="lp-problem-text">
+            <h3>会議体や組織文化が形骸化し、理念・MVVが現場に浸透していない</h3>
+            <p>会議が惰性で続いていたり、組織として大切にしたい価値観が日々の行動や意思決定につながっていなかったりすると、組織の一体感や推進力は弱くなります。</p>
+          </div>
+        </div>
+        <div class="lp-problem-item lp-fade">
+          <span class="lp-problem-num">04</span>
+          <div class="lp-problem-text">
+            <h3>採用・配置・育成・評価がつながらず、戦略人事として機能していない</h3>
+            <p>人に関する施策が個別最適になり、経営戦略と連動した人材戦略が描けていないと、組織づくりが後手に回り、事業成長を支える体制が整いません。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- SOLUTION -->
+  <section class="lp-section accent-bg" id="solution">
+    <div class="lp-section-inner">
+      <span class="lp-chapter-num">03</span>
+      <div class="lp-section-label lp-fade">
+        <span class="lp-section-label-en">Solution</span>
+        <span class="lp-section-label-ja">提供内容・成果例</span>
+      </div>
+      <h2 class="lp-section-title lp-fade">人事番頭が、<br>組織の仕組みをつくる。</h2>
+      <p class="lp-section-desc lp-fade">制度設計から文化づくりまで、人と組織に関わる課題を一気通貫で支援します。</p>
+
+      <p class="lp-solution-notice lp-fade">※ 下記の提供内容はあくまで一例です。御社の課題やニーズに沿って最適な支援内容を設計いたします。</p>
+      <div class="lp-solution-grid">
+        <div class="lp-solution-card lp-fade">
+          <div class="lp-solution-card-num">01</div>
+          <h3>人事評価制度の設計・見直し</h3>
+          <p>役割、等級、評価項目、評価フローなどを整理し、現場で運用しやすく、納得感のある人事評価制度づくりを支援します。</p>
+        </div>
+        <div class="lp-solution-card lp-fade">
+          <div class="lp-solution-card-num">02</div>
+          <h3>教育・研修の体系設計と実行支援</h3>
+          <p>階層別研修、管理職育成、OJT設計、学習テーマの整理などを通じて、単発では終わらない教育・研修の仕組みづくりを支援します。</p>
+        </div>
+        <div class="lp-solution-card lp-fade">
+          <div class="lp-solution-card-num">03</div>
+          <h3>会議体の最適化・組織文化刷新・MVV浸透支援</h3>
+          <p>会議の設計や運営方法を見直し、組織の意思決定や連携を改善するとともに、MVVや理念を日々の行動やマネジメントに落とし込む支援を行います。</p>
+        </div>
+        <div class="lp-solution-card lp-fade">
+          <div class="lp-solution-card-num">04</div>
+          <h3>総合的な戦略人事の設計・伴走</h3>
+          <p>採用、配置、育成、評価、組織開発を個別施策で終わらせず、経営戦略と連動した戦略人事の全体設計と実行を伴走支援します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- MODEL -->
+  <section class="lp-section alt" id="model">
+    <div class="lp-section-inner">
+      <span class="lp-chapter-num">04</span>
+      <div class="lp-section-label lp-fade">
+        <span class="lp-section-label-en">Model</span>
+        <span class="lp-section-label-ja">番頭という支援モデル</span>
+      </div>
+      <h2 class="lp-section-title lp-fade">単なるコンサルでも、<br>制作会社でもない。</h2>
+      <p class="lp-section-desc lp-fade">御社の「社外パートナー」として、実行までを一気通貫で支援します。</p>
+
+      <div class="lp-model-flow lp-fade">
+        <div class="lp-model-step">
+          <div class="lp-model-step-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="rgba(30,58,138,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="17" r="9"/><path d="M24 24l8 8"/><path d="M13 17h8M17 13v8"/></svg></div>
+          <div class="lp-model-step-num">01</div>
+          <h3>整理する</h3>
+          <p style="color:#fff;">課題・論点・優先順位を構造化し、何に集中すべきかを明確にします</p>
+        </div>
+        <div class="lp-model-step">
+          <div class="lp-model-step-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="rgba(30,58,138,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="28" height="26" rx="3"/><path d="M6 16h28M14 6v4M26 6v4M12 24l4 4 8-8"/></svg></div>
+          <div class="lp-model-step-num">02</div>
+          <h3>計画に落とす</h3>
+          <p style="color:#fff;">戦略をアクション・担当・期限の形に変換し、動ける計画をつくります</p>
+        </div>
+        <div class="lp-model-step">
+          <div class="lp-model-step-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="rgba(30,58,138,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6c0 0 10 4 10 16l-10 12L10 22C10 10 20 6 20 6z"/><circle cx="20" cy="18" r="3"/><path d="M12 28l-6 6M28 28l6 6"/></svg></div>
+          <div class="lp-model-step-num">03</div>
+          <h3>実行を前に進める</h3>
+          <p style="color:#fff;">会議設計・進捗管理・壁打ちを通じて、実行が止まらない状態をつくります</p>
+        </div>
+        <div class="lp-model-step">
+          <div class="lp-model-step-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="rgba(30,58,138,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 34V8a2 2 0 012-2h20a2 2 0 012 2v26"/><path d="M8 34h24"/><path d="M16 10h8M16 16h8M16 22h4"/></svg></div>
+          <div class="lp-model-step-num">04</div>
+          <h3>社内に残す</h3>
+          <p style="color:#fff;">判断軸・プロセス・ノウハウを社内に定着させ、自走できる組織をつくります</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-divider"></div>
+
+  <!-- CASES -->
+  <section class="lp-section" id="cases">
+    <div class="lp-section-inner">
+      <span class="lp-chapter-num">05</span>
+      <div class="lp-section-label lp-fade">
+        <span class="lp-section-label-en">Cases</span>
+        <span class="lp-section-label-ja">支援実績</span>
+      </div>
+      <h2 class="lp-section-title lp-fade">実績・支援事例</h2>
+      <p class="lp-section-desc lp-fade">人事番頭として関わった企業の一部をご紹介します。</p>
+
+      <div class="lp-cases-grid">
+        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
+          <div class="lp-case-card-img">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(37,99,235,0.3)" stroke-width="1.5"><circle cx="18" cy="14" r="5"/><circle cx="30" cy="14" r="5"/><path d="M8 36c0-6 4-10 10-10h12c6 0 10 4 10 10"/></svg>
+          </div>
+          <div class="lp-case-card-body">
+            <span class="lp-case-tag">人事番頭</span>
+            <h3 class="lp-case-title">製造業 従業員50名<br>人事評価制度の設計・導入</h3>
+            <p class="lp-case-body">評価基準が曖昧で社員のモチベーションが低下していた企業に対し、等級制度・評価制度・給与体系を一から設計。導入後、社員満足度が大幅に向上。</p>
+            <span class="lp-case-link">詳しく見る →</span>
+          </div>
+        </article>
+        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
+          <div class="lp-case-card-img" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(124,58,237,0.3)" stroke-width="1.5"><rect x="8" y="16" width="32" height="24" rx="2"/><path d="M16 16v-4a8 8 0 0116 0v4"/></svg>
+          </div>
+          <div class="lp-case-card-body">
+            <span class="lp-case-tag">人事番頭</span>
+            <h3 class="lp-case-title">サービス業 従業員80名<br>管理職育成プログラムの設計</h3>
+            <p class="lp-case-body">管理職の役割が曖昧で部下育成が属人的になっていた企業に対し、管理職研修の体系設計と実施を伴走。マネジメントの質が向上。</p>
+            <span class="lp-case-link">詳しく見る →</span>
+          </div>
+        </article>
+        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
+          <div class="lp-case-card-img" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(5,150,105,0.3)" stroke-width="1.5"><path d="M8 24h32M24 8v32"/><circle cx="24" cy="24" r="12"/></svg>
+          </div>
+          <div class="lp-case-card-body">
+            <span class="lp-case-tag">人事番頭</span>
+            <h3 class="lp-case-title">小売業 創業15年<br>MVV策定と組織文化の刷新</h3>
+            <p class="lp-case-body">理念が形骸化していた企業に対し、MVVの策定から浸透施策の設計・実行まで伴走。社員の当事者意識と組織の一体感が向上。</p>
+            <span class="lp-case-link">詳しく見る →</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="lp-section alt" id="faq">
+    <div class="lp-section-inner">
+      <span class="lp-chapter-num">06</span>
+      <div class="lp-section-label lp-fade">
+        <span class="lp-section-label-en">FAQ</span>
+        <span class="lp-section-label-ja">よくある質問</span>
+      </div>
+      <h2 class="lp-section-title lp-fade">ご相談前の<br>よくある疑問。</h2>
+
+      <div class="lp-faq-list lp-fade" style="border-top:1px solid var(--c-line);">
+        <div class="lp-faq-item">
+          <div class="lp-faq-q">支援期間はどのくらいですか？</div>
+          <div class="lp-faq-a">初回は3〜6ヶ月を目安にご提案しています。制度設計のみの短期支援から、継続的な組織開発まで柔軟に対応します。</div>
+        </div>
+        <div class="lp-faq-item">
+          <div class="lp-faq-q">費用感を教えてください。</div>
+          <div class="lp-faq-a">支援内容・頻度・期間によって異なります。月額顧問型・プロジェクト型など複数の形態をご用意しています。詳細はお問合せください。</div>
+        </div>
+        <div class="lp-faq-item">
+          <div class="lp-faq-q">人事担当者がいなくても相談できますか？</div>
+          <div class="lp-faq-a">はい、むしろ人事専任がいない企業こそ対象です。経営者や総務担当の方と直接連携しながら支援します。</div>
+        </div>
+        <div class="lp-faq-item">
+          <div class="lp-faq-q">どのような規模の企業が対象ですか？</div>
+          <div class="lp-faq-a">主に従業員数10〜200名程度の中小企業を対象としています。業種は問いません。</div>
+        </div>
+        <div class="lp-faq-item">
+          <div class="lp-faq-q">相談前に何を準備すればいいですか？</div>
+          <div class="lp-faq-a">特別な準備は不要です。「こんな課題がある」という状態でお気軽にご連絡ください。初回は状況整理から始めます。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="lp-final-cta" id="contact">
+    <div class="lp-section-inner">
+      <h2 class="lp-fade">まず、話してみませんか。</h2>
+      <p class="lp-fade">「こんな課題がある」という状態でかまいません。<br>初回は状況整理から始めます。</p>
+      <div class="lp-cta-group lp-fade" style="justify-content:center;">
+        <a href="index.html#contact" class="final-btn-primary">問い合わせをする</a>
+        <a href="index.html#contact" class="final-btn-secondary">資料をダウンロード</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lp-footer">
+    <a href="index.html">© 2023 合同会社 BWH総合研究所</a>
+  </footer>
+
+  <script src="lp-common.js"></script>
+  <script>
+    // HR Hero Canvas — Light Future: aurora gradient, soft particles, thin rings
+    const canvas = document.getElementById('hr-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [], rings = [];
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      initScene();
+    }
+
+    function initScene() {
+      particles = Array.from({length: 80}, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+        r: Math.random() * 2 + 0.5,
+        hue: 200 + Math.random() * 60,
+        alpha: Math.random() * 0.15 + 0.03
+      }));
+      rings = Array.from({length: 3}, (_, i) => ({
+        x: W * 0.75, y: H * 0.4,
+        r: 80 + i * 120, speed: 0.001 + i * 0.0005,
+        angle: Math.random() * Math.PI * 2
+      }));
+    }
+
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // Aurora gradient background
+      const grad = ctx.createLinearGradient(0, 0, W, H);
+      grad.addColorStop(0,   'rgba(239,246,255,0.6)');
+      grad.addColorStop(0.4, 'rgba(245,243,255,0.4)');
+      grad.addColorStop(0.7, 'rgba(253,244,255,0.3)');
+      grad.addColorStop(1,   'rgba(240,249,255,0.5)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Soft aurora blobs
+      [[W*0.8, H*0.2, 300, 'rgba(99,102,241,0.04)'],
+       [W*0.3, H*0.7, 400, 'rgba(168,85,247,0.03)'],
+       [W*0.6, H*0.5, 350, 'rgba(59,130,246,0.04)']].forEach(([x,y,r,c]) => {
+        const g = ctx.createRadialGradient(x,y,0,x,y,r);
+        g.addColorStop(0, c); g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+      });
+
+      // Thin rings
+      rings.forEach(ring => {
+        ring.angle += ring.speed;
+        ctx.beginPath();
+        ctx.arc(ring.x + Math.cos(ring.angle)*20, ring.y + Math.sin(ring.angle)*10, ring.r, 0, Math.PI*2);
+        ctx.strokeStyle = `rgba(99,102,241,0.06)`;
+        ctx.lineWidth = 1; ctx.stroke();
+      });
+
+      // Particles
+      particles.forEach(p => {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = `hsla(${p.hue},70%,65%,${p.alpha})`; ctx.fill();
+      });
+
+      t += 0.01;
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize(); draw();
+  </script>
+</body>
+</html>
