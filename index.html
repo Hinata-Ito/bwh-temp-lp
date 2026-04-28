@@ -96,7 +96,6 @@
         <article class="service-card fade-up" onclick="location.href='lp-strategy.html'">
           <div class="service-card-top">
             <div class="service-logo-wrap">
-              <div class="service-logo-icon"><img src="img/logo-strategy.png" alt="あなたの会社の「戦略の右腕」"></div>
               <div class="service-logo-text">
                 <span class="service-num">01</span>
                 <span class="service-name">あなたの会社の「戦略の右腕」</span>
@@ -116,7 +115,6 @@
         <article class="service-card fade-up" onclick="location.href='lp-hr.html'">
           <div class="service-card-top">
             <div class="service-logo-wrap">
-              <div class="service-logo-icon"><img src="img/logo-hr.png" alt="あなたの会社の「組織の右腕」"></div>
               <div class="service-logo-text">
                 <span class="service-num">02</span>
                 <span class="service-name">あなたの会社の「組織の右腕」</span>
@@ -136,7 +134,6 @@
         <article class="service-card fade-up" onclick="location.href='lp-ai.html'">
           <div class="service-card-top">
             <div class="service-logo-wrap">
-              <div class="service-logo-icon"><img src="img/logo-ai.png" alt="あなたの会社の「AIの右腕」"></div>
               <div class="service-logo-text">
                 <span class="service-num">03</span>
                 <span class="service-name">あなたの会社の「AIの右腕」</span>
@@ -329,15 +326,40 @@
       return 'https://note.com/' + NOTE_USER + '/m/' + magazineId + '/rss';
     }
 
+    // allorigins.win経由でRSS XMLを取得しDOMParserで解析
+    // （rss2jsonはキャッシュが強く、新着記事が反映されないため不採用）
     function fetchFeed(rssUrl) {
-      var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+      var apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
       return fetch(apiUrl)
-        .then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(d){
-          if (!d || d.status !== 'ok') return [];
-          return d.items || [];
+        .then(function(r){ return r.ok ? r.text() : ''; })
+        .then(function(xml){
+          if (!xml) return [];
+          try {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(xml, 'text/xml');
+            var nodes = doc.querySelectorAll('item');
+            var result = [];
+            for (var i = 0; i < nodes.length; i++) {
+              var n = nodes[i];
+              var contentEnc = n.getElementsByTagName('content:encoded');
+              var thumbEl = n.getElementsByTagName('media:thumbnail');
+              result.push({
+                title: getText(n, 'title'),
+                link: getText(n, 'link'),
+                description: getText(n, 'description'),
+                content: contentEnc.length ? contentEnc[0].textContent : '',
+                pubDate: getText(n, 'pubDate'),
+                thumbnail: thumbEl.length ? thumbEl[0].getAttribute('url') : ''
+              });
+            }
+            return result;
+          } catch (e) { return []; }
         })
         .catch(function(){ return []; });
+    }
+    function getText(parent, tag) {
+      var el = parent.querySelector(tag);
+      return el ? el.textContent : '';
     }
 
     function stripHtml(html) {
