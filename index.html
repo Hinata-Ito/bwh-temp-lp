@@ -326,30 +326,35 @@
       return 'https://note.com/' + NOTE_USER + '/m/' + magazineId + '/rss';
     }
 
-    // allorigins.win経由でRSS XMLを取得しDOMParserで解析
-    // （rss2jsonはキャッシュが強く、新着記事が反映されないため不採用）
+    // allorigins.win/get 経由でRSS XMLを取得しDOMParserで解析
+    // （rss2jsonはキャッシュが強い／allorigins/raw はCORSヘッダー無いため不採用）
     function fetchFeed(rssUrl) {
-      var apiUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
+      var apiUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
       return fetch(apiUrl)
-        .then(function(r){ return r.ok ? r.text() : ''; })
-        .then(function(xml){
-          if (!xml) return [];
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || !d.contents) return [];
           try {
             var parser = new DOMParser();
-            var doc = parser.parseFromString(xml, 'text/xml');
+            var doc = parser.parseFromString(d.contents, 'text/xml');
             var nodes = doc.querySelectorAll('item');
             var result = [];
             for (var i = 0; i < nodes.length; i++) {
               var n = nodes[i];
               var contentEnc = n.getElementsByTagName('content:encoded');
               var thumbEl = n.getElementsByTagName('media:thumbnail');
+              // Note RSSは <media:thumbnail>URL</media:thumbnail> 形式（属性ではなくテキスト）
+              var thumb = '';
+              if (thumbEl.length) {
+                thumb = thumbEl[0].getAttribute('url') || thumbEl[0].textContent || '';
+              }
               result.push({
                 title: getText(n, 'title'),
                 link: getText(n, 'link'),
                 description: getText(n, 'description'),
                 content: contentEnc.length ? contentEnc[0].textContent : '',
                 pubDate: getText(n, 'pubDate'),
-                thumbnail: thumbEl.length ? thumbEl[0].getAttribute('url') : ''
+                thumbnail: thumb
               });
             }
             return result;
