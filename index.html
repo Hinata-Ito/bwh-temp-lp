@@ -32,6 +32,7 @@
           <li><a href="#knowledge" onclick="closeDropdown()">知見・講演</a></li>
           <li><a href="#founder" onclick="closeDropdown()">Founder</a></li>
           <li><a href="#company" onclick="closeDropdown()">会社概要</a></li>
+          <li><a href="#contact" onclick="closeDropdown()">お問い合わせ</a></li>
         </ul>
       </nav>
     </div>
@@ -163,61 +164,19 @@
     </div>
     <div class="cases-inner">
       <h2 class="cases-heading">実績・支援事例</h2>
+      <p class="cases-sub">中小企業の経営者・後継者の方々と伴走してきた支援事例を、Noteで順次公開しています。</p>
       <div class="cases-grid">
-
-        <!-- OOKABE GLASS -->
-        <article class="case-card fade-up" onclick="location.href='cases-detail-ookabeglass.html'" style="cursor:pointer;">
-          <div class="case-card-img">
-            <img src="img/case-ookabeglass.png" alt="OOKABE GLASS株式会社" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="case-card-img-placeholder" style="display:none;">
-              <svg class="placeholder-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="40" height="32" rx="2"/><circle cx="16" cy="20" r="4"/><path d="M4 36l10-10 8 8 6-6 12 8"/></svg>
-            </div>
+        <!-- 初期表示（Note RSSが取得できれば置き換わる） -->
+        <div class="cases-coming-soon fade-up" style="grid-column: 1 / -1;">
+          <div class="coming-soon-icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l6 4"/></svg>
           </div>
-          <div class="case-card-body">
-            <span class="case-tag case-tag--strategy">戦略の右腕</span>
-            <span class="case-tag case-tag--hr">組織の右腕</span>
-            <h3 class="case-title">「頭の中にある経営の全体像を、言葉にできていなかった」——OOKABE GLASS株式会社が経営の"OS"をアップデートするまで</h3>
-            <p class="case-body">ガラス・鏡のネットオーダー専門店を運営するEC企業が、経営会議体の再設計から新規事業立ち上げ、書籍執筆まで多角的に変革を遂げた事例。</p>
-            <a href="cases-detail-ookabeglass.html" class="case-link">詳しく見る →</a>
-          </div>
-        </article>
-
-        <!-- 天晴データネット -->
-        <article class="case-card fade-up" onclick="location.href='cases-detail-tenseidatenet.html'" style="cursor:pointer;">
-          <div class="case-card-img">
-            <img src="img/case-tenseidatenet.jpg" alt="天晴データネット株式会社" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="case-card-img-placeholder" style="display:none;">
-              <svg class="placeholder-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="14" r="5"/><circle cx="30" cy="14" r="5"/><path d="M8 36c0-6 4-10 10-10h12c6 0 10 4 10 10"/></svg>
-            </div>
-          </div>
-          <div class="case-card-body">
-            <span class="case-tag case-tag--hr">組織の右腕</span>
-            <h3 class="case-title">「技術力の先にある提案力を」——IT企業がビジネススキル研修の内製化から、組織の次のステージへ挑む</h3>
-            <p class="case-body">IT受託開発企業が、全社員向けビジネススキル研修の設計・実施を起点に、人事評価制度改定まで見据えた組織変革を推進した事例。</p>
-            <a href="cases-detail-tenseidatenet.html" class="case-link">詳しく見る →</a>
-          </div>
-        </article>
-
-        <!-- ALLCONNECT -->
-        <article class="case-card fade-up" onclick="location.href='cases-detail-allconnect.html'" style="cursor:pointer;">
-          <div class="case-card-img">
-            <img src="img/case-allconnect.jpg" alt="株式会社ALLCONNECT" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <div class="case-card-img-placeholder" style="display:none;">
-              <svg class="placeholder-svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="8"/><path d="M24 8v4M24 36v4M8 24h4M36 24h4"/></svg>
-            </div>
-          </div>
-          <div class="case-card-body">
-            <span class="case-tag case-tag--hr">組織の右腕</span>
-            <span class="case-tag" style="background:rgba(30,58,138,0.08);color:#1e3a8a;">業務改善</span>
-            <h3 class="case-title">「担当者の頭の中にしかない」業務マニュアルの暗黙知を形式知化し、誰でも再現できる運用体制を構築</h3>
-            <p class="case-body">通信インフラ企業の2部署の業務マニュアルを全面刷新。約4ヶ月で暗黙知の言語化と他部署展開用テンプレートを整備した事例。</p>
-            <a href="cases-detail-allconnect.html" class="case-link">詳しく見る →</a>
-          </div>
-        </article>
-
+          <p class="coming-soon-label">Coming Soon</p>
+          <p class="coming-soon-text">支援事例コンテンツは現在準備中です。<br>Noteマガジンで順次公開予定です。</p>
+        </div>
       </div>
       <div class="cases-cta">
-        <a href="cases-list.html" class="btn-outline">VIEW MORE</a>
+        <a href="https://note.com/ginzoshizuki_bwh/m/m582db0aec069" target="_blank" rel="noopener" class="btn-outline">VIEW MORE on Note</a>
       </div>
     </div>
   </section>
@@ -237,7 +196,11 @@
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l6 4"/></svg>
         </div>
         <p class="coming-soon-label">Coming Soon</p>
-        <p class="coming-soon-text">知見・講演コンテンツは現在準備中です。<br>近日公開予定です。</p>
+        <p class="coming-soon-text">知見・講演コンテンツは現在準備中です。<br>Noteマガジンで順次公開予定です。</p>
+      </div>
+
+      <div class="cases-cta" style="margin-top: 32px;">
+        <a href="https://note.com/ginzoshizuki_bwh/m/m17ec54167d82" target="_blank" rel="noopener" class="btn-outline">VIEW MORE on Note</a>
       </div>
 
     </div>
@@ -300,6 +263,28 @@
     </div>
   </section>
 
+  <!-- ===== CONTACT ===== -->
+  <section class="contact-section" id="contact">
+    <div class="section-label-wrap">
+      <p class="section-label-en">Contact</p>
+      <p class="section-label-ja">お問い合わせ</p>
+    </div>
+    <div class="contact-inner">
+      <h2 class="contact-heading">お問い合わせ</h2>
+      <p class="contact-sub">ご相談・ご質問など、お気軽にお問い合わせください。<br>初回は状況整理から始めますので、お気軽にどうぞ。</p>
+      <div class="contact-form-iframe-wrap fade-up">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSc2eHUy1JeRPg17E6asX3A_j6NY2b4Jxyb1N6jSdifA1vU_gQ/viewform?embedded=true"
+          width="100%"
+          height="1311"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="お問い合わせフォーム">読み込んでいます…</iframe>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
     <div class="footer-inner">
@@ -314,11 +299,123 @@
         <a href="#knowledge">知見・講演</a>
         <a href="#founder">Founder</a>
         <a href="#company">会社概要</a>
+        <a href="#contact">お問い合わせ</a>
       </nav>
       <p class="footer-copy">&copy; 2023 合同会社 BWH総合研究所. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 
   <script src="main.js"></script>
+  <script>
+  /* ===================================================
+     Note RSS Embed
+     ご支援事例 / 知見・講演 セクションに、Noteマガジンの
+     最新記事カードを自動表示する。
+     マガジンID未設定 or 取得失敗時は既存コンテンツ維持（フォールバック）。
+     =================================================== */
+  (function initNoteEmbed() {
+    'use strict';
+
+    // ===== 設定（ここを書き換えるだけで稼働） =====
+    var NOTE_USER = 'ginzoshizuki_bwh';
+    var CASES_MAGAZINE_ID     = 'm582db0aec069';  // BWH支援事例マガジン
+    var KNOWLEDGE_MAGAZINE_ID = 'm17ec54167d82';  // BWH知見・講演マガジン
+    var CASES_MAGAZINE_URL    = 'https://note.com/' + NOTE_USER + '/m/' + CASES_MAGAZINE_ID;
+    var KNOWLEDGE_MAGAZINE_URL= 'https://note.com/' + NOTE_USER + '/m/' + KNOWLEDGE_MAGAZINE_ID;
+    var MAX_ITEMS = 6;
+    // =============================================
+
+    function buildRssUrl(magazineId) {
+      return 'https://note.com/' + NOTE_USER + '/m/' + magazineId + '/rss';
+    }
+
+    function fetchFeed(rssUrl) {
+      var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+      return fetch(apiUrl)
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d || d.status !== 'ok') return [];
+          return d.items || [];
+        })
+        .catch(function(){ return []; });
+    }
+
+    function stripHtml(html) {
+      var tmp = document.createElement('div');
+      tmp.innerHTML = html || '';
+      return (tmp.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+    function escapeHtml(s) {
+      var t = document.createElement('div');
+      t.textContent = s == null ? '' : String(s);
+      return t.innerHTML;
+    }
+    function escapeAttr(s) { return escapeHtml(s).replace(/"/g, '&quot;'); }
+    function extractFirstImage(html) {
+      var m = /<img[^>]+src="([^"]+)"/.exec(html || '');
+      return m ? m[1] : '';
+    }
+    function excerpt(text, n) {
+      n = n || 90;
+      return text.length > n ? text.slice(0, n) + '…' : text;
+    }
+
+    function renderCard(item) {
+      var thumb = item.thumbnail || extractFirstImage(item.description || item.content) || '';
+      var body  = excerpt(stripHtml(item.description || item.content));
+      var link  = escapeAttr(item.link || '#');
+      return ''
+        + '<article class="case-card fade-up visible note-card" '
+        +   'onclick="window.open(\'' + link + '\',\'_blank\',\'noopener\')" '
+        +   'style="cursor:pointer;">'
+        +   '<div class="case-card-img">'
+        +     (thumb
+                 ? '<img src="' + escapeAttr(thumb) + '" alt="" '
+                   + 'style="width:100%;height:100%;object-fit:cover;" '
+                   + 'onerror="this.style.display=\'none\'">'
+                 : '')
+        +   '</div>'
+        +   '<div class="case-card-body">'
+        +     '<h3 class="case-title">' + escapeHtml(item.title) + '</h3>'
+        +     '<p class="case-body">'   + escapeHtml(body)       + '</p>'
+        +     '<a href="' + link + '" target="_blank" rel="noopener" '
+        +       'class="case-link" onclick="event.stopPropagation();">記事を読む →</a>'
+        +   '</div>'
+        + '</article>';
+    }
+
+    // ご支援事例セクションの差し替え
+    function loadCases() {
+      if (!CASES_MAGAZINE_ID) return;  // 未設定 → 既存カード維持
+      fetchFeed(buildRssUrl(CASES_MAGAZINE_ID)).then(function(items) {
+        if (!items.length) return;
+        var grid = document.querySelector('#cases .cases-grid');
+        if (!grid) return;
+        grid.innerHTML = items.slice(0, MAX_ITEMS).map(renderCard).join('');
+      });
+    }
+
+    // 知見・講演セクションの差し替え
+    function loadKnowledge() {
+      if (!KNOWLEDGE_MAGAZINE_ID) return; // 未設定 → Coming Soon維持
+      fetchFeed(buildRssUrl(KNOWLEDGE_MAGAZINE_ID)).then(function(items) {
+        if (!items.length) return;
+        var section = document.querySelector('#knowledge .knowledge-inner');
+        var placeholder = section && section.querySelector('.knowledge-coming-soon');
+        if (!section || !placeholder) return;
+        var html = '<div class="cases-grid">'
+          + items.slice(0, MAX_ITEMS).map(renderCard).join('')
+          + '</div>';
+        placeholder.outerHTML = html;
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function(){ loadCases(); loadKnowledge(); });
+    } else {
+      loadCases(); loadKnowledge();
+    }
+  })();
+  </script>
 </body>
 </html>

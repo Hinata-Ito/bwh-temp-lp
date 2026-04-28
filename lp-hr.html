@@ -49,7 +49,7 @@
       font-size: clamp(40px, 6vw, 72px); line-height: 1.2;
       letter-spacing: -0.02em; color: var(--c-ink); margin-bottom: 32px;
     }
-    .lp-hero-title em { font-style: italic; background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .lp-hero-title em { font-style: normal; display: inline-block; padding: 0 0.05em 0.08em; background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .lp-hero-sub { font-size: 16px; color: var(--c-ink2); line-height: 1.9; margin-bottom: 48px; max-width: 520px; }
     .hero-btn-primary {
       padding: 16px 40px; background: var(--c-accent); color: #fff;
@@ -199,8 +199,7 @@
       </h1>
       <p class="lp-hero-sub lp-hero-sub-nowrap">人事評価制度・教育制度・採用制度など、人と組織を育てる仕組みづくりを支援します。</p>
       <div class="lp-hero-cta">
-        <a href="#contact" class="hero-btn-primary">問い合わせをする</a>
-        <a href="#contact" class="hero-btn-secondary">資料をダウンロード</a>
+        <a href="index.html#contact" class="hero-btn-primary">問い合わせをする</a>
       </div>
     </div>
     <div class="lp-hero-scroll">
@@ -212,7 +211,7 @@
   <!-- PROBLEM -->
   <section class="lp-section" id="problem">
     <div class="lp-section-inner">
-      <span class="lp-chapter-num">02</span>
+      <span class="lp-chapter-num">01</span>
       <div class="lp-section-label lp-fade">
         <span class="lp-section-label-en">Problem</span>
         <span class="lp-section-label-ja">課題提起</span>
@@ -258,7 +257,7 @@
   <!-- SOLUTION -->
   <section class="lp-section accent-bg" id="solution">
     <div class="lp-section-inner">
-      <span class="lp-chapter-num">03</span>
+      <span class="lp-chapter-num">02</span>
       <div class="lp-section-label lp-fade">
         <span class="lp-section-label-en">Solution</span>
         <span class="lp-section-label-ja">提供内容・成果例</span>
@@ -297,7 +296,7 @@
   <!-- MODEL -->
   <section class="lp-section alt" id="model">
     <div class="lp-section-inner">
-      <span class="lp-chapter-num">04</span>
+      <span class="lp-chapter-num">03</span>
       <div class="lp-section-label lp-fade">
         <span class="lp-section-label-en">Model</span>
         <span class="lp-section-label-ja">右腕という支援モデル</span>
@@ -336,59 +335,10 @@
 
   <div class="lp-divider"></div>
 
-  <!-- CASES
-  <section class="lp-section" id="cases">
-    <div class="lp-section-inner">
-      <span class="lp-chapter-num">05</span>
-      <div class="lp-section-label lp-fade">
-        <span class="lp-section-label-en">Cases</span>
-        <span class="lp-section-label-ja">支援実績</span>
-      </div>
-      <h2 class="lp-section-title lp-fade">実績・支援事例</h2>
-      <p class="lp-section-desc lp-fade">人事の右腕として関わった企業の一部をご紹介します。</p>
-
-      <div class="lp-cases-grid">
-        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
-          <div class="lp-case-card-img">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(37,99,235,0.3)" stroke-width="1.5"><circle cx="18" cy="14" r="5"/><circle cx="30" cy="14" r="5"/><path d="M8 36c0-6 4-10 10-10h12c6 0 10 4 10 10"/></svg>
-          </div>
-          <div class="lp-case-card-body">
-            <span class="lp-case-tag">人事の右腕</span>
-            <h3 class="lp-case-title">製造業 従業員50名<br>人事評価制度の設計・導入</h3>
-            <p class="lp-case-body">評価基準が曖昧で社員のモチベーションが低下していた企業に対し、等級制度・評価制度・給与体系を一から設計。導入後、社員満足度が大幅に向上。</p>
-            <span class="lp-case-link">詳しく見る →</span>
-          </div>
-        </article>
-        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
-          <div class="lp-case-card-img" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(124,58,237,0.3)" stroke-width="1.5"><rect x="8" y="16" width="32" height="24" rx="2"/><path d="M16 16v-4a8 8 0 0116 0v4"/></svg>
-          </div>
-          <div class="lp-case-card-body">
-            <span class="lp-case-tag">人事の右腕</span>
-            <h3 class="lp-case-title">サービス業 従業員80名<br>管理職育成プログラムの設計</h3>
-            <p class="lp-case-body">管理職の役割が曖昧で部下育成が属人的になっていた企業に対し、管理職研修の体系設計と実施を伴走。マネジメントの質が向上。</p>
-            <span class="lp-case-link">詳しく見る →</span>
-          </div>
-        </article>
-        <article class="lp-case-card lp-fade" onclick="location.href='cases-detail.html'">
-          <div class="lp-case-card-img" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(5,150,105,0.3)" stroke-width="1.5"><path d="M8 24h32M24 8v32"/><circle cx="24" cy="24" r="12"/></svg>
-          </div>
-          <div class="lp-case-card-body">
-            <span class="lp-case-tag">人事の右腕</span>
-            <h3 class="lp-case-title">小売業 創業15年<br>MVV策定と組織文化の刷新</h3>
-            <p class="lp-case-body">理念が形骸化していた企業に対し、MVVの策定から浸透施策の設計・実行まで伴走。社員の当事者意識と組織の一体感が向上。</p>
-            <span class="lp-case-link">詳しく見る →</span>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section> -->
-
   <!-- FAQ -->
   <section class="lp-section alt" id="faq">
     <div class="lp-section-inner">
-      <span class="lp-chapter-num">06</span>
+      <span class="lp-chapter-num">04</span>
       <div class="lp-section-label lp-fade">
         <span class="lp-section-label-en">FAQ</span>
         <span class="lp-section-label-ja">よくある質問</span>
@@ -427,7 +377,6 @@
       <p class="lp-fade">「こんな課題がある」という状態でかまいません。<br>初回は状況整理から始めます。</p>
       <div class="lp-cta-group lp-fade" style="justify-content:center;">
         <a href="index.html#contact" class="final-btn-primary">問い合わせをする</a>
-        <a href="index.html#contact" class="final-btn-secondary">資料をダウンロード</a>
       </div>
     </div>
   </section>
