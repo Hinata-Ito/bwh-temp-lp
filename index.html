@@ -305,91 +305,22 @@
   <script src="main.js"></script>
   <script>
   /* ===================================================
-     Note RSS Embed
-     ご支援事例 / 知見・講演 セクションに、Noteマガジンの
-     最新記事カードを自動表示する。
-     マガジンID未設定 or 取得失敗時は既存コンテンツ維持（フォールバック）。
+     Note記事カード描画
+     同一オリジンの note-feed.json（GitHub Actionsで30分ごとに更新）から
+     各セクションへ描画。サードパーティCORSプロキシに依存しない方式。
      =================================================== */
   (function initNoteEmbed() {
     'use strict';
 
-    // ===== 設定（ここを書き換えるだけで稼働） =====
-    var NOTE_USER = 'ginzoshizuki_bwh';
-    var CASES_MAGAZINE_ID     = 'm582db0aec069';  // BWH支援事例マガジン
-    var KNOWLEDGE_MAGAZINE_ID = 'm17ec54167d82';  // BWH知見・講演マガジン
-    var CASES_MAGAZINE_URL    = 'https://note.com/' + NOTE_USER + '/m/' + CASES_MAGAZINE_ID;
-    var KNOWLEDGE_MAGAZINE_URL= 'https://note.com/' + NOTE_USER + '/m/' + KNOWLEDGE_MAGAZINE_ID;
-    var MAX_ITEMS = 6;
-    // =============================================
-
-    function buildRssUrl(magazineId) {
-      return 'https://note.com/' + NOTE_USER + '/m/' + magazineId + '/rss';
-    }
-
-    // allorigins.win/get 経由でRSS XMLを取得しDOMParserで解析
-    // （rss2jsonはキャッシュが強い／allorigins/raw はCORSヘッダー無いため不採用）
-    function fetchFeed(rssUrl) {
-      var apiUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
-      return fetch(apiUrl)
-        .then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(d){
-          if (!d || !d.contents) return [];
-          try {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(d.contents, 'text/xml');
-            var nodes = doc.querySelectorAll('item');
-            var result = [];
-            for (var i = 0; i < nodes.length; i++) {
-              var n = nodes[i];
-              var contentEnc = n.getElementsByTagName('content:encoded');
-              var thumbEl = n.getElementsByTagName('media:thumbnail');
-              // Note RSSは <media:thumbnail>URL</media:thumbnail> 形式（属性ではなくテキスト）
-              var thumb = '';
-              if (thumbEl.length) {
-                thumb = thumbEl[0].getAttribute('url') || thumbEl[0].textContent || '';
-              }
-              result.push({
-                title: getText(n, 'title'),
-                link: getText(n, 'link'),
-                description: getText(n, 'description'),
-                content: contentEnc.length ? contentEnc[0].textContent : '',
-                pubDate: getText(n, 'pubDate'),
-                thumbnail: thumb
-              });
-            }
-            return result;
-          } catch (e) { return []; }
-        })
-        .catch(function(){ return []; });
-    }
-    function getText(parent, tag) {
-      var el = parent.querySelector(tag);
-      return el ? el.textContent : '';
-    }
-
-    function stripHtml(html) {
-      var tmp = document.createElement('div');
-      tmp.innerHTML = html || '';
-      return (tmp.textContent || '').replace(/\s+/g, ' ').trim();
-    }
     function escapeHtml(s) {
       var t = document.createElement('div');
       t.textContent = s == null ? '' : String(s);
       return t.innerHTML;
     }
     function escapeAttr(s) { return escapeHtml(s).replace(/"/g, '&quot;'); }
-    function extractFirstImage(html) {
-      var m = /<img[^>]+src="([^"]+)"/.exec(html || '');
-      return m ? m[1] : '';
-    }
-    function excerpt(text, n) {
-      n = n || 90;
-      return text.length > n ? text.slice(0, n) + '…' : text;
-    }
 
     function renderCard(item) {
-      var thumb = item.thumbnail || extractFirstImage(item.description || item.content) || '';
-      var body  = excerpt(stripHtml(item.description || item.content));
+      var thumb = item.thumbnail || '';
       var link  = escapeAttr(item.link || '#');
       return ''
         + '<article class="case-card fade-up visible note-card" '
@@ -404,43 +335,43 @@
         +   '</div>'
         +   '<div class="case-card-body">'
         +     '<h3 class="case-title">' + escapeHtml(item.title) + '</h3>'
-        +     '<p class="case-body">'   + escapeHtml(body)       + '</p>'
+        +     '<p class="case-body">'   + escapeHtml(item.excerpt || '')   + '</p>'
         +     '<a href="' + link + '" target="_blank" rel="noopener" '
         +       'class="case-link" onclick="event.stopPropagation();">記事を読む →</a>'
         +   '</div>'
         + '</article>';
     }
 
-    // ご支援事例セクションの差し替え
-    function loadCases() {
-      if (!CASES_MAGAZINE_ID) return;  // 未設定 → 既存カード維持
-      fetchFeed(buildRssUrl(CASES_MAGAZINE_ID)).then(function(items) {
-        if (!items.length) return;
-        var grid = document.querySelector('#cases .cases-grid');
-        if (!grid) return;
-        grid.innerHTML = items.slice(0, MAX_ITEMS).map(renderCard).join('');
-      });
-    }
+    function load() {
+      // キャッシュ無視で最新を取得
+      fetch('note-feed.json?t=' + Date.now(), { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){
+          if (!d) return;
 
-    // 知見・講演セクションの差し替え
-    function loadKnowledge() {
-      if (!KNOWLEDGE_MAGAZINE_ID) return; // 未設定 → Coming Soon維持
-      fetchFeed(buildRssUrl(KNOWLEDGE_MAGAZINE_ID)).then(function(items) {
-        if (!items.length) return;
-        var section = document.querySelector('#knowledge .knowledge-inner');
-        var placeholder = section && section.querySelector('.knowledge-coming-soon');
-        if (!section || !placeholder) return;
-        var html = '<div class="cases-grid">'
-          + items.slice(0, MAX_ITEMS).map(renderCard).join('')
-          + '</div>';
-        placeholder.outerHTML = html;
-      });
+          // Cases: cases-grid の innerHTML 全置換（Coming Soonプレースホルダーごと消える）
+          if (d.cases && d.cases.length) {
+            var grid = document.querySelector('#cases .cases-grid');
+            if (grid) grid.innerHTML = d.cases.map(renderCard).join('');
+          }
+
+          // Knowledge: Coming Soon プレースホルダーをカードグリッドに差し替え
+          if (d.knowledge && d.knowledge.length) {
+            var placeholder = document.querySelector('#knowledge .knowledge-coming-soon');
+            if (placeholder) {
+              placeholder.outerHTML = '<div class="cases-grid">'
+                + d.knowledge.map(renderCard).join('')
+                + '</div>';
+            }
+          }
+        })
+        .catch(function(){ /* 取得失敗時は Coming Soon のまま */ });
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function(){ loadCases(); loadKnowledge(); });
+      document.addEventListener('DOMContentLoaded', load);
     } else {
-      loadCases(); loadKnowledge();
+      load();
     }
   })();
   </script>
