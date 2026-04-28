@@ -1123,6 +1123,20 @@ img {
   transform: translateY(-2px);
 }
 
+.contact-form-iframe-wrap {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.contact-form-iframe-wrap iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: #fff;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--color-bg-dark);
