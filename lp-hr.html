@@ -50,19 +50,30 @@
       letter-spacing: -0.02em; color: var(--c-ink); margin-bottom: 32px;
     }
     .lp-hero-title em { font-style: normal; display: inline-block; padding: 0 0.05em 0.08em; background: linear-gradient(135deg, var(--c-accent), var(--c-accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    /* ── Kinetic typography reveal ── */
+    .ht-line { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+    .ht-line > span { display: inline-block; transform: translateY(110%); transition: transform 1s var(--ease-out); }
+    body.loaded .lp-hero-title .ht-line:nth-child(1) > span { transition-delay: 0.15s; }
+    body.loaded .lp-hero-title .ht-line:nth-child(2) > span { transition-delay: 0.32s; }
+    body.loaded .lp-hero-title .ht-line > span { transform: translateY(0); }
+    .lp-hero-eyebrow, .lp-hero-sub, .lp-hero-cta { opacity: 0; transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+    .lp-hero-sub { transform: translateY(16px); }
+    body.loaded .lp-hero-eyebrow { opacity: 1; transition-delay: 0.1s; }
+    body.loaded .lp-hero-sub { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+    body.loaded .lp-hero-cta { opacity: 1; transition-delay: 0.85s; }
     .lp-hero-sub { font-size: 16px; color: var(--c-ink2); line-height: 1.9; margin-bottom: 48px; max-width: 520px; }
     .hero-btn-primary {
-      padding: 16px 40px; background: var(--c-accent); color: #fff;
+      display: inline-block; padding: 16px 44px; background: var(--c-accent); color: #fff;
       font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
-      border: none; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+      border: none; cursor: pointer; transition: all 0.35s; border-radius: 100px;
     }
-    .hero-btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+    .hero-btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,99,235,0.32); }
     .hero-btn-secondary {
-      padding: 15px 40px; background: transparent; color: var(--c-accent);
+      display: inline-block; padding: 15px 44px; background: transparent; color: var(--c-accent);
       font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
-      border: 1.5px solid var(--c-accent); cursor: pointer; transition: all 0.3s; border-radius: 4px;
+      border: 1.5px solid var(--c-accent); cursor: pointer; transition: all 0.35s; border-radius: 100px;
     }
-    .hero-btn-secondary:hover { background: #eff6ff; transform: translateY(-2px); }
+    .hero-btn-secondary:hover { background: rgba(37,99,235,0.06); transform: translateY(-2px); }
     .lp-hero-scroll {
       position: absolute; bottom: 40px; right: 60px; z-index: 2;
       display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -98,8 +109,15 @@
     .lp-solution-card {
       background: var(--c-card); border: 1px solid var(--c-line);
       border-radius: 12px; box-shadow: 0 2px 16px rgba(37,99,235,0.04);
+      position: relative; overflow: hidden; transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
     }
-    .lp-solution-card:hover { box-shadow: 0 8px 32px rgba(37,99,235,0.10); transform: translateY(-2px); transition: all 0.3s; }
+    .lp-solution-card::before {
+      content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--c-accent), #60a5fa);
+      transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease-out);
+    }
+    .lp-solution-card:hover { box-shadow: 0 14px 36px rgba(37,99,235,0.12); transform: translateY(-5px); }
+    .lp-solution-card:hover::before { transform: scaleX(1); }
     .lp-solution-card-num { color: var(--c-accent); opacity: 0.3; }
     .lp-solution-card h3 { color: var(--c-ink); }
     .lp-solution-card p  { color: var(--c-ink2); }
@@ -137,15 +155,15 @@
     .lp-final-cta h2 { color: #fff; }
     .lp-final-cta p  { color: rgba(255,255,255,0.7); }
     .final-btn-primary {
-      padding: 16px 40px; background: #ffffff; color: var(--c-ink);
+      display: inline-block; padding: 16px 44px; background: #ffffff; color: var(--c-ink);
       font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
-      border: none; cursor: pointer; transition: all 0.3s; border-radius: 4px;
+      border: none; cursor: pointer; transition: all 0.3s; border-radius: 100px;
     }
     .final-btn-primary:hover { background: #e8f0fe; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
     .final-btn-secondary {
-      padding: 15px 40px; background: transparent; color: #ffffff;
+      display: inline-block; padding: 15px 44px; background: transparent; color: #ffffff;
       font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
-      border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border-radius: 4px;
+      border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border-radius: 100px;
     }
     .final-btn-secondary:hover { border-color: #fff; transform: translateY(-2px); }
 
@@ -176,6 +194,10 @@
       .lp-hero-title { font-size: clamp(24px, 8vw, 36px); }
       .lp-chapter-num { font-size: clamp(48px, 15vw, 80px); margin-bottom: -12px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ht-line > span, .lp-hero-eyebrow, .lp-hero-sub, .lp-hero-cta { transition: none; transform: none; opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -195,7 +217,8 @@
     <div class="lp-hero-content">
       <p class="lp-hero-eyebrow">BWH 総合研究所 — Service 02</p>
       <h1 class="lp-hero-title">
-        あなたの会社の<br><em>人事の右腕</em>
+        <span class="ht-line"><span>あなたの会社の</span></span>
+        <span class="ht-line"><span><em>人事の右腕</em></span></span>
       </h1>
       <p class="lp-hero-sub lp-hero-sub-nowrap">人事評価・育成・採用の仕組みを、御社の文脈に合わせて作り、現場に根付かせる。御社の右腕として伴走します。</p>
       <div class="lp-hero-cta lp-cta-group">
@@ -393,6 +416,9 @@
 
   <script src="lp-common.js"></script>
   <script>
+    // Kinetic hero reveal on load
+    setTimeout(() => document.body.classList.add('loaded'), 120);
+
     // HR Hero Canvas — Light Future: aurora gradient, soft particles, thin rings
     const canvas = document.getElementById('hr-canvas');
     const ctx = canvas.getContext('2d');
