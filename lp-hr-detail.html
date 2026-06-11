@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人と組織の課題を整理する、3つのレンズ | BWH総合研究所</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="lp-common.css">
+  <style>
+    /* ============================================================
+       人事の右腕 詳細LP — 3つのレンズ
+       Light Future Corporate × Kinetic / Scroll-driven
+       ============================================================ */
+    :root {
+      --c-bg:      #f8f9fc;
+      --c-ink:     #0d1f3c;
+      --c-ink2:    #3a4a6b;
+      --c-ink3:    #8a9ab8;
+      --c-line:    #e4e8f0;
+      --c-card:    #ffffff;
+
+      /* domain accents */
+      --a-design:  #2563eb;   /* 組織設計 indigo */
+      --a-hrd:     #7c3aed;   /* 人材開発 blue-violet */
+      --a-od:      #c026d3;   /* 組織開発 violet-magenta */
+
+      /* page bg themes (crossfade target) */
+      --bg-base:   #f8f9fc;
+      --bg-design: #eef3fe;
+      --bg-hrd:    #f3f0fe;
+      --bg-od:     #faf0fb;
+    }
+
+    body {
+      background: var(--bg-base);
+      color: var(--c-ink);
+      transition: background 1.2s var(--ease-in-out);
+      overflow-x: hidden;
+    }
+    body[data-theme="design"] { background: var(--bg-design); }
+    body[data-theme="hrd"]    { background: var(--bg-hrd); }
+    body[data-theme="od"]     { background: var(--bg-od); }
+
+    /* ── Header ── */
+    .lp-header { background: transparent; }
+    .lp-header.scrolled { background: rgba(248,249,252,0.92); }
+    .lp-header-logo { color: var(--c-ink); }
+    .lp-header-back { color: var(--c-ink2); }
+
+    /* ============================================================
+       HERO — calm & kinetic
+       ============================================================ */
+    .dt-hero {
+      min-height: 92vh; display: flex; align-items: center;
+      padding: 140px 60px 80px; position: relative; overflow: hidden;
+      background: #ffffff;
+    }
+    .dt-hero-glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .dt-hero-glow.g1 { width: 560px; height: 560px; right: -120px; top: -100px;
+      background: radial-gradient(circle, rgba(37,99,235,0.10), transparent 70%);
+      animation: glow-drift 18s ease-in-out infinite alternate; }
+    .dt-hero-glow.g2 { width: 480px; height: 480px; left: 8%; bottom: -180px;
+      background: radial-gradient(circle, rgba(124,58,237,0.08), transparent 70%);
+      animation: glow-drift 22s ease-in-out infinite alternate-reverse; }
+    .dt-hero-glow.g3 { width: 320px; height: 320px; right: 30%; bottom: 10%;
+      background: radial-gradient(circle, rgba(192,38,211,0.06), transparent 70%);
+      animation: glow-drift 26s ease-in-out infinite alternate; }
+    @keyframes glow-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(-50px, 40px) scale(1.12); }
+    }
+
+    .dt-hero-content { position: relative; z-index: 2; max-width: 880px; }
+    .dt-hero-eyebrow {
+      font-family: var(--font-en); font-size: 13px; letter-spacing: 0.32em;
+      color: var(--a-design); margin-bottom: 40px; text-transform: uppercase;
+      opacity: 0; transition: opacity 1s ease 0.1s;
+    }
+    body.loaded .dt-hero-eyebrow { opacity: 1; }
+
+    .dt-hero-title {
+      font-family: var(--font-serif); font-weight: 700;
+      font-size: clamp(34px, 5.6vw, 68px); line-height: 1.42;
+      letter-spacing: 0.01em; color: var(--c-ink); margin-bottom: 40px;
+    }
+    .ht-line { display: block; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+    .ht-line > span {
+      display: inline-block; transform: translateY(110%);
+      transition: transform 1s var(--ease-out);
+    }
+    body.loaded .ht-line:nth-child(1) > span { transition-delay: 0.15s; }
+    body.loaded .ht-line:nth-child(2) > span { transition-delay: 0.32s; }
+    body.loaded .ht-line:nth-child(3) > span { transition-delay: 0.49s; }
+    body.loaded .ht-line > span { transform: translateY(0); }
+    .dt-hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--a-design), var(--a-od));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .dt-hero-sub {
+      font-size: 16px; color: var(--c-ink2); line-height: 2.1; max-width: 600px;
+      margin-bottom: 48px; opacity: 0; transform: translateY(16px);
+      transition: opacity 1s var(--ease-out) 0.7s, transform 1s var(--ease-out) 0.7s;
+    }
+    body.loaded .dt-hero-sub { opacity: 1; transform: translateY(0); }
+
+    .dt-hero-cta { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0;
+      transition: opacity 1s ease 0.95s; }
+    body.loaded .dt-hero-cta { opacity: 1; }
+    .btn-primary {
+      display: inline-block; padding: 16px 44px; background: var(--a-design); color: #fff;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+      border: none; cursor: pointer; transition: all 0.35s; border-radius: 100px;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(37,99,235,0.32); }
+    .btn-ghost {
+      display: inline-block; padding: 15px 44px; background: transparent; color: var(--a-design);
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em;
+      border: 1.5px solid var(--a-design); cursor: pointer; transition: all 0.35s; border-radius: 100px;
+    }
+    .btn-ghost:hover { background: rgba(37,99,235,0.06); transform: translateY(-2px); }
+
+    .dt-hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      font-family: var(--font-en); font-size: 10px; letter-spacing: 0.3em; color: var(--c-ink3);
+      opacity: 0; transition: opacity 1.2s ease 1.4s;
+    }
+    body.loaded .dt-hero-scroll { opacity: 1; }
+    .dt-hero-scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--a-design), transparent); overflow: hidden; position: relative; }
+    .dt-hero-scroll-line::after {
+      content: ''; position: absolute; left: 0; top: -100%; width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, #fff);
+      animation: scroll-pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse { 0% { top: -100%; } 60%, 100% { top: 100%; } }
+
+    /* ============================================================
+       PROGRESS RAIL (left edge)
+       ============================================================ */
+    .rail {
+      position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 90;
+      display: flex; flex-direction: column; gap: 28px;
+      opacity: 0; pointer-events: none; transition: opacity 0.5s;
+    }
+    .rail.show { opacity: 1; pointer-events: auto; }
+    .rail::before {
+      content: ''; position: absolute; left: 5px; top: 8px; bottom: 8px;
+      width: 1px; background: var(--c-line);
+    }
+    .rail-dot {
+      position: relative; display: flex; align-items: center; gap: 12px;
+      cursor: pointer; text-decoration: none;
+    }
+    .rail-dot i {
+      width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0;
+      background: #fff; border: 1.5px solid var(--c-ink3);
+      transition: all 0.4s; position: relative; z-index: 1; font-style: normal;
+    }
+    .rail-dot span {
+      font-family: var(--font-en); font-size: 10px; letter-spacing: 0.18em;
+      color: var(--c-ink3); opacity: 0; transform: translateX(-6px);
+      transition: all 0.35s; white-space: nowrap;
+    }
+    .rail-dot:hover span { opacity: 1; transform: translateX(0); }
+    .rail-dot.active i { transform: scale(1.35); }
+    .rail-dot.active span { opacity: 1; transform: translateX(0); color: var(--c-ink2); }
+    .rail-dot[data-rail="design"].active i { background: var(--a-design); border-color: var(--a-design); box-shadow: 0 0 12px rgba(37,99,235,0.5); }
+    .rail-dot[data-rail="hrd"].active i    { background: var(--a-hrd); border-color: var(--a-hrd); box-shadow: 0 0 12px rgba(124,58,237,0.5); }
+    .rail-dot[data-rail="od"].active i     { background: var(--a-od); border-color: var(--a-od); box-shadow: 0 0 12px rgba(192,38,211,0.5); }
+
+    /* ============================================================
+       OVERVIEW MAP — 3 lenses
+       ============================================================ */
+    .map-section { padding: 110px 40px 120px; position: relative; }
+    .map-inner { max-width: 1140px; margin: 0 auto; }
+    .map-label {
+      display: flex; flex-direction: column; gap: 4px; margin-bottom: 40px;
+    }
+    .map-label .en { font-family: var(--font-en); font-size: 52px; font-weight: 300; letter-spacing: -0.01em; line-height: 1; color: var(--c-line); }
+    .map-label .ja { font-size: 12px; letter-spacing: 0.22em; color: var(--c-ink3); }
+    .map-title {
+      font-family: var(--font-serif); font-size: clamp(24px, 3.6vw, 40px); font-weight: 700;
+      line-height: 1.5; margin-bottom: 16px;
+    }
+    .map-desc { font-size: 15px; color: var(--c-ink2); line-height: 2; margin-bottom: 64px; max-width: 660px; }
+
+    .map-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .lens {
+      position: relative; display: block; text-decoration: none;
+      background: rgba(255,255,255,0.85); border: 1px solid var(--c-line);
+      border-radius: 16px; padding: 40px 32px 32px; overflow: hidden;
+      transition: transform 0.45s var(--ease-out), box-shadow 0.45s;
+    }
+    .lens:hover { transform: translateY(-6px); }
+    .lens[data-lens="design"]:hover { box-shadow: 0 18px 44px rgba(37,99,235,0.16); border-color: rgba(37,99,235,0.4); }
+    .lens[data-lens="hrd"]:hover    { box-shadow: 0 18px 44px rgba(124,58,237,0.16); border-color: rgba(124,58,237,0.4); }
+    .lens[data-lens="od"]:hover     { box-shadow: 0 18px 44px rgba(192,38,211,0.16); border-color: rgba(192,38,211,0.4); }
+    .lens-num {
+      font-family: var(--font-en); font-size: 64px; font-weight: 300; line-height: 1;
+      color: var(--c-line); margin-bottom: 20px; transition: color 0.4s;
+    }
+    .lens[data-lens="design"]:hover .lens-num { color: rgba(37,99,235,0.35); }
+    .lens[data-lens="hrd"]:hover .lens-num    { color: rgba(124,58,237,0.35); }
+    .lens[data-lens="od"]:hover .lens-num     { color: rgba(192,38,211,0.35); }
+    .lens-motif { height: 88px; margin-bottom: 24px; display: flex; align-items: center; }
+    .lens-motif svg { width: 100%; max-width: 200px; height: 88px; }
+    .lens-tag {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 14px; color: #fff;
+    }
+    .lens[data-lens="design"] .lens-tag { background: var(--a-design); }
+    .lens[data-lens="hrd"] .lens-tag    { background: var(--a-hrd); }
+    .lens[data-lens="od"] .lens-tag     { background: var(--a-od); }
+    .lens h3 { font-family: var(--font-serif); font-size: 24px; font-weight: 700; color: var(--c-ink); margin-bottom: 4px; }
+    .lens .en-name { font-family: var(--font-en); font-size: 12px; letter-spacing: 0.16em; color: var(--c-ink3); margin-bottom: 16px; display: block; }
+    .lens p { font-size: 13px; line-height: 1.9; color: var(--c-ink2); margin-bottom: 24px; }
+    .lens-more {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--c-ink2);
+      display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s;
+    }
+    .lens-more::after { content: '↓'; transition: transform 0.3s; }
+    .lens:hover .lens-more::after { transform: translateY(4px); }
+    .lens[data-lens="design"]:hover .lens-more { color: var(--a-design); }
+    .lens[data-lens="hrd"]:hover .lens-more    { color: var(--a-hrd); }
+    .lens[data-lens="od"]:hover .lens-more     { color: var(--a-od); }
+
+    /* ============================================================
+       DOMAIN SECTIONS
+       ============================================================ */
+    .domain { padding: 140px 40px; position: relative; overflow: hidden; }
+    .domain-inner { max-width: 1040px; margin: 0 auto; position: relative; z-index: 2; }
+
+    /* ghost marquee */
+    .gm {
+      position: absolute; top: 48px; left: 0; right: 0; overflow: hidden;
+      pointer-events: none; white-space: nowrap; z-index: 1;
+    }
+    .gm-track {
+      display: inline-block; font-family: var(--font-en); font-weight: 300;
+      font-size: clamp(80px, 12vw, 160px); line-height: 1; letter-spacing: 0.02em;
+      -webkit-text-stroke: 1px rgba(13,31,60,0.10); color: transparent;
+      animation: gm-slide 38s linear infinite; padding-right: 0;
+    }
+    @keyframes gm-slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .domain-chapter {
+      font-family: var(--font-en); font-size: clamp(72px, 11vw, 130px); font-weight: 300;
+      line-height: 1; letter-spacing: -0.04em; display: block; margin-bottom: 8px;
+    }
+    .domain[data-domain="design"] .domain-chapter { color: rgba(37,99,235,0.16); }
+    .domain[data-domain="hrd"] .domain-chapter    { color: rgba(124,58,237,0.16); }
+    .domain[data-domain="od"] .domain-chapter     { color: rgba(192,38,211,0.16); }
+
+    .domain-head { display: grid; grid-template-columns: 1fr 280px; gap: 40px; align-items: end; margin-bottom: 24px; }
+    .domain-title-wrap .metaphor {
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      color: #fff; padding: 5px 16px; border-radius: 100px; margin-bottom: 20px;
+    }
+    .domain[data-domain="design"] .metaphor { background: var(--a-design); }
+    .domain[data-domain="hrd"] .metaphor    { background: var(--a-hrd); }
+    .domain[data-domain="od"] .metaphor     { background: var(--a-od); }
+    .domain-title {
+      font-family: var(--font-serif); font-size: clamp(34px, 5vw, 56px); font-weight: 700;
+      line-height: 1.3; color: var(--c-ink); margin-bottom: 12px;
+    }
+    .domain-en { font-family: var(--font-en); font-size: 14px; letter-spacing: 0.2em; color: var(--c-ink3); }
+    .domain-motif { display: flex; justify-content: flex-end; }
+    .domain-motif svg { width: 100%; max-width: 280px; height: 150px; }
+
+    .domain-lead { font-size: 16px; line-height: 2.1; color: var(--c-ink2); max-width: 640px; margin-bottom: 28px; }
+
+    /* academic definition */
+    .defbox {
+      border-left: 2px solid; padding: 18px 24px; margin-bottom: 72px; max-width: 720px;
+      background: rgba(255,255,255,0.6); border-radius: 0 10px 10px 0;
+    }
+    .domain[data-domain="design"] .defbox { border-color: var(--a-design); }
+    .domain[data-domain="hrd"] .defbox    { border-color: var(--a-hrd); }
+    .domain[data-domain="od"] .defbox     { border-color: var(--a-od); }
+    .defbox .def-label {
+      font-family: var(--font-en); font-size: 10px; letter-spacing: 0.26em;
+      color: var(--c-ink3); display: block; margin-bottom: 8px;
+    }
+    .defbox p { font-size: 13px; line-height: 1.95; color: var(--c-ink2); }
+    .defbox .src { font-size: 11px; color: var(--c-ink3); display: block; margin-top: 6px; }
+
+    /* sub-block label */
+    .sub-label { display: flex; align-items: baseline; gap: 14px; margin-bottom: 32px; }
+    .sub-label .en { font-family: var(--font-en); font-size: 30px; font-weight: 300; letter-spacing: 0.02em; line-height: 1; }
+    .domain[data-domain="design"] .sub-label .en { color: var(--a-design); }
+    .domain[data-domain="hrd"] .sub-label .en    { color: var(--a-hrd); }
+    .domain[data-domain="od"] .sub-label .en     { color: var(--a-od); }
+    .sub-label .ja { font-family: var(--font-serif); font-size: 19px; font-weight: 700; color: var(--c-ink); }
+
+    /* 課題 */
+    .issues { display: grid; gap: 0; margin-bottom: 80px; border-top: 1px solid var(--c-line); }
+    .issue {
+      display: grid; grid-template-columns: 64px 1fr; gap: 20px; align-items: baseline;
+      padding: 24px 0; border-bottom: 1px solid var(--c-line);
+    }
+    .issue .n { font-family: var(--font-en); font-size: 30px; font-weight: 300; color: var(--c-ink3); line-height: 1; }
+    .issue h4 { font-family: var(--font-serif); font-size: 17px; font-weight: 700; line-height: 1.6; color: var(--c-ink); }
+
+    /* ソリューション */
+    .sols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 80px; }
+    .sol {
+      background: var(--c-card); border: 1px solid var(--c-line); border-radius: 12px;
+      padding: 28px 22px; position: relative; overflow: hidden;
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
+    }
+    .sol::before {
+      content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 3px;
+      transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease-out);
+    }
+    .domain[data-domain="design"] .sol::before { background: linear-gradient(90deg, var(--a-design), #60a5fa); }
+    .domain[data-domain="hrd"] .sol::before    { background: linear-gradient(90deg, var(--a-hrd), #a78bfa); }
+    .domain[data-domain="od"] .sol::before     { background: linear-gradient(90deg, var(--a-od), #e879f9); }
+    .sol:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(13,31,60,0.10); }
+    .sol:hover::before { transform: scaleX(1); }
+    .sol h4 { font-family: var(--font-serif); font-size: 15px; font-weight: 700; line-height: 1.6; color: var(--c-ink); margin-bottom: 10px; }
+    .sol p { font-size: 12px; line-height: 1.85; color: var(--c-ink2); }
+
+    /* 成果イメージ */
+    .outcome {
+      border-radius: 16px; padding: 48px 48px 44px; position: relative; overflow: hidden;
+    }
+    .domain[data-domain="design"] .outcome { background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(96,165,250,0.05)); border: 1px solid rgba(37,99,235,0.18); }
+    .domain[data-domain="hrd"] .outcome    { background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(167,139,250,0.05)); border: 1px solid rgba(124,58,237,0.18); }
+    .domain[data-domain="od"] .outcome     { background: linear-gradient(135deg, rgba(192,38,211,0.08), rgba(232,121,249,0.05)); border: 1px solid rgba(192,38,211,0.18); }
+    .outcome-label {
+      font-family: var(--font-en); font-size: 11px; letter-spacing: 0.26em;
+      color: var(--c-ink3); display: block; margin-bottom: 24px;
+    }
+    .outcome ul { list-style: none; display: grid; gap: 16px; }
+    .outcome li {
+      font-family: var(--font-serif); font-size: clamp(15px, 2vw, 18px); font-weight: 500;
+      line-height: 1.8; color: var(--c-ink); padding-left: 28px; position: relative;
+    }
+    .outcome li::before {
+      content: ''; position: absolute; left: 0; top: 0.72em; width: 14px; height: 1.5px;
+    }
+    .domain[data-domain="design"] .outcome li::before { background: var(--a-design); }
+    .domain[data-domain="hrd"] .outcome li::before    { background: var(--a-hrd); }
+    .domain[data-domain="od"] .outcome li::before     { background: var(--a-od); }
+
+    /* divider between domains */
+    .dt-divider { height: 1px; background: var(--c-line); margin: 0 40px; }
+
+    /* ============================================================
+       SYNTHESIS — 3つは、連動する
+       ============================================================ */
+    .synthesis { padding: 160px 40px; position: relative; overflow: hidden; }
+    .synthesis-inner {
+      max-width: 1040px; margin: 0 auto; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .syn-circles { position: relative; height: 380px; }
+    .syn-c {
+      position: absolute; border-radius: 50%; mix-blend-mode: multiply;
+      display: flex; align-items: center; justify-content: center;
+      animation: syn-breathe 7s ease-in-out infinite;
+    }
+    .syn-c span {
+      font-family: var(--font-serif); font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+      color: rgba(13,31,60,0.55);
+    }
+    .syn-c.c1 { width: 230px; height: 230px; left: 4%; top: 6%;
+      background: radial-gradient(circle, rgba(37,99,235,0.22), rgba(37,99,235,0.07) 70%); }
+    .syn-c.c2 { width: 230px; height: 230px; right: 10%; top: 14%;
+      background: radial-gradient(circle, rgba(124,58,237,0.22), rgba(124,58,237,0.07) 70%);
+      animation-delay: -2.3s; }
+    .syn-c.c3 { width: 230px; height: 230px; left: 24%; bottom: 0;
+      background: radial-gradient(circle, rgba(192,38,211,0.20), rgba(192,38,211,0.06) 70%);
+      animation-delay: -4.6s; }
+    @keyframes syn-breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+    .syn-copy .en-label {
+      font-family: var(--font-en); font-size: 12px; letter-spacing: 0.3em;
+      color: var(--c-ink3); display: block; margin-bottom: 24px; text-transform: uppercase;
+    }
+    .syn-copy h2 {
+      font-family: var(--font-serif); font-size: clamp(30px, 4.4vw, 48px); font-weight: 700;
+      line-height: 1.5; margin-bottom: 28px;
+    }
+    .syn-copy h2 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--a-design), var(--a-od));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .syn-copy p { font-size: 14px; line-height: 2.2; color: var(--c-ink2); margin-bottom: 18px; }
+
+    /* ============================================================
+       FINAL CTA / FOOTER
+       ============================================================ */
+    .lp-final-cta {
+      background: linear-gradient(135deg, #0d1f3c 0%, #1e3a8a 50%, #2d1b69 100%);
+      color: #fff;
+    }
+    .lp-final-cta h2 { color: #fff; }
+    .lp-final-cta p  { color: rgba(255,255,255,0.7); }
+    .final-btn-primary {
+      padding: 16px 44px; background: #ffffff; color: var(--c-ink);
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em;
+      border: none; cursor: pointer; transition: all 0.3s; border-radius: 100px;
+    }
+    .final-btn-primary:hover { background: #e8f0fe; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .final-btn-secondary {
+      padding: 15px 44px; background: transparent; color: #ffffff;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+      border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; border-radius: 100px;
+    }
+    .final-btn-secondary:hover { border-color: #fff; transform: translateY(-2px); }
+    .lp-footer { background: #0d1f3c; color: rgba(255,255,255,0.35); border-top-color: rgba(255,255,255,0.08); }
+    .lp-footer a { color: rgba(255,255,255,0.5); }
+
+    /* ── SVG stroke-draw ── */
+    .draw path, .draw line, .draw circle, .draw rect, .draw polyline {
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      transition: stroke-dashoffset 1.6s var(--ease-in-out);
+    }
+    .draw.drawn path, .draw.drawn line, .draw.drawn circle, .draw.drawn rect, .draw.drawn polyline {
+      stroke-dashoffset: 0;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1100px) {
+      .rail { display: none; }
+    }
+    @media (max-width: 900px) {
+      .map-grid { grid-template-columns: 1fr; gap: 18px; }
+      .lens { padding: 32px 28px 28px; }
+      .lens-motif { height: 64px; }
+      .lens-motif svg { height: 64px; }
+      .domain-head { grid-template-columns: 1fr; gap: 24px; }
+      .domain-motif { justify-content: flex-start; }
+      .sols { grid-template-columns: 1fr 1fr; }
+      .synthesis-inner { grid-template-columns: 1fr; gap: 40px; }
+      .syn-circles { height: 320px; max-width: 440px; margin: 0 auto; }
+    }
+    @media (max-width: 768px) {
+      .dt-hero { padding: 120px 24px 70px; min-height: 78vh; }
+      .dt-hero-sub { font-size: 14px; }
+      .map-section { padding: 80px 24px 90px; }
+      .domain { padding: 100px 24px; }
+      .synthesis { padding: 110px 24px; }
+      .dt-divider { margin: 0 16px; }
+      .gm { top: 32px; }
+      .outcome { padding: 36px 28px 32px; }
+      .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 15px 24px; }
+      .dt-hero-cta { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .dt-hero { padding: 104px 16px 60px; }
+      .map-section { padding: 64px 16px 72px; }
+      .map-label .en { font-size: 38px; }
+      .domain { padding: 84px 16px; }
+      .sols { grid-template-columns: 1fr; }
+      .issue { grid-template-columns: 44px 1fr; gap: 12px; padding: 20px 0; }
+      .issue .n { font-size: 22px; }
+      .issue h4 { font-size: 15px; }
+      .defbox { padding: 14px 18px; }
+      .syn-circles { height: 260px; }
+      .syn-c { transform-origin: center; }
+      .syn-c.c1, .syn-c.c2, .syn-c.c3 { width: 170px; height: 170px; }
+      .synthesis { padding: 90px 16px; }
+      .outcome li { padding-left: 22px; }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .ht-line > span, .dt-hero-sub, .dt-hero-eyebrow, .dt-hero-cta { transition: none; transform: none; opacity: 1; }
+      .gm-track, .syn-c, .dt-hero-glow, .dt-hero-scroll-line::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="lp-header" id="lp-header">
+    <a href="index.html" class="lp-header-logo">
+      <span class="logo-mark">BWH</span>
+      <span class="logo-text">総合研究所</span>
+    </a>
+    <a href="lp-hr.html" class="lp-header-back">人事の右腕 トップへ戻る</a>
+  </header>
+
+  <!-- PROGRESS RAIL -->
+  <nav class="rail" id="rail" aria-label="ページ内ナビゲーション">
+    <a class="rail-dot" data-rail="design" href="#design"><i></i><span>01 — 組織設計</span></a>
+    <a class="rail-dot" data-rail="hrd" href="#hrd"><i></i><span>02 — 人材開発</span></a>
+    <a class="rail-dot" data-rail="od" href="#od"><i></i><span>03 — 組織開発</span></a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="dt-hero" id="hero">
+    <div class="dt-hero-glow g1"></div>
+    <div class="dt-hero-glow g2"></div>
+    <div class="dt-hero-glow g3"></div>
+    <div class="dt-hero-content">
+      <p class="dt-hero-eyebrow">BWH Research Institute — HR Service</p>
+      <h1 class="dt-hero-title">
+        <span class="ht-line"><span>人と組織の課題は、</span></span>
+        <span class="ht-line"><span><em>3つのレンズ</em>で</span></span>
+        <span class="ht-line"><span>整理できる。</span></span>
+      </h1>
+      <p class="dt-hero-sub">「人や組織を、なんとかしたい」。その漠然とした感覚は、組織設計・人材開発・組織開発という3つのレンズで見ると、手をつけるべき場所が見えてきます。</p>
+      <div class="dt-hero-cta">
+        <a href="#map" class="btn-primary">3つのレンズを見る</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc2eHUy1JeRPg17E6asX3A_j6NY2b4Jxyb1N6jSdifA1vU_gQ/viewform" target="_blank" rel="noopener noreferrer" class="btn-ghost">問い合わせをする</a>
+      </div>
+    </div>
+    <div class="dt-hero-scroll">
+      <span>SCROLL</span>
+      <div class="dt-hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- OVERVIEW MAP -->
+  <section class="map-section" id="map">
+    <div class="map-inner">
+      <div class="map-label lp-fade">
+        <span class="en">Overview</span>
+        <span class="ja">全体像</span>
+      </div>
+      <h2 class="map-title lp-fade">どこから手をつけるかを、<br>この地図で決める。</h2>
+      <p class="map-desc lp-fade">3つのレンズは、人と組織の課題を「構造」「個人」「関係性」に分解する見方です。御社のお悩みは、どのレンズの話でしょうか。</p>
+
+      <div class="map-grid">
+        <a class="lens lp-fade" data-lens="design" href="#design">
+          <div class="lens-num">01</div>
+          <div class="lens-motif">
+            <svg class="draw" viewBox="0 0 200 88" fill="none" stroke="#2563eb" stroke-width="1.3">
+              <rect x="10" y="10" width="48" height="30" rx="3"/>
+              <rect x="76" y="10" width="48" height="30" rx="3"/>
+              <rect x="142" y="10" width="48" height="30" rx="3"/>
+              <rect x="43" y="56" width="48" height="24" rx="3"/>
+              <rect x="109" y="56" width="48" height="24" rx="3"/>
+              <line x1="34" y1="40" x2="67" y2="56"/>
+              <line x1="100" y1="40" x2="67" y2="56"/>
+              <line x1="100" y1="40" x2="133" y2="56"/>
+              <line x1="166" y1="40" x2="133" y2="56"/>
+            </svg>
+          </div>
+          <span class="lens-tag">骨格を、つくる</span>
+          <h3>組織設計</h3>
+          <span class="en-name">Organization Design</span>
+          <p>戦略を実行できる「形」に、仕事と責任を分け直す。等級・評価・報酬、役割、会議体——構造とルールのレンズ。</p>
+          <span class="lens-more">詳しく見る</span>
+        </a>
+
+        <a class="lens lp-fade" data-lens="hrd" href="#hrd">
+          <div class="lens-num">02</div>
+          <div class="lens-motif">
+            <svg class="draw" viewBox="0 0 200 88" fill="none" stroke="#7c3aed" stroke-width="1.3">
+              <polyline points="10,78 52,78 52,58 94,58 94,38 136,38 136,18 178,18"/>
+              <path d="M168 8l10 10-10 10"/>
+              <circle cx="31" cy="70" r="5"/>
+              <circle cx="73" cy="50" r="5"/>
+              <circle cx="115" cy="30" r="5"/>
+            </svg>
+          </div>
+          <span class="lens-tag">筋力を、育てる</span>
+          <h3>人材開発</h3>
+          <span class="en-name">Human Resource Development</span>
+          <p>一人ひとりの学びを、業績につながる行動に変える。育成体系、研修、管理職育成——個人の成長のレンズ。</p>
+          <span class="lens-more">詳しく見る</span>
+        </a>
+
+        <a class="lens lp-fade" data-lens="od" href="#od">
+          <div class="lens-num">03</div>
+          <div class="lens-motif">
+            <svg class="draw" viewBox="0 0 200 88" fill="none" stroke="#c026d3" stroke-width="1.3">
+              <circle cx="30" cy="44" r="9"/>
+              <circle cx="100" cy="18" r="9"/>
+              <circle cx="100" cy="70" r="9"/>
+              <circle cx="170" cy="44" r="9"/>
+              <path d="M38 38C60 24 80 20 91 19"/>
+              <path d="M38 50C60 64 80 68 91 69"/>
+              <path d="M109 20C131 24 151 32 163 38"/>
+              <path d="M109 68C131 64 151 56 163 50"/>
+              <path d="M100 27v34"/>
+            </svg>
+          </div>
+          <span class="lens-tag">血流を、めぐらせる</span>
+          <h3>組織開発</h3>
+          <span class="en-name">Organization Development</span>
+          <p>制度でも個人でもなく、「人と人の間」に働きかける。対話、理念浸透、関係性——組織のプロセスのレンズ。</p>
+          <span class="lens-more">詳しく見る</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="dt-divider"></div>
+
+  <!-- ================= 01 組織設計 ================= -->
+  <section class="domain" data-domain="design" id="design">
+    <div class="gm"><span class="gm-track">ORGANIZATION DESIGN&ensp;—&ensp;ORGANIZATION DESIGN&ensp;—&ensp;ORGANIZATION DESIGN&ensp;—&ensp;ORGANIZATION DESIGN&ensp;—&ensp;</span></div>
+    <div class="domain-inner">
+      <span class="domain-chapter lp-fade">01</span>
+      <div class="domain-head">
+        <div class="domain-title-wrap lp-fade">
+          <span class="metaphor">骨格を、つくる</span>
+          <h2 class="domain-title">組織設計</h2>
+          <span class="domain-en">Organization Design</span>
+        </div>
+        <div class="domain-motif lp-fade">
+          <svg class="draw" viewBox="0 0 280 150" fill="none" stroke="#2563eb" stroke-width="1.2">
+            <rect x="20" y="16" width="68" height="40" rx="4"/>
+            <rect x="106" y="16" width="68" height="40" rx="4"/>
+            <rect x="192" y="16" width="68" height="40" rx="4"/>
+            <rect x="63" y="92" width="68" height="38" rx="4"/>
+            <rect x="149" y="92" width="68" height="38" rx="4"/>
+            <line x1="54" y1="56" x2="97" y2="92"/>
+            <line x1="140" y1="56" x2="97" y2="92"/>
+            <line x1="140" y1="56" x2="183" y2="92"/>
+            <line x1="226" y1="56" x2="183" y2="92"/>
+          </svg>
+        </div>
+      </div>
+      <p class="domain-lead lp-fade">戦略を実行できる「形」に、仕事と責任を分け直す。組織図・制度・会議体は、戦略とつながってはじめて機能します。</p>
+      <div class="defbox lp-fade">
+        <span class="def-label">DEFINITION ｜ 学術的定義</span>
+        <p>経営組織論において組織設計とは「分業と調整のメカニズムの組み合わせ」。ガルブレイスのスターモデルでは、戦略・構造・プロセス・報酬・人材の5要素を整合的に設計することが、組織パフォーマンスの条件とされる。</p>
+        <span class="src">— H. Mintzberg ／ J. Galbraith "Star Model"（1970s）</span>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Issue</span><span class="ja">こんな症状は、ありませんか</span></div>
+      <div class="issues">
+        <div class="issue lp-fade"><span class="n">01</span><h4>組織図はあるのに、誰が何に責任を持つのかが曖昧</h4></div>
+        <div class="issue lp-fade"><span class="n">02</span><h4>評価や給与の決まり方がブラックボックスで、社員に納得感がない</h4></div>
+        <div class="issue lp-fade"><span class="n">03</span><h4>部門間の連携が悪く、情報も仕事も「間」で落ちる</h4></div>
+        <div class="issue lp-fade"><span class="n">04</span><h4>戦略を変えたのに、組織が昔の形のまま動いている</h4></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Solution</span><span class="ja">打ち手の例</span></div>
+      <div class="sols">
+        <div class="sol lp-fade"><h4>等級・評価・報酬制度の設計</h4><p>誰に・何を・どう報いるかを整合させ、納得感ある制度をつくる。</p></div>
+        <div class="sol lp-fade"><h4>役割定義・職務分掌の再設計</h4><p>「誰が・何を・どこまで」を言語化する。分業の設計。</p></div>
+        <div class="sol lp-fade"><h4>会議体・意思決定プロセスの設計</h4><p>情報と判断の流れをつなぎ直す。調整の設計。</p></div>
+        <div class="sol lp-fade"><h4>組織構造の見直し</h4><p>事業・機能軸の再編で、戦略と組織の形を一致させる。</p></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Outcome</span><span class="ja">目指す状態</span></div>
+      <div class="outcome lp-fade">
+        <span class="outcome-label">AFTER — こうなっている</span>
+        <ul>
+          <li>戦略と組織の形が一致し、「誰が・何を・どこまで」が言語化されている</li>
+          <li>評価・処遇の基準が開かれ、社員が納得して働いている</li>
+          <li>部門間の調整コストが下がり、意思決定が速くなっている</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="dt-divider"></div>
+
+  <!-- ================= 02 人材開発 ================= -->
+  <section class="domain" data-domain="hrd" id="hrd">
+    <div class="gm"><span class="gm-track">HUMAN RESOURCE DEVELOPMENT&ensp;—&ensp;HUMAN RESOURCE DEVELOPMENT&ensp;—&ensp;HUMAN RESOURCE DEVELOPMENT&ensp;—&ensp;</span></div>
+    <div class="domain-inner">
+      <span class="domain-chapter lp-fade">02</span>
+      <div class="domain-head">
+        <div class="domain-title-wrap lp-fade">
+          <span class="metaphor">筋力を、育てる</span>
+          <h2 class="domain-title">人材開発</h2>
+          <span class="domain-en">Human Resource Development</span>
+        </div>
+        <div class="domain-motif lp-fade">
+          <svg class="draw" viewBox="0 0 280 150" fill="none" stroke="#7c3aed" stroke-width="1.2">
+            <polyline points="16,132 72,132 72,100 128,100 128,68 184,68 184,36 250,36"/>
+            <path d="M236 22l14 14-14 14"/>
+            <circle cx="44" cy="120" r="7"/>
+            <circle cx="100" cy="88" r="7"/>
+            <circle cx="156" cy="56" r="7"/>
+            <circle cx="214" cy="26" r="7"/>
+          </svg>
+        </div>
+      </div>
+      <p class="domain-lead lp-fade">一人ひとりの学びを、業績につながる行動に変える。「学んだだけ」で終わらせない仕組みが、育成の成否を分けます。</p>
+      <div class="defbox lp-fade">
+        <span class="def-label">DEFINITION ｜ 学術的定義</span>
+        <p>ナドラーは人材開発を「雇用主が提供する組織的な学習経験であり、パフォーマンス向上と個人の成長をもたらすもの」と定義。中原淳は「企業がビジネスの目的を達成するために、人のスキルや気持ちを整えること」とし、学びが経営のインパクトにつながらない状態を最大の落とし穴と指摘する。</p>
+        <span class="src">— L. Nadler（1970）／ 中原淳</span>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Issue</span><span class="ja">こんな症状は、ありませんか</span></div>
+      <div class="issues">
+        <div class="issue lp-fade"><span class="n">01</span><h4>研修をやっても、現場の行動が変わらない</h4></div>
+        <div class="issue lp-fade"><span class="n">02</span><h4>管理職が「プレイヤーの延長」のままで、マネジメントを学ぶ機会がない</h4></div>
+        <div class="issue lp-fade"><span class="n">03</span><h4>育成がOJT任せ・属人的で、配属先によって成長に差が出る</h4></div>
+        <div class="issue lp-fade"><span class="n">04</span><h4>次世代の幹部候補が育っていない</h4></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Solution</span><span class="ja">打ち手の例</span></div>
+      <div class="sols">
+        <div class="sol lp-fade"><h4>育成体系の設計</h4><p>等級と連動した「誰に・何を・どの順で」の全体設計。</p></div>
+        <div class="sol lp-fade"><h4>階層別研修・管理職育成</h4><p>役割の転換点に合わせた学びを、単発で終わらせず積み上げる。</p></div>
+        <div class="sol lp-fade"><h4>OJT・1on1の仕組み化</h4><p>現場の育成を属人技から、仕組みに変える。</p></div>
+        <div class="sol lp-fade"><h4>学び続ける文化の設計</h4><p>リスキリング・学習習慣が自然に回る環境をつくる。</p></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Outcome</span><span class="ja">目指す状態</span></div>
+      <div class="outcome lp-fade">
+        <span class="outcome-label">AFTER — こうなっている</span>
+        <ul>
+          <li>学びが現場の行動変化と業績につながっている</li>
+          <li>管理職が自分の言葉でマネジメントできている</li>
+          <li>育成が仕組みで回り、属人性が下がっている</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="dt-divider"></div>
+
+  <!-- ================= 03 組織開発 ================= -->
+  <section class="domain" data-domain="od" id="od">
+    <div class="gm"><span class="gm-track">ORGANIZATION DEVELOPMENT&ensp;—&ensp;ORGANIZATION DEVELOPMENT&ensp;—&ensp;ORGANIZATION DEVELOPMENT&ensp;—&ensp;</span></div>
+    <div class="domain-inner">
+      <span class="domain-chapter lp-fade">03</span>
+      <div class="domain-head">
+        <div class="domain-title-wrap lp-fade">
+          <span class="metaphor">血流を、めぐらせる</span>
+          <h2 class="domain-title">組織開発</h2>
+          <span class="domain-en">Organization Development</span>
+        </div>
+        <div class="domain-motif lp-fade">
+          <svg class="draw" viewBox="0 0 280 150" fill="none" stroke="#c026d3" stroke-width="1.2">
+            <circle cx="42" cy="75" r="13"/>
+            <circle cx="140" cy="28" r="13"/>
+            <circle cx="140" cy="122" r="13"/>
+            <circle cx="238" cy="75" r="13"/>
+            <path d="M53 66C84 44 112 33 126 30"/>
+            <path d="M53 84C84 106 112 117 126 120"/>
+            <path d="M154 31C185 36 213 52 227 64"/>
+            <path d="M154 119C185 114 213 98 227 86"/>
+            <path d="M140 41v68"/>
+          </svg>
+        </div>
+      </div>
+      <p class="domain-lead lp-fade">制度でも個人でもなく、「人と人の間」に働きかける。会議の空気、理念の浸透、部門の壁——目に見えにくいものこそ、組織の動きを決めています。</p>
+      <div class="defbox lp-fade">
+        <span class="def-label">DEFINITION ｜ 学術的定義</span>
+        <p>ベックハードの古典的定義では「行動科学の知識を用いて組織プロセスに計画的に介入し、組織の効果性と健全さを高める、組織全体の計画的な努力」。ウォリックは組織開発の目的として健全性・効果性・自己革新力の3つを挙げる。対象は制度や個人ではなく、人と人との関係性・プロセス。</p>
+        <span class="src">— R. Beckhard（1969）／ D. Warrick（2005）</span>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Issue</span><span class="ja">こんな症状は、ありませんか</span></div>
+      <div class="issues">
+        <div class="issue lp-fade"><span class="n">01</span><h4>会議で本音が出ない。決まったことが実行されない</h4></div>
+        <div class="issue lp-fade"><span class="n">02</span><h4>理念やバリューが額縁の中にあり、日々の行動につながらない</h4></div>
+        <div class="issue lp-fade"><span class="n">03</span><h4>部門・世代の間に見えない壁がある</h4></div>
+        <div class="issue lp-fade"><span class="n">04</span><h4>良い人が辞めていくが、理由がつかめない</h4></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Solution</span><span class="ja">打ち手の例</span></div>
+      <div class="sols">
+        <div class="sol lp-fade"><h4>理念・MVVの浸透設計</h4><p>言葉を、日々の行動と判断に翻訳する仕掛けをつくる。</p></div>
+        <div class="sol lp-fade"><h4>会議体の再設計・ファシリテーション</h4><p>対話の質に介入し、決まる会議・動く会議に変える。</p></div>
+        <div class="sol lp-fade"><h4>組織サーベイ・診断とフィードバック</h4><p>見えない関係性を可視化し、対話の入口をつくる。</p></div>
+        <div class="sol lp-fade"><h4>部門を越えた対話の場づくり</h4><p>チームビルディング・越境対話で壁をほどく。</p></div>
+      </div>
+
+      <div class="sub-label lp-fade"><span class="en">Outcome</span><span class="ja">目指す状態</span></div>
+      <div class="outcome lp-fade">
+        <span class="outcome-label">AFTER — こうなっている</span>
+        <ul>
+          <li>本音が言える関係性の上で、決めたことが実行されている</li>
+          <li>理念が日々の判断と行動の基準として使われている</li>
+          <li>組織が自ら課題に気づき、修正できる——自己革新力が育っている</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="dt-divider"></div>
+
+  <!-- SYNTHESIS -->
+  <section class="synthesis" id="synthesis">
+    <div class="synthesis-inner">
+      <div class="syn-circles lp-fade">
+        <div class="syn-c c1"><span>組織設計</span></div>
+        <div class="syn-c c2"><span>人材開発</span></div>
+        <div class="syn-c c3"><span>組織開発</span></div>
+      </div>
+      <div class="syn-copy">
+        <span class="en-label lp-fade">Synthesis</span>
+        <h2 class="lp-fade">3つは、<em>連動</em>する。</h2>
+        <p class="lp-fade">制度だけ変えても、人が育っていなければ回らない。研修だけしても、評価が古いままなら行動は元に戻る。対話だけ増やしても、構造が変わらなければ壁は残る。</p>
+        <p class="lp-fade">だから、個別最適ではなく3つのレンズで全体を診て、御社に合った順番で手を打つ。それが、BWHの「人事の右腕」です。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="lp-final-cta" id="contact">
+    <div class="lp-section-inner">
+      <h2 class="lp-fade">まず、話してみませんか。</h2>
+      <p class="lp-fade">「どのレンズの話か分からない」という状態でかまいません。<br>初回は、3つのレンズで御社の状況を一緒に整理するところから始めます。</p>
+      <div class="lp-cta-group lp-fade" style="justify-content:center;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc2eHUy1JeRPg17E6asX3A_j6NY2b4Jxyb1N6jSdifA1vU_gQ/viewform" target="_blank" rel="noopener noreferrer" class="final-btn-primary">問い合わせをする</a>
+        <a href="lp-hr.html" class="final-btn-secondary">人事の右腕 トップへ戻る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="lp-footer">
+    <a href="index.html">© 2023 合同会社 BWH総合研究所</a>
+  </footer>
+
+  <script src="lp-common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ── Hero kinetic reveal ──
+      setTimeout(() => document.body.classList.add('loaded'), 120);
+
+      // ── SVG stroke-draw (normalize path lengths, then observe) ──
+      document.querySelectorAll('.draw').forEach(svg => {
+        svg.querySelectorAll('path, line, circle, rect, polyline').forEach(el => {
+          el.setAttribute('pathLength', '1');
+        });
+      });
+      const drawObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('drawn');
+            drawObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.35 });
+      document.querySelectorAll('.draw').forEach(svg => drawObserver.observe(svg));
+
+      // ── Scroll-driven theme crossfade + rail state ──
+      const domains = document.querySelectorAll('.domain');
+      const railDots = document.querySelectorAll('.rail-dot');
+      const rail = document.getElementById('rail');
+
+      const themeObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const d = e.target.dataset.domain;
+            document.body.dataset.theme = d;
+            railDots.forEach(dot => dot.classList.toggle('active', dot.dataset.rail === d));
+          }
+        });
+      }, { threshold: 0.30 });
+      domains.forEach(s => themeObserver.observe(s));
+
+      // back to base theme outside domain sections
+      const resetZones = document.querySelectorAll('#map, #synthesis');
+      const resetObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            document.body.dataset.theme = 'base';
+            railDots.forEach(dot => dot.classList.remove('active'));
+          }
+        });
+      }, { threshold: 0.45 });
+      resetZones.forEach(s => resetObserver.observe(s));
+
+      // rail visibility: show after hero
+      const hero = document.getElementById('hero');
+      const heroObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => rail.classList.toggle('show', !e.isIntersecting));
+      }, { threshold: 0.25 });
+      heroObserver.observe(hero);
+    });
+  </script>
+</body>
+</html>
