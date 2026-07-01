@@ -121,11 +121,12 @@
   .wip p{font-size:clamp(15px,1.7vw,18px);line-height:1.9;color:#aebccf;}
   /* スライドビューア（library：AI導入がもたらすもの） */
   .deck{max-width:1040px;margin:0 auto;}
-  .deck-stage{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--glassb);background:#04101c;box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 42px rgba(6,182,212,.12);}
+  .deck-viewer{display:flex;align-items:center;gap:14px;}
+  .deck-stage{position:relative;flex:1;min-width:0;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--glassb);background:#04101c;box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 42px rgba(6,182,212,.12);}
   .deck-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#050c1a;cursor:pointer;}
-  .deck-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid var(--glassb);background:rgba(8,15,31,.66);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;backdrop-filter:blur(8px);transition:.18s;z-index:2;}
+  .deck-nav{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--glassb);background:rgba(8,15,31,.66);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;backdrop-filter:blur(8px);transition:.18s;}
   .deck-nav:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(6,182,212,.4);}
-  .deck-nav.prev{left:14px;} .deck-nav.next{right:14px;}
+  @media(max-width:640px){.deck-viewer{gap:8px;}.deck-nav{width:36px;height:36px;font-size:20px;}}
   .deck-bar{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px;}
   .deck-dots{display:flex;gap:8px;}
   .deck-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(148,163,192,.4);cursor:pointer;padding:0;transition:.2s;}
@@ -398,8 +399,7 @@ function buildDeck(folder,N){
   const pad=n=>String(n+1).padStart(2,'0'); let i=0;
   let grid='';
   for(let k=0;k<N;k++){grid+=`<button class="thumb" data-k="${k}"><span class="n">${pad(k)}</span><img src="assets/${folder}/${pad(k)}.png" alt="スライド${k+1}"></button>`;}
-  el.innerHTML=`<div class="deck-stage"><img id="deckimg" src="assets/${folder}/01.png" alt="スライド1">
-    <button class="deck-nav prev" aria-label="前へ">‹</button><button class="deck-nav next" aria-label="次へ">›</button></div>
+  el.innerHTML=`<div class="deck-viewer"><button class="deck-nav prev" aria-label="前へ">‹</button><div class="deck-stage"><img id="deckimg" src="assets/${folder}/01.png" alt="スライド1"></div><button class="deck-nav next" aria-label="次へ">›</button></div>
     <div class="deck-bar"><div class="deck-dots" id="deckdots"></div><div class="deck-counter" id="deckcount">1 / ${N}</div></div>
     <div class="deck-overview"><div class="deck-ov-label">Overview ・ 全${N}ページ</div><div class="deck-grid" id="deckgrid">${grid}</div></div>`;
   const img=el.querySelector('#deckimg'),dots=el.querySelector('#deckdots'),count=el.querySelector('#deckcount'),stage=el.querySelector('.deck-stage'),thumbs=[...el.querySelectorAll('.thumb')];
