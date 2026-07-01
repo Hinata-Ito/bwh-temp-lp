@@ -1,0 +1,21 @@
+<svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1a36"/><stop offset="1" stop-color="#050f1e"/></linearGradient>
+<linearGradient id="ne" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#06b6d4"/><stop offset=".5" stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient>
+<pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="#3b82f6" stroke-width="1"/></pattern>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="440" height="200" fill="url(#bg)"/>
+<circle cx="70" cy="34" r="95" fill="#06b6d4" opacity=".13"/>
+<circle cx="386" cy="180" r="110" fill="#8b5cf6" opacity=".12"/>
+<rect width="440" height="200" fill="url(#grid)" opacity=".12"/>
+<g filter="url(#glow)" fill="none" stroke="#7fe9ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="120" y="52" width="200" height="96" rx="12" fill="#3b82f6" fill-opacity=".10"/>
+  <path d="M120 70H320 M120 130H320"/>
+  <g stroke-width="2.4" opacity=".85">
+    <path d="M134 52V70 M158 52V70 M182 52V70 M206 52V70 M230 52V70 M254 52V70 M278 52V70 M302 52V70"/>
+    <path d="M134 130V148 M158 130V148 M182 130V148 M206 130V148 M230 130V148 M254 130V148 M278 130V148 M302 130V148"/>
+  </g>
+  <path d="M205 80 L242 100 L205 120 Z" fill="#7fe9ff" stroke="none"/>
+</g>
+</svg>

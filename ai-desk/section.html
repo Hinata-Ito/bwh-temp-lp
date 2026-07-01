@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE HOLO DESK ｜ セクション</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#050c1a;--cyan:#06b6d4;--blue:#3b82f6;--violet:#8b5cf6;--ink:#e8f0fe;--muted:#94a3c0;
+    --glass:rgba(255,255,255,.04);--glassb:rgba(59,130,246,.2);--grad:linear-gradient(120deg,var(--cyan),var(--blue),var(--violet));
+    --serif:"Noto Serif JP",serif;--en:"Cormorant Garamond",serif;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{min-height:100%;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;}
+  #bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(1100px 760px at 75% -8%,rgba(59,130,246,.14),transparent 60%),radial-gradient(900px 700px at 8% 110%,rgba(139,92,246,.14),transparent 60%),var(--bg);}
+  #bgimg{position:fixed;inset:0;z-index:-3;background-position:center;background-size:cover;opacity:0;transition:opacity 1.2s;}
+  #bgscrim{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,12,26,.62),rgba(5,12,26,.88));}
+  .grid{position:fixed;inset:0;z-index:-2;opacity:.22;pointer-events:none;background-image:linear-gradient(rgba(59,130,246,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.12) 1px,transparent 1px);background-size:46px 46px;mask-image:radial-gradient(120% 80% at 50% 26%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(120% 80% at 50% 26%,#000 30%,transparent 75%);}
+  .back{position:fixed;top:22px;left:22px;z-index:5;display:inline-flex;align-items:center;gap:8px;cursor:pointer;background:rgba(8,15,31,.7);border:1px solid var(--glassb);color:var(--ink);border-radius:99px;padding:10px 18px;font-size:13px;font-weight:700;backdrop-filter:blur(8px);transition:.18s;}
+  .back:hover{border-color:var(--cyan);box-shadow:0 0 22px rgba(6,182,212,.35);}
+  .sheet{max-width:840px;margin:0 auto;padding:94px 28px 84px;position:relative;z-index:1;opacity:0;transform:translateY(14px);animation:rise .8s .35s ease forwards;}
+  .sheet.wide{max-width:1080px;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  .ey{font-family:var(--en);letter-spacing:.26em;text-transform:uppercase;font-size:14px;color:var(--cyan);}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5.5vw,50px);line-height:1.2;margin:8px 0 6px;}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .sub{color:var(--muted);font-size:15px;margin-bottom:30px;}
+  .lead{font-size:clamp(20px,2.3vw,28px);line-height:1.95;color:#dbe6f5;max-width:880px;}
+  .rule{width:64px;height:3px;background:var(--grad);border-radius:2px;margin:26px 0;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:28px;}
+  .card{background:var(--glass);border:1px solid var(--glassb);border-radius:14px;padding:22px 24px;backdrop-filter:blur(10px);transition:.2s;}
+  .card:hover{border-color:rgba(6,182,212,.4);box-shadow:0 0 30px rgba(6,182,212,.12);transform:translateY(-3px);}
+  .card h3{font-family:var(--serif);font-size:21px;color:var(--cyan);margin-bottom:8px;}
+  .card p{font-size:17px;line-height:1.7;color:#c2cee2;}
+  .cl{font-family:var(--en);font-size:12px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase;margin:8px 0 4px;}
+  .promptbox{font-family:var(--en);font-size:16px;background:#04101c;border:1px solid rgba(6,182,212,.3);border-radius:10px;padding:11px 14px;color:#bfeefb;line-height:1.55;}
+  .note{margin-top:30px;font-size:13px;color:var(--muted);border-left:3px solid var(--violet);padding-left:12px;line-height:1.8;}
+  .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+  .pill{font-size:13px;padding:8px 15px;border-radius:99px;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);color:#bfeefb;}
+  /* --- 自己紹介（万年筆が名前を書く） --- */
+  .sig{position:relative;display:inline-block;margin:2px 0 2px;z-index:3;}
+  .sig .name{display:inline-block;white-space:nowrap;font-family:var(--serif);font-weight:700;font-size:clamp(40px,5vw,76px);line-height:1.1;letter-spacing:.05em;
+    background:linear-gradient(120deg,#cdeffb,#cfe0ff,#d6c8ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+    clip-path:inset(0 100% 0 0);animation:writeName 1.9s .5s cubic-bezier(.55,.08,.2,1) forwards;}
+  @keyframes writeName{to{clip-path:inset(0 0 0 0);}}
+  .sig .ul{position:absolute;left:0;bottom:-8px;height:2px;width:100%;background:var(--grad);transform:scaleX(0);transform-origin:left;animation:drawUl 1.9s .5s cubic-bezier(.55,.08,.2,1) forwards;border-radius:2px;}
+  @keyframes drawUl{to{transform:scaleX(1);}}
+  .sig .pen{position:absolute;top:-42px;left:0;width:110px;pointer-events:none;z-index:4;transform:rotate(28deg);transform-origin:bottom left;
+    filter:drop-shadow(0 0 12px rgba(70,160,255,.55));opacity:0;animation:movePen 1.9s .5s cubic-bezier(.55,.08,.2,1) forwards;}
+  @keyframes movePen{0%{opacity:0;left:-10px;}10%{opacity:1;}100%{opacity:1;left:calc(100% - 46px);}}  /* 書き終わりに右側へ残す */
+  .sig .romaji{display:block;font-family:var(--en);font-style:italic;font-size:clamp(20px,3vw,32px);color:#a7cbe8;letter-spacing:.04em;margin-top:16px;opacity:0;animation:fadeUp .8s 2.1s ease forwards;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .tagline{font-family:var(--serif);font-size:clamp(15px,1.8vw,19px);color:#bfd2ea;margin-top:14px;opacity:0;animation:fadeUp .8s 2.4s ease forwards;}
+  .profrow{display:grid;grid-template-columns:210px 1fr;gap:32px;align-items:start;margin-top:10px;}
+  .photo{width:210px;height:252px;border-radius:14px;overflow:hidden;border:1px solid var(--glassb);background:#0a1426;position:relative;box-shadow:0 0 30px rgba(6,182,212,.12);}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo.noimg::after{content:'PHOTO';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--en);letter-spacing:.22em;font-size:14px;}
+  .base{margin-top:22px;font-size:17px;color:var(--muted);}
+  .timeline{margin-top:22px;border-left:2px solid var(--glassb);padding-left:18px;}
+  .timeline div{font-size:17px;color:#c2cee2;margin:10px 0;}
+  .timeline div b{font-family:var(--en);color:var(--cyan);margin-right:14px;letter-spacing:.04em;}
+  .links{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;}
+  .links a{font-family:var(--en);font-size:15px;letter-spacing:.05em;color:var(--cyan);text-decoration:none;border:1px solid var(--glassb);border-radius:99px;padding:7px 18px;transition:.18s;}
+  .links a:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(6,182,212,.3);}
+  @media(max-width:680px){.profrow{grid-template-columns:1fr;}.photo{width:100%;height:300px;}}
+  /* 自己紹介：エディトリアル縦型 */
+  .g-hero{display:grid;grid-template-columns:auto 400px;gap:54px;justify-content:center;align-items:center;margin:6px 0 4px;}
+  .g-photo{position:relative;}
+  .g-photo img{width:100%;border-radius:16px;display:block;box-shadow:0 26px 60px rgba(0,0,0,.5);border:1px solid var(--glassb);}
+  .g-photo::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 -70px 60px -34px rgba(5,12,26,.72);pointer-events:none;}
+  .roles{list-style:none;margin:26px 0 0;padding:0;}
+  .roles li{position:relative;padding-left:22px;font-size:clamp(17px,1.9vw,22px);line-height:1.95;color:#dbe6f5;}
+  .roles li::before{content:"";position:absolute;left:0;top:.82em;width:9px;height:9px;border-radius:2px;background:var(--grad);}
+  .eyebrow-en{font-family:var(--en);font-size:clamp(18px,2vw,24px);letter-spacing:.24em;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;}
+  .g-block{margin-top:46px;border-top:1px solid var(--glassb);padding-top:40px;}
+  .svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:26px;}
+  .svc .it{background:var(--glass);border:1px solid var(--glassb);border-radius:12px;padding:18px 20px;}
+  .svc .it h3{font-family:var(--serif);font-size:23px;color:var(--cyan);margin-bottom:7px;}
+  .svc .it p{font-size:14px;line-height:1.6;color:#aebccf;}
+  .cases{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;}
+  .cases span{font-size:17px;color:#dbe6f5;border:1px solid var(--glassb);border-radius:10px;padding:12px 18px;background:rgba(255,255,255,.03);}
+  .define{margin-top:18px;font-size:clamp(15px,1.5vw,18px);line-height:1.85;color:#aebccf;border-left:3px solid var(--cyan);padding-left:16px;max-width:880px;}
+  .define b{color:#dbe6f5;} .define .dim{color:#7f93a9;}
+  /* 連鎖ステップ（AI導入がもたらすこと） */
+  .chain{margin-top:32px;}
+  .chain .step{position:relative;display:grid;grid-template-columns:54px 1fr;gap:22px;padding-bottom:32px;}
+  .chain .step:last-child{padding-bottom:0;}
+  .chain .step::before{content:"";position:absolute;left:26px;top:58px;bottom:-2px;width:2px;background:linear-gradient(var(--cyan),var(--violet));opacity:.45;}
+  .chain .step:last-child::before{display:none;}
+  .chain .num{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--en);font-size:26px;color:#eaf7ff;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 0 24px rgba(59,130,246,.45);}
+  .chain .body{padding-top:5px;}
+  .chain h3{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.2vw,26px);color:var(--ink);margin-bottom:7px;}
+  .chain p{font-size:clamp(16px,1.7vw,20px);line-height:1.85;color:#c2cee2;}
+  .chain p b{color:#eaf3ff;}
+  .closing{margin-top:34px;text-align:center;font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.6vw,30px);line-height:1.6;color:#dbe6f5;}
+  .closing .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  /* ③ AIの右腕：LP風（p07ヒーロー＋4本柱） */
+  .lp-hero{position:relative;max-width:1040px;margin:0 auto 30px;border-radius:16px;overflow:hidden;border:1px solid var(--glassb);box-shadow:0 26px 64px rgba(0,0,0,.55),0 0 46px rgba(6,182,212,.14);}
+  .lp-hero img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;}
+  .lp-tag{max-width:1000px;margin:0 auto;text-align:center;font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.2vw,26px);line-height:1.72;color:#eaf3ff;background:linear-gradient(90deg,rgba(6,182,212,.10),rgba(139,92,246,.10));border:1px solid var(--glassb);border-radius:14px;padding:20px 26px;}
+  .lp-tag b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .lp-rows{display:flex;flex-direction:column;gap:18px;margin-top:26px;}
+  .lp-row{display:grid;grid-template-columns:118px 1fr;gap:28px;align-items:center;background:var(--glass);border:1px solid var(--glassb);border-radius:16px;padding:26px 30px;backdrop-filter:blur(10px);transition:.2s;}
+  .lp-row:hover{border-color:rgba(6,182,212,.4);box-shadow:0 0 34px rgba(6,182,212,.12);transform:translateY(-2px);}
+  .lp-ic{width:118px;height:118px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,rgba(59,130,246,.2),rgba(8,15,31,.35));border:1px solid var(--glassb);}
+  .lp-ic svg{width:64px;height:64px;}
+  .lp-h{display:flex;align-items:center;gap:14px;}
+  .lp-h .no{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;font-family:var(--en);font-size:21px;color:#eaf7ff;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 0 18px rgba(59,130,246,.4);}
+  .lp-h h3{font-family:var(--serif);font-weight:700;font-size:clamp(21px,2.4vw,27px);color:#eaf3ff;}
+  .lp-sub{margin-top:7px;font-family:var(--serif);font-size:clamp(15px,1.7vw,18px);color:var(--cyan);}
+  .lp-row p{margin-top:9px;font-size:15.5px;line-height:1.8;color:#c2cee2;max-width:760px;}
+  .lp-map{margin-top:11px;display:inline-block;font-size:12px;color:#9fb6d4;border:1px solid var(--glassb);border-radius:99px;padding:4px 13px;}
+  @media(max-width:640px){.lp-row{grid-template-columns:1fr;}.lp-ic{width:88px;height:88px;}.lp-ic svg{width:50px;height:50px;}}
+  .lp-more{margin-top:24px;text-align:center;font-size:14px;color:var(--muted);}
+  .lp-more b{color:#bfeefb;}
+  /* 工事中プレースホルダ（gate） */
+  .wip{max-width:720px;margin:40px auto;text-align:center;padding:56px 34px;border:1px dashed rgba(148,163,192,.4);border-radius:18px;background:rgba(148,163,192,.04);}
+  .wip-badge{display:inline-block;font-family:var(--en);letter-spacing:.22em;text-transform:uppercase;font-size:14px;color:#9fb2cc;border:1px solid rgba(148,163,192,.45);border-radius:99px;padding:7px 20px;margin-bottom:22px;}
+  .wip-h{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,40px);color:#dbe6f5;margin-bottom:16px;}
+  .wip p{font-size:clamp(15px,1.7vw,18px);line-height:1.9;color:#aebccf;}
+  /* スライドビューア（library：AI導入がもたらすもの） */
+  .deck{max-width:1040px;margin:0 auto;}
+  .deck-stage{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--glassb);background:#04101c;box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 42px rgba(6,182,212,.12);}
+  .deck-stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#050c1a;cursor:pointer;}
+  .deck-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid var(--glassb);background:rgba(8,15,31,.66);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;backdrop-filter:blur(8px);transition:.18s;z-index:2;}
+  .deck-nav:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(6,182,212,.4);}
+  .deck-nav.prev{left:14px;} .deck-nav.next{right:14px;}
+  .deck-bar{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px;}
+  .deck-dots{display:flex;gap:8px;}
+  .deck-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(148,163,192,.4);cursor:pointer;padding:0;transition:.2s;}
+  .deck-dots button.on{background:var(--cyan);box-shadow:0 0 10px var(--cyan);width:24px;border-radius:5px;}
+  .deck-counter{font-family:var(--en);font-size:15px;color:var(--muted);letter-spacing:.12em;}
+  /* 全ページ一覧（デッキ俯瞰） */
+  .deck-overview{margin-top:40px;}
+  .deck-ov-label{font-family:var(--en);font-size:13px;letter-spacing:.24em;color:var(--cyan);text-transform:uppercase;text-align:center;margin-bottom:18px;}
+  .deck-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .deck-grid .thumb{position:relative;padding:0;border:1px solid var(--glassb);border-radius:10px;overflow:hidden;cursor:pointer;background:#04101c;aspect-ratio:16/9;transition:transform .18s,border-color .18s,box-shadow .18s;}
+  .deck-grid .thumb.hero{grid-column:1 / -1;}
+  .deck-grid .thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .deck-grid .thumb:hover{border-color:var(--cyan);box-shadow:0 0 22px rgba(6,182,212,.28);transform:translateY(-2px);}
+  .deck-grid .thumb.on{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(6,182,212,.5);}
+  .deck-grid .thumb .n{position:absolute;top:6px;left:8px;z-index:1;font-family:var(--en);font-size:12px;color:#bfeefb;background:rgba(4,16,28,.72);border-radius:6px;padding:1px 8px;}
+  @media(max-width:640px){.deck-grid{grid-template-columns:1fr;}}
+  @media(max-width:820px){.g-hero{grid-template-columns:1fr;}.g-photo{max-width:320px;}}
+  /* --- ホロ・ギャラリー（theater：事例一覧） --- */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px;}
+  @media(max-width:820px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.gallery{grid-template-columns:1fr;}}
+  .gcard{display:flex;flex-direction:column;text-align:left;cursor:pointer;padding:0;overflow:hidden;color:var(--ink);font-family:inherit;
+    background:var(--glass);border:1px solid var(--glassb);border-radius:16px;backdrop-filter:blur(10px);
+    box-shadow:0 14px 34px rgba(0,0,0,.4);transition:transform .24s,border-color .24s,box-shadow .24s;animation:gfloat 6.5s ease-in-out infinite;}
+  @keyframes gfloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+  .gcard:hover{border-color:rgba(6,182,212,.55);box-shadow:0 0 42px rgba(6,182,212,.22),0 22px 46px rgba(0,0,0,.5);transform:translateY(-8px);animation-play-state:paused;}
+  /* 実演メインの4枚＝外枠を強調 */
+  .gcard.primary{border-color:rgba(6,182,212,.85);box-shadow:inset 0 0 0 2px rgba(6,182,212,.5),0 0 30px rgba(6,182,212,.3),0 14px 34px rgba(0,0,0,.45);}
+  .gcard.primary:hover{border-color:var(--cyan);box-shadow:inset 0 0 0 2px rgba(6,182,212,.7),0 0 50px rgba(6,182,212,.4),0 22px 46px rgba(0,0,0,.5);}
+  .gthumb{position:relative;height:152px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--glassb);overflow:hidden;
+    background:radial-gradient(120% 120% at 28% 18%,rgba(6,182,212,.24),transparent 62%),linear-gradient(135deg,rgba(59,130,246,.16),rgba(139,92,246,.16));}
+  .gthumb svg{width:56px;height:56px;opacity:.92;filter:drop-shadow(0 0 12px rgba(6,182,212,.55));}
+  .gthumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .gthumb-img+span,.gthumb-img~.gtag,.gcat,.gtag{z-index:2;}
+  .gthumb::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,12,26,.45),transparent 38%);}
+  .gcat{position:absolute;top:11px;left:13px;font-family:var(--en);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#bfeefb;
+    background:rgba(4,16,28,.6);border:1px solid rgba(6,182,212,.3);border-radius:99px;padding:3px 11px;}
+  .gbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:7px;flex:1;}
+  .gbody h3{font-family:var(--serif);font-size:20px;line-height:1.35;color:var(--ink);}
+  .gbody h3 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .gbody p{font-size:14.5px;color:#aebccf;line-height:1.65;flex:1;}
+  .gcta{margin-top:8px;font-family:var(--en);font-size:14px;letter-spacing:.1em;color:var(--cyan);}
+  .gcard:hover .gcta{color:#7fe9ff;}
+  .gtag{position:absolute;top:11px;right:13px;font-size:11px;font-weight:700;letter-spacing:.12em;color:#fff;
+    background:linear-gradient(135deg,var(--violet),var(--blue));border-radius:99px;padding:3px 10px;box-shadow:0 0 16px rgba(139,92,246,.5);}
+  /* 本（3冊）の素材モチーフ：リードに回り込ませて表示 */
+  .book-motif{position:absolute;top:16px;right:16px;width:112px;filter:drop-shadow(0 0 20px rgba(6,182,212,.5));animation:gfloat 7s ease-in-out infinite;pointer-events:none;z-index:0;}
+  @media(max-width:680px){.book-motif{width:78px;top:12px;right:10px;}}
+  /* --- 事例 詳細：Before / After 切替 --- */
+  .ba{margin-top:26px;}
+  .ba-tabs{display:inline-flex;gap:6px;background:rgba(4,16,28,.5);border:1px solid var(--glassb);border-radius:99px;padding:5px;}
+  .ba-tab{cursor:pointer;border:none;background:none;color:var(--muted);font-family:inherit;font-weight:700;font-size:14px;padding:9px 24px;border-radius:99px;transition:.18s;}
+  .ba-tab.active{color:#fff;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 0 20px rgba(59,130,246,.4);}
+  .ba-panel{margin-top:18px;font-size:clamp(16px,1.8vw,20px);line-height:1.9;color:#dbe6f5;
+    background:var(--glass);border:1px solid var(--glassb);border-left:3px solid var(--cyan);border-radius:12px;padding:20px 24px;}
+  .ba-panel[hidden]{display:none;}
+  .ba-panel.before{border-left-color:#64748b;color:#bcc8da;}
+  .ba-panel .dim{display:block;margin-top:10px;color:#7f93a9;font-size:14px;line-height:1.7;}
+  /* --- デモ環境：コピー欄 --- */
+  .copyrow{margin-top:18px;}
+  .copywrap{position:relative;margin-top:7px;}
+  .copybox{font-family:ui-monospace,"SFMono-Regular",Consolas,Menlo,monospace;font-size:13px;background:#04101c;border:1px solid rgba(6,182,212,.3);border-radius:10px;
+    padding:14px 104px 14px 15px;color:#bfeefb;line-height:1.65;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;}
+  .copybtn{position:absolute;top:9px;right:9px;cursor:pointer;border:1px solid rgba(6,182,212,.4);background:rgba(6,182,212,.12);color:#bfeefb;
+    font-family:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;padding:8px 15px;border-radius:8px;transition:.16s;white-space:nowrap;}
+  .copybtn:hover{border-color:var(--cyan);box-shadow:0 0 16px rgba(6,182,212,.3);}
+  .copybtn.done{background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff;border-color:transparent;}
+  .demolinks{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 4px;}
+  .demolink{font-family:var(--en);font-size:14px;letter-spacing:.04em;color:var(--cyan);text-decoration:none;border:1px solid var(--glassb);border-radius:99px;padding:9px 18px;background:rgba(6,182,212,.08);transition:.18s;}
+  .demolink:hover{border-color:var(--cyan);box-shadow:0 0 18px rgba(6,182,212,.3);color:#7fe9ff;}
+  /* warp-in materialize */
+  #warp{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:1;transform:scale(2.6);transform-origin:50% 50%;
+    background:radial-gradient(circle at 50% 50%,#eafcff 0%,#7fe9ff 14%,#06b6d4 30%,#3b82f6 50%,transparent 72%);animation:warpfade .9s ease-out forwards;}
+  @keyframes warpfade{from{opacity:1;transform:scale(2.4);}to{opacity:0;transform:scale(1);}}
+  .scanline{position:fixed;inset:0;z-index:59;pointer-events:none;opacity:.5;background:repeating-linear-gradient(0deg,rgba(6,182,212,.08) 0 1px,transparent 1px 4px);animation:sl .9s ease-out forwards;}
+  @keyframes sl{to{opacity:0;}}
+</style>
+</head>
+<body>
+<div id="bg"></div><div id="bgimg"></div><div id="bgscrim"></div><div class="grid"></div>
+<div class="back" id="back">← <span class="en" style="letter-spacing:.08em">Back</span></div>
+<div class="sheet" id="sheet"></div>
+<div class="scanline"></div><div id="warp"></div>
+<script>
+const SEC={
+  guide:{n:'02',title:'自己紹介',sub:'',noheader:true,img:'assets/scene_guide.png',html:`
+    <div class="g-hero">
+      <div>
+        <div class="sig"><img class="pen" src="assets/tool_guide.png" alt=""><span class="name">静木銀蔵</span><span class="ul"></span><span class="romaji">Shizuki Ginzo</span></div>
+        <ul class="roles">
+          <li>合同会社BWH総合研究所　代表</li>
+          <li>Kyobo合同会社　代表</li>
+          <li>BeautyAI　COO・Founder</li>
+          <li>一般社団法人e-donuts　理事</li>
+          <li>京都大学大学院　博士課程</li>
+        </ul>
+      </div>
+      <div class="g-photo"><img src="assets/photo_ginzo.jpg" alt="静木銀蔵"></div>
+    </div>
+    <div class="g-block">
+      <div class="eyebrow-en">Career</div>
+      <div class="timeline">
+        <div><b>2017</b>福井県 藤島高校 卒業</div>
+        <div><b>2021</b>京都大学 総合人間学部 卒業</div>
+        <div><b>2023</b>京都大学大学院 修士課程 修了 ／ 株式会社エムスリー 入社</div>
+        <div><b>2024</b>京都大学大学院 博士課程 在籍</div>
+      </div>
+    </div>
+    <div class="g-block">
+      <div class="eyebrow-en">What I do</div>
+      <p class="lead">福井県の企業に<b>〈フォワード人材〉</b>として入り込み、<br>社内のメンバーと一緒に、<b>戦略から実行まで</b>を前へ進めています。</p>
+      <p class="define">〈フォワード人材〉とは——外から助言して終わりのコンサルタントではなく、<b>定期的に現場へ通い、自分も手を動かし、社内と一緒に前へ進める“半分社員”のプロ</b>。「設計」と「実行」を一人で、各社の現場で担います。<span class="dim">（シリコンバレー発の Forward Deployed Engineer の、地方版です。）</span></p>
+      <div class="svc">
+        <div class="it"><h3>戦略</h3><p>事業・組織の進む先を、現場と一緒に描く。</p></div>
+        <div class="it"><h3>組織</h3><p>人と組織の課題に伴走し、動く形にする。</p></div>
+        <div class="it"><h3>AIの右腕</h3><p>AIを実務に組み込み、定着まで支える。</p></div>
+      </div>
+    </div>
+    <div class="g-block">
+      <div class="eyebrow-en">Cases</div>
+      <p class="lead" style="font-size:clamp(16px,1.6vw,19px)">福井県内での伴走支援先</p>
+      <div class="cases">
+        <span>株式会社ALL CONNECT</span>
+        <span>OOKABE GLASS株式会社</span>
+        <span>天晴データネット株式会社</span>
+        <span>北陸非破壊株式会社</span>
+        <span>福井鐵工株式会社</span>
+      </div>
+    </div>
+    <div class="links"><a href="mailto:ginzoshizuki@gmail.com">Email</a><a href="https://x.com/gin_ukigumo" target="_blank" rel="noopener">X</a><a href="https://www.instagram.com/ginchan1212_/" target="_blank" rel="noopener">Instagram</a></div>`},
+  gate:{n:'03',title:'AIについての知識',sub:'',noheader:true,img:'assets/scene_gate.png',html:`<div class="wip"><div class="wip-badge">工事中 ・ COMING SOON</div><h2 class="wip-h">AIについての知識</h2><p>AIの基礎・仕組み・用語を、やさしく解説するコーナーを準備しています。<br>もうしばらくお待ちください。</p></div>`},
+  library:{n:'04',title:'AI導入がもたらすもの',sub:'',noheader:true,img:'assets/scene_library.png',html:`<div class="deck" id="deck"></div>`},
+  theater:{n:'05',title:'AIで出来ること',sub:'気になる事例に触れてください（一部紹介）',img:'assets/scene_theater.png',html:`<img class="book-motif" src="assets/tool_theater.png" alt=""><p class="lead">AIは、毎日の仕事の中で<b>こんなことができます</b>。</p><div class="rule"></div><div class="gallery">__CASES__</div><div class="note">※「一部紹介」です。実演は画面を実際のAIツール（ChatGPT / Claude Code / GPT-image / Seedance など）に切り替えてお見せします。</div>`},
+  checkpoint:{n:'06',title:'なぜ進まない？',sub:'',noheader:true,img:'assets/scene_checkpoint.png',html:`<div class="deck" id="deck"></div>`},
+  workshop:{n:'07',title:'AIの右腕',sub:'',noheader:true,img:'assets/scene_workshop.png',html:`<div class="lp-hero"><img src="assets/hero_migiude.png" alt="だから、AIの右腕"></div><div class="lp-tag">現場に入って<b>“AIが日常になるまで”</b><br>半分社内の<b>フォワード人材</b>として伴走します。</div><div class="lp-rows"><div class="lp-row"><div class="lp-ic"><svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 17c-5-3.6-13-3.6-19-1.6v33c6-2 14-2 19 1.6 5-3.6 13-3.6 19-1.6v-33c-6-2-14-2-19 1.6z"/><path d="M32 17v33"/></svg></div><div><div class="lp-h"><span class="no">1</span><h3>ナレッジ提供</h3></div><div class="lp-sub">最新のAIを、御社仕様の“使える知識”に翻訳する。</div><p>日々変わるAI動向・ツール・活用事例を、御社の業務文脈に合わせて共有。社員向けの研修・勉強会もここに含み、「難しそう」を「できそう」に変えます。</p><span class="lp-map">→ ②どうやって（AI知識）を供給</span></div></div><div class="lp-row"><div class="lp-ic"><svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="14" width="26" height="36" rx="3"/><path d="M25 14v-3h8v3"/><path d="M22 27l2.5 2.5 4.5-5M22 38l2.5 2.5 4.5-5"/><path d="M36 24h6M36 33h4"/></svg></div><div><div class="lp-h"><span class="no">2</span><h3>戦略設計</h3></div><div class="lp-sub">「どこから・何を」AI化するか、の地図を描く。</div><p>業務を工程に分解し、AIに“任せられる当てどころ”を選定。優先順位とロードマップに落とし込み、迷わず動ける道すじをつくります。</p><span class="lp-map">→ ①どこに・何を（業務を分解する力）</span></div></div><div class="lp-row"><div class="lp-ic"><svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="16" width="34" height="24" rx="3"/><path d="M8 46h44"/><path d="M23 25l-4 3 4 3M33 25l4 3-4 3"/><circle cx="50" cy="18" r="5"/><path d="M50 11v-2M50 27v-2M43 18h-2M59 18h-2"/></svg></div><div><div class="lp-h"><span class="no">3</span><h3>導入・実装</h3></div><div class="lp-sub">絵に描いた餅で終わらせない。実際に、つくる。</div><p>プロンプト設計・ツール連携・自動化を、私たちが現場で手を動かして構築。「で、どうやる？」を、明日から使える“仕組み”に変えます。</p><span class="lp-map">→ ②どうやって（実装）</span></div></div><div class="lp-row"><div class="lp-ic"><svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="23" r="8"/><path d="M13 47c0-8 6-13 13-13s13 5 13 13"/><path d="M41 39l5 5 10-12"/></svg></div><div><div class="lp-h"><span class="no">4</span><h3>定着支援</h3></div><div class="lp-sub">担当が抜けても回る、“自走”まで見届ける。</div><p>社員が自分で運用できるよう、マニュアル整備・運用フォロー・改善まで伴走。属人化を防ぎ、AIが日常になるまで支えます。</p><span class="lp-map">→ ③誰が（属人化への答え）</span></div></div></div><div class="note">※ ご支援のための訪問・稼働頻度に応じて、3つのプランをご用意しています。</div><div class="lp-more">詳しくは別途<b>「AIの右腕」資料</b>をお問合せください。</div>`},
+};
+const DEMOS=[
+  ['Downloadに散らかる領収書の整理','このフォルダの請求書PDFを全部読んでExcelにまとめて。'],
+  ['現場写真が、作業報告書になる','この写真をもとに作業報告書のたたき台を作って。'],
+  ['お客様へのメール、手が止まる','工事完了が1週間遅れるお詫びメールを丁寧に。'],
+  ['分厚い資料を3行に','この資料を忙しい人向けに3行で要約して。'],
+  ['チラシ・ポスターを作る','会社案内の1枚チラシの構成と文章を作って。'],
+  ['やさしい日本語・翻訳','この作業指示を「やさしい日本語」と「英語」に。'],
+];
+/* ===== AIで出来ること：事例データ（theater配下の詳細ページ） ===== */
+const CASES={
+  invoice:{cat:'業務効率',title:'請求書を、<g>一括で整理</g>する',one:'散らばったPDFが、数分で1枚の表に。',thumb:'invoice',primary:true,
+    task:'フォルダに散らばった<b>請求書PDF</b>を、AIがまとめて読み取り、取引先・日付・金額を一覧の表（Excel）に転記します。',
+    before:'1枚ずつ開いて手入力。30枚で半日仕事、転記ミスや数え漏れも起きやすい。',
+    after:'フォルダごとAIに渡すと、<b>全部読み取って表に</b>。<span class="dim">※ここで実際のツールに切り替えて実演します。</span>',
+    tools:[['Claude Code','ローカルフォルダ（PC内の保存先）のPDFを読み取り、Excelへ一括転記']],
+    steps:[['STEP 1','下の①パスをコピーし、散らかった請求書フォルダを Claude Code で開く'],['STEP 2','下の②プロンプトを貼り付けて実行（ファイル名をYYMMDDに統一＋Excelへ転記）'],['STEP 3','各PDFが「YYMMDD_取引先_請求書」に整い、invoice_summary_template.xlsx に転記されたか確認']],
+    prompts:[['整理プロンプト','このフォルダの請求書PDFを全部読んで、取引先・請求日・項目・金額・消費税・合計の列でExcelにまとめて。']],
+    demo:{intro:'下の①でフォルダを開き、②のプロンプトをそのまま貼り付けてください。',
+      items:[
+        {label:'① このフォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\invoice`},
+        {label:'② Claude に入れるプロンプト（パス指定＋YYMMDDリネーム＋Excel転記）',text:`次のフォルダの請求書PDFをすべて読み取って、2つの作業をして。\n対象フォルダ：C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\invoice\n① 各PDFを「YYMMDD_取引先名_請求書.pdf」の形式にリネーム（日付は請求日）。\n② 取引先・請求日・項目・金額・消費税・合計を invoice_summary_template.xlsx に転記。`}
+      ]}},
+  handwrite:{cat:'データ',title:'<g>手書き</g>の資料を、データにする',one:'紙やメモを、そのまま表計算へ。',thumb:'data',tag:'NEW',primary:true,
+    task:'手書きのアンケート・帳簿・メモの<b>写真を渡すだけ</b>で、AIが文字を読み取り、集計できる表データに整えます。',
+    before:'紙を見ながら一つずつ手入力。読み間違いや二度手間が発生し、集計まで遠い。',
+    after:'写真を渡すと、<b>項目ごとに整理された表（CSV/Excel）</b>に。そのまま合計や並べ替えもできる。<span class="dim">※ここで実演します。</span>',
+    tools:[['Claude Code','フォルダ内の手書き画像を読み取り、Excelへ整理（画像対応）']],
+    steps:[['STEP 1','下の①パスをコピーし、手書き日報フォルダを Claude Code で開く'],['STEP 2','下の②プロンプトを貼り付けて実行（手書き画像を読み取り→1枚のExcelに整理）'],['STEP 3','出力された「作業日報まとめ.xlsx」の内容を確認']],
+    demo:{intro:'下の①でフォルダを開き、②のプロンプトをそのまま貼り付けてください（建設現場の手書き日報6枚を1枚のExcelに整理します）。',
+      items:[
+        {label:'① このフォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\handwrite`},
+        {label:'② Claude に入れるプロンプト（手書き読み取り＋Excel整理）',text:`次のフォルダにある手書きの作業日報（画像）をすべて読み取って、1枚のExcelにまとめて。\n対象フォルダ：C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\handwrite\n列は 日付・現場名・作業箇所・天候・作業員数・作業内容・使用資材と数量・特記事項。\n読みにくい字は推測し、不明な箇所は空欄に。出力ファイル名は「作業日報まとめ.xlsx」。`}
+      ]}},
+  video:{cat:'動画',title:'クオリティの高い<g>動画</g>を作る',one:'絵コンテから、社内で高品質な動画。',thumb:'video',primary:true,
+    task:'商品紹介やお知らせの<b>動画</b>を、外注せず社内で。各シーンの絵コンテ（下絵）をAIに描かせ、それをそのまま動画へ変換します。',
+    before:'動画は<b>撮影・編集・外注</b>が前提。1本に数万〜数十万円、納期は数週間。「作りたいけど手が出ない」で止まりがち。',
+    after:'構成を言葉で渡すと、<b>GPT-image-2が絵コンテを生成</b>し、<b>Seedanceが動画化</b>。下絵から完成イメージまで<b>その場で数分</b>、しかも高品質。<span class="dim">※ここで実演します。</span>',
+    tools:[['GPT-image-2','各シーンの絵コンテ画像を生成'],['Seedance','絵コンテをもとに動画を生成']],
+    steps:[['STEP 1','作りたい動画の構成を決める（例：福井PVアニメ・8カット・15秒）'],['STEP 2','下の①プロンプトを GPT-image-2 に貼り、8カットの絵コンテを生成'],['STEP 3','その絵コンテと下の②プロンプトを一緒に Seedance に入れて動画化'],['STEP 4','出てきた15秒の動画を確認して完成']],
+    demo:{intro:'下の2つを使います。① で16:9の8分割絵コンテ（8カット）を1枚生成し、その絵コンテと ② を一緒に Seedance に渡して、通しの15秒アニメPVにします。',
+      items:[
+        {label:'① 絵コンテ生成プロンプト（GPT-image-2）',text:`福井県の魅力を伝える15秒アニメPVの絵コンテを1枚で。横長16:9・セルアニメ調・2段×4列の8コマ、各コマも16:9のワイド構図。\n01＝朝焼けの山並みと恐竜のシルエット\n02＝恐竜博物館、卵から差す光\n03＝東尋坊の断崖に打ち寄せる日本海の波\n04＝越前海岸の夕日と越前がに\n05＝永平寺の静かな石段と杉木立\n06＝鯖江の工房、眼鏡を磨く少女の手元\n07＝田園を走る北陸新幹線\n08＝夜、街の灯りと空を見上げる少女\n各コマの隅に小さく番号。番号以外の文字は入れない。`},
+        {label:'② 動画化プロンプト（①の絵コンテと一緒に Seedance へ）',text:`添付画像はカットの順番を示す絵コンテです。グリッド（2×4の枠線・分割・番号）は動画に映さないでください。特に冒頭にグリッド全体を出さず、最初からカット01のフル画面（16:9）で始め、常に1枚の連続シーンにしてください。下の8カットを順に、各約2秒で滑らかに切り替える15秒のアニメPVにして。セルアニメ調、やわらかい光、爽やかで前向きな雰囲気。\nカット01＝夜明け、福井の山並みのシルエットに大きな恐竜が静かに佇み、空が朝焼けに染まる。\nカット02＝恐竜博物館の館内、巨大な卵から光が差し込む。\nカット03＝東尋坊の断崖に日本海の波が打ち寄せ、しぶきが舞う。\nカット04＝越前海岸、夕日に照らされた海と岩場の越前がに。\nカット05＝永平寺の静かな石段と杉木立に木漏れ日。\nカット06＝鯖江の工房、眼鏡を磨く少女の手元のアップ、レンズがきらりと光る。\nカット07＝広い田園を北陸新幹線が走り抜ける、青空。\nカット08＝夜、高台から街の灯りを見上げる少女。最後に「ふくい」の文字がふわっと浮かぶ。\n通して：ゆっくりしたパン／ズーム、滑らかなクロスフェード、急なカットや点滅はなし。常に1枚の連続シーン、グリッドにしないこと。16:9・約15秒。`}
+      ]}},
+  website:{cat:'開発',title:'<g>バイブコーディング</g>でHPを作る',one:'会話するだけで、HPが立ち上がる。',thumb:'code',
+    task:'「こんなHPが欲しい」と<b>話すだけ</b>で、AIがコードを書いてホームページを形にします。デザインの修正も会話でOK。',
+    before:'制作会社に外注し、数十万円〜・数週間。修正のたびに追加費用と待ち時間がかかる。',
+    after:'AIと会話しながら<b>その場で形に</b>。<b>0525では塾のHPリデザインで、時間99%・コスト100%削減</b>を実演しました。<span class="dim">※ここで実演します。</span>',
+    tools:[['Claude Code','会話からコードを生成'],['Vercel','作ったHPを無料で公開']],
+    steps:[['STEP 1','どんなHPか・載せる内容を言葉で伝える'],['STEP 2','AIがコードを生成し、その場でプレビュー'],['STEP 3','「ここをこう」と会話で修正'],['STEP 4','無料で公開して完成']],
+    prompts:[['HP作成プロンプト','学習塾の1ページHPを作って。明るく信頼できる印象で、コース紹介→料金→お問い合わせの順。スマホ対応で。']]},
+  system:{cat:'開発',title:'<g>バイブコーディング</g>で仕組みを作る',one:'現場の工程表を、話すだけでアプリに。',thumb:'app',primary:true,
+    task:'中小の建設現場で要る<b>工程表（ガントチャート）</b>を、エンジニアなしで“動くアプリ”にします。自社の現場に合った工程管理ツールを、その場で。',
+    before:'工程はホワイトボードやExcelで手管理。更新が手間で、全体像や「遅れ」が見えにくく、共有もしづらい。',
+    after:'「こんな工程表が欲しい」と話すだけで、<b>Claude Code が数分で動くアプリを生成</b>。バーをドラッグして日程変更、進捗を色分け、今日の線も表示。<span class="dim">※ここで実演します。「色を変えて」「作業を足して」も会話でその場で直せます。</span>',
+    learn:{title:'バイブコーディングとは？',body:`<p class="lead">コードを自分で書く代わりに、<b>「こんなものが欲しい」と言葉でAIに伝え、AIにプログラムを書かせて作る</b>やり方です。</p>
+      <p class="define">2025年にAI研究者 <b>アンドレイ・カーパシー</b>が広めた言葉。「vibe（ノリ・雰囲気）」のとおり、細かい専門用語は気にせず、AIと対話しながら“ノリよく”形にしていくのが特徴。提唱の翌月には辞書（Merriam-Webster）にも登場した、いま世界的に注目の作り方です。<span class="dim">出典：Wikipedia／MIT Technology Review ほか</span></p>
+      <div class="svc">
+        <div class="it"><h3>専門知識がいらない</h3><p>現場の人が「欲しい仕組み」を言葉にするだけ。</p></div>
+        <div class="it"><h3>自社専用が作れる</h3><p>既製ソフトに業務を合わせず、業務に合う道具を。</p></div>
+        <div class="it"><h3>とにかく速い</h3><p>数分で動くものができ、その場で直せる。</p></div>
+      </div>`},
+    tools:[['Claude Code','会話から動くアプリ（単一HTML）を生成']],
+    steps:[['STEP 1','下の①フォルダ（生成先）を Claude Code で開く'],['STEP 2','下の②プロンプトを貼り付けて実行（数分で生成）'],['STEP 3','生成された index.html をブラウザで開き、バーをドラッグして調整']],
+    demo:{intro:'下の①フォルダを Claude Code で開き、②のプロンプトを貼り付けてください。数分で工程表アプリ（index.html）が生成されます。',
+      items:[
+        {label:'① 生成先フォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\system`},
+        {label:'② Claude に入れるプロンプト（工程表アプリを生成）',text:`建設現場の工程管理に使う「工程表（ガントチャート）アプリ」を作って。追加ライブラリなしの単一HTMLファイル（index.html）として、このフォルダに出力して。\n\n【目的】中小の建設現場で、誰でも直感的に使える工程管理ツール。\n\n【画面】\n・上部に工事名と全体期間（開始日〜終了日）。\n・左に作業（タスク）名の一覧、右に日付の横軸を引いたガントチャート。\n・各作業は横棒（バー）で表示。バーの色は工種ごとに分ける。\n・「今日」の位置に縦線を引く。\n・各バーに進捗（％）を色の塗りで重ねて表示。\n\n【操作】\n・バーを左右にドラッグして日程を移動。端をドラッグで期間を伸縮。\n・「＋作業を追加」ボタンで行を追加、各行は削除可能。\n・作業名・開始日・日数・進捗・工種を編集できる。\n・入力内容はブラウザに自動保存（localStorage）。再読み込みしても残る。\n\n【デザイン】ダーク基調・視認性重視・スマホでも見やすいレスポンシブ。\n\n【初期データ】次の作業を入れておいて（順に少しずつ重ね、全体で約4週間に）：\n1. 仮設・準備（3日）2. 基礎配筋（4日）3. 基礎コンクリート打設（2日）4. 型枠（5日）5. 鉄骨建方（4日）6. 内装下地（6日）7. 仕上げ（5日）8. 検査・引渡し（2日）\n\n【その他】専門用語の説明は不要。まず動くものを最優先で作って。`}
+      ]}},
+  slides:{cat:'資料',title:'<g>Skills</g>で資料を作る',one:'いつもの型を、AIが再現して量産。',thumb:'deck',
+    task:'よく作る資料の<b>「型」をAIに覚えさせる（Skills）</b>と、テーマを渡すだけで毎回同じ品質の資料が作れます。',
+    before:'毎回ゼロから作成。担当者によって体裁も品質もバラバラで、作り直しも多い。',
+    after:'一度型を作れば、あとは<b>テーマを渡すだけ</b>。<b>0525では同じテーマを3方式（PPT/HTML/画像）で比較し、約90%短縮</b>を実演しました。<span class="dim">※ここで実演します。</span>',
+    tools:[['Claude Code（Skills）','資料の型を登録し再現'],['GPT-image-2','プロ品質の画像スライド']],
+    steps:[['STEP 1','よく作る資料の型をAIに登録する（Skills）'],['STEP 2','作りたいテーマと中身を渡す'],['STEP 3','仕上がりを確認し、微調整して完成']],
+    prompts:[['資料作成プロンプト','「月次売上報告」のスライドを、登録した資料Skillの型で作って。今月の数字はこの表のとおり。']]},
+  autoreport:{cat:'自動化',title:'毎朝の<g>レポート</g>を自動で受け取る',one:'情報集めをAIに任せ、寝て待つ。',thumb:'auto',
+    task:'毎朝必要な情報（予定・重要メール・ニュースなど）を<b>AIが自動で集約</b>し、1通のメールにまとめて届けます。',
+    before:'朝、複数のサイトやメールを巡回して情報収集。毎日30分〜が積み重なる。',
+    after:'起きると<b>ブリーフィングメールが1通</b>届いている。<b>0525では年120〜240時間の削減</b>として紹介しました。<span class="dim">※ここで実演します。</span>',
+    tools:[['Claude（定期実行）','毎朝決まった時間に自動でまとめる'],['MCP','メール・予定など外部ツールと連携']],
+    steps:[['STEP 1','集めたい情報と、届く時間を決める'],['STEP 2','AIに定期実行を設定する'],['STEP 3','毎朝、届いたメールを読むだけ']],
+    prompts:[['設定プロンプト（例）','毎朝7時に、今日の予定・未読の重要メール・業界ニュースを、それぞれ3行ずつにまとめてメールして。']]},
+  report:{cat:'文書',title:'現場写真が、<g>作業報告書</g>になる',one:'スマホ写真を渡すだけで、報告書のたたき台。',thumb:'report',
+    task:'現場で撮った<b>写真をそのまま渡す</b>と、AIが状況を読み取り、作業報告書のたたき台を作成します。',
+    before:'現場から戻って、記憶を頼りに報告書を手入力。1件30分、写真の整理も別作業で後回しに。',
+    after:'写真をアップして「作業報告書にして」と頼むだけ。<b>日時・対象・作業内容を読み取り</b>、定型の文章に整えてくれる。<span class="dim">※ここで実演します。</span>',
+    tools:[['ChatGPT / Claude','写真を読み取り文章化（画像対応）']],
+    steps:[['STEP 1','現場の様子をスマホで撮影する'],['STEP 2','AIに写真を渡し「作業報告書のたたき台を作って」と頼む'],['STEP 3','出てきた文章を確認・手直しして提出']],
+    prompts:[['報告書化プロンプト','この現場写真をもとに、作業報告書のたたき台を作って。日時・場所・作業内容・気づいた点、の項目立てで。']]},
+  flyer:{cat:'画像',title:'<g>チラシ</g>の素材を、その場で作る',one:'伝えたいことを言葉にすれば、画像になる。',thumb:'image',
+    task:'イベント告知や会社案内の<b>チラシ・ポスターの画像素材</b>を、デザイナーなしで作ります。',
+    before:'素材集めとデザイン外注で数日〜。急ぎの告知やちょっとした掲示に間に合わない。',
+    after:'内容と雰囲気を言葉で伝えると、<b>GPT-image-2が画像を生成</b>。配色やレイアウトも指示できる。<span class="dim">※ここで実演します。</span>',
+    tools:[['GPT-image-2','チラシ・ポスター用の画像を生成']],
+    steps:[['STEP 1','何の告知か・載せたい文字・雰囲気を決める'],['STEP 2','GPT-image-2に内容と雰囲気を伝える'],['STEP 3','出てきた画像を選び、文字を調整して完成']],
+    prompts:[['画像生成プロンプト','「夏祭り 7/20 開催」の告知ポスター。提灯と夜空、和モダン、上部に文字を入れる余白。縦長A4サイズで。']]},
+};
+const ORDER=['invoice','handwrite','video','system','website','slides','report','flyer','autoreport'];
+const ICON={
+  invoice:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><path d="M18 8 H46 V56 L40 51 L34 56 L28 51 L22 56 L18 51 Z"/><path d="M26 22H38M26 30H38M26 38H34" stroke-linecap="round"/></svg>`,
+  data:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="12" y="14" width="40" height="36" rx="4"/><path d="M12 26H52M12 38H52M28 14V50M40 14V50"/></svg>`,
+  video:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="10" y="16" width="44" height="32" rx="5"/><path d="M28 27 L40 32 L28 37 Z" fill="#7fe9ff" stroke="none"/></svg>`,
+  code:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 22 L14 32 L24 42"/><path d="M40 22 L50 32 L40 42"/><path d="M35 18 L29 46"/></svg>`,
+  app:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="11" y="11" width="18" height="18" rx="3"/><rect x="35" y="11" width="18" height="18" rx="3"/><rect x="11" y="35" width="18" height="18" rx="3"/><rect x="35" y="35" width="18" height="18" rx="3"/></svg>`,
+  deck:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="10" y="12" width="44" height="30" rx="4"/><path d="M32 42 V52 M24 56 L32 52 L40 56" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  auto:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4" stroke-linecap="round"><circle cx="32" cy="32" r="20"/><path d="M32 21 V32 L40 37"/></svg>`,
+  report:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="16" y="10" width="32" height="44" rx="4"/><path d="M24 24H40M24 32H40M24 40H34" stroke-linecap="round"/></svg>`,
+  image:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="10" y="14" width="44" height="36" rx="5"/><circle cx="24" cy="26" r="4"/><path d="M14 46 L28 34 L38 42 L46 36 L54 44" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+};
+const gx=t=>t.replace(/<g>(.*?)<\/g>/g,'<span class="g">$1</span>');
+
+const params=new URLSearchParams(location.search);
+const id=params.get('id')||'gate';
+const sheet=document.getElementById('sheet');
+let bgImg='assets/scene_theater.png';
+
+if(id==='case'){
+  renderCase(params.get('c'));
+}else{
+  const s=SEC[id]||SEC.gate;let body=s.html;
+  if(id==='library'){body=body.replace('__DEMOS__',DEMOS.map(d=>`<div class="card"><h3>${d[0]}</h3><div class="cl">プロンプト例</div><div class="promptbox">${d[1]}</div></div>`).join(''));}
+  if(id==='theater'){body=body.replace('__CASES__',ORDER.map(caseCard).join(''));}
+  const head=s.noheader?'':`<h1 class="serif">${s.title.replace(/(AI)/,'<span class="g">$1</span>')}</h1><div class="sub">${s.sub}</div>`;
+  sheet.innerHTML=head+body;
+  if(s.noheader||id==='theater')sheet.classList.add('wide');
+  bgImg=s.img;
+  if(id==='theater')sheet.querySelectorAll('.gcard').forEach(b=>{b.onclick=()=>warpTo('section.html?id=case&c='+b.dataset.c);});
+  if(id==='library')buildDeck('slides_library',8);
+  if(id==='checkpoint')buildDeck('slides_checkpoint',7);
+}
+function buildDeck(folder,N){
+  const el=document.getElementById('deck'); if(!el)return;
+  const pad=n=>String(n+1).padStart(2,'0'); let i=0;
+  let grid='';
+  for(let k=0;k<N;k++){grid+=`<button class="thumb" data-k="${k}"><span class="n">${pad(k)}</span><img src="assets/${folder}/${pad(k)}.png" alt="スライド${k+1}"></button>`;}
+  el.innerHTML=`<div class="deck-stage"><img id="deckimg" src="assets/${folder}/01.png" alt="スライド1">
+    <button class="deck-nav prev" aria-label="前へ">‹</button><button class="deck-nav next" aria-label="次へ">›</button></div>
+    <div class="deck-bar"><div class="deck-dots" id="deckdots"></div><div class="deck-counter" id="deckcount">1 / ${N}</div></div>
+    <div class="deck-overview"><div class="deck-ov-label">Overview ・ 全${N}ページ</div><div class="deck-grid" id="deckgrid">${grid}</div></div>`;
+  const img=el.querySelector('#deckimg'),dots=el.querySelector('#deckdots'),count=el.querySelector('#deckcount'),stage=el.querySelector('.deck-stage'),thumbs=[...el.querySelectorAll('.thumb')];
+  for(let k=0;k<N;k++){const b=document.createElement('button');b.setAttribute('aria-label',(k+1)+'枚目');b.onclick=()=>go(k);dots.appendChild(b);}
+  function go(n,scroll){i=(n+N)%N;img.src='assets/'+folder+'/'+pad(i)+'.png';img.alt='スライド'+(i+1);count.textContent=(i+1)+' / '+N;
+    [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+    thumbs.forEach((t,k)=>t.classList.toggle('on',k===i));
+    if(scroll)stage.scrollIntoView({behavior:'smooth',block:'center'});}
+  el.querySelector('.prev').onclick=()=>go(i-1);
+  el.querySelector('.next').onclick=()=>go(i+1);
+  img.onclick=()=>go(i+1);
+  thumbs.forEach(t=>t.onclick=()=>go(+t.dataset.k,true));
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(i+1);else if(e.key==='ArrowLeft')go(i-1);});
+  go(0);
+}
+
+function caseCard(cid){const c=CASES[cid];
+  return `<button class="gcard${c.primary?' primary':''}" data-c="${cid}" style="animation-delay:${ORDER.indexOf(cid)*-1.6}s"><div class="gthumb"><img class="gthumb-img" src="assets/case_${cid}.svg" alt="" onerror="this.remove()">${ICON[c.thumb]||''}<span class="gcat">${c.cat}</span>${c.tag?`<span class="gtag">${c.tag}</span>`:''}</div><div class="gbody"><h3>${gx(c.title)}</h3><p>${c.one}</p><span class="gcta">詳細 ▶</span></div></button>`;}
+
+function renderCase(cid){
+  const c=CASES[cid];
+  if(!c){location.replace('section.html?id=theater');return;}
+  sheet.classList.add('wide');
+  const tools=c.tools.map(t=>`<div class="it"><h3>${t[0]}</h3><p>${t[1]}</p></div>`).join('');
+  const steps=c.steps.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join('');
+  let demoHtml='';
+  if(c.demo){
+    const links=(c.demo.links||[]).map(l=>`<a class="demolink" href="${l.url}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('');
+    const items=c.demo.items.map((it,i)=>`<div class="copyrow"><div class="cl">${it.label}</div><div class="copywrap"><div class="copybox" id="cb_${i}">${it.text}</div><button class="copybtn" data-t="cb_${i}">コピー</button></div></div>`).join('');
+    demoHtml=`<div class="g-block"><div class="eyebrow-en">デモ環境（実演用）</div>${c.demo.intro?`<p class="define" style="margin-top:6px">${c.demo.intro}</p>`:''}${links?`<div class="demolinks">${links}</div>`:''}${items}</div>`;
+  }
+  sheet.innerHTML=`<div class="ey en">Case ・ ${c.cat}</div><h1 class="serif">${gx(c.title)}</h1><div class="sub">${c.one}</div>
+    <div class="g-block" style="border:none;padding-top:18px;margin-top:18px"><div class="eyebrow-en">業務内容</div><p class="lead">${c.task}</p></div>
+    <div class="ba"><div class="ba-tabs"><button class="ba-tab active" data-k="b">Before</button><button class="ba-tab" data-k="a">After（実演）</button></div>
+      <div class="ba-panel before" data-k="b">${c.before}</div><div class="ba-panel after" data-k="a" hidden>${c.after}</div></div>
+    ${c.learn?`<div class="g-block"><div class="eyebrow-en">${c.learn.title}</div>${c.learn.body}</div>`:''}
+    <div class="g-block"><div class="eyebrow-en">使うツール</div><div class="svc">${tools}</div></div>
+    <div class="g-block"><div class="eyebrow-en">手順</div><div class="timeline">${steps}</div></div>
+    ${demoHtml}`;
+  sheet.querySelectorAll('.ba-tab').forEach(t=>{t.onclick=()=>{
+    sheet.querySelectorAll('.ba-tab').forEach(x=>x.classList.toggle('active',x===t));
+    sheet.querySelectorAll('.ba-panel').forEach(p=>{p.hidden=(p.dataset.k!==t.dataset.k);});};});
+  sheet.querySelectorAll('.copybtn').forEach(b=>{b.onclick=()=>{const el=document.getElementById(b.dataset.t);
+    navigator.clipboard.writeText(el.textContent).then(()=>{const o=b.textContent;b.textContent='コピー✓';b.classList.add('done');
+      setTimeout(()=>{b.textContent=o;b.classList.remove('done');},1400);}).catch(()=>{b.textContent='コピー失敗';});};});
+}
+
+const im=new Image();im.onload=()=>{const e=document.getElementById('bgimg');e.style.backgroundImage=`url('${bgImg}')`;e.style.opacity='1';};if(bgImg)im.src=bgImg;
+function warpTo(href){const w=document.getElementById('warp');w.style.animation='none';
+  w.animate([{opacity:0,transform:'scale(.2)'},{opacity:1,transform:'scale(3)'}],{duration:520,easing:'ease-in',fill:'forwards'});
+  setTimeout(()=>location.href=href,480);}
+document.getElementById('back').onclick=()=>{
+  if(id==='case'){warpTo('section.html?id=theater');return;}
+  sessionStorage.setItem('holodesk_return','1');
+  const w=document.getElementById('warp');w.style.animation='none';
+  w.animate([{opacity:0,transform:'scale(.2)'},{opacity:1,transform:'scale(3)'}],{duration:560,easing:'ease-in',fill:'forwards'});
+  setTimeout(()=>location.href='index.html',520);};
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE HOLO DESK ｜ AI初級研修</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#050c1a;--cyan:#06b6d4;--blue:#3b82f6;--violet:#8b5cf6;--ink:#e8f0fe;--muted:#94a3c0;
+    --glassb:rgba(59,130,246,.2);--grad:linear-gradient(120deg,var(--cyan),var(--blue),var(--violet));
+    --serif:"Noto Serif JP",serif;--en:"Cormorant Garamond",serif;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;overflow:hidden;color:var(--ink);font-family:"Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);}
+  /* desk background (placeholder CSS + optional generated image) */
+  /* 全景レスポンシブ：画像比に固定したシーンを画面内に最大表示（途切れない） */
+  #viewport{position:fixed;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(700px 460px at 28% 18%,rgba(6,182,212,.12),transparent 60%),radial-gradient(900px 700px at 80% 110%,rgba(139,92,246,.1),transparent 60%),#050c1a;}
+  #scene{position:relative;aspect-ratio:1672/941;width:min(100vw,calc(100vh*1672/941));height:auto;}
+  #deskimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+  .vig{position:fixed;inset:0;z-index:6;pointer-events:none;background:radial-gradient(120% 90% at 50% 36%,transparent 48%,rgba(2,5,12,.6) 100%);}
+  .pcl{position:fixed;width:3px;height:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);opacity:.5;z-index:2;animation:drift linear infinite;}
+  @keyframes drift{from{transform:translateY(20px);opacity:0;}10%{opacity:.6;}to{transform:translateY(-160px);opacity:0;}}
+
+  header{position:fixed;top:28px;right:38px;left:auto;z-index:5;text-align:right;}
+  header p{margin-left:auto;}
+  header .ey{font-family:var(--en);letter-spacing:.3em;text-transform:uppercase;font-size:13px;color:var(--cyan);}
+  header h1{font-family:var(--serif);font-weight:700;font-size:clamp(22px,3vw,34px);margin-top:6px;line-height:1.3;}
+  header h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  header p{font-size:13px;color:var(--muted);margin-top:8px;max-width:360px;line-height:1.7;}
+  .credit{position:fixed;bottom:20px;left:38px;z-index:5;font-size:11.5px;color:var(--muted);}
+  .hintR{position:fixed;bottom:20px;right:38px;z-index:5;font-size:12px;color:var(--muted);}
+  .hintR .k{font-family:var(--en);color:var(--cyan);font-size:14px;}
+
+  .stage{position:absolute;inset:0;z-index:3;}
+  .obj{position:absolute;transform:translate(-50%,-50%);cursor:pointer;background:none;border:none;padding:0;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1),filter .28s;filter:drop-shadow(0 10px 16px rgba(0,0,0,.55));}
+  .obj .art,.obj .ph{display:block;width:100%;}
+  .obj .art{filter:drop-shadow(0 0 14px rgba(70,160,255,.35));}   /* 透過PNG＋ホロのにじみ */
+  .obj:hover{transform:translate(-50%,-50%) translateY(-12px) scale(1.06);filter:drop-shadow(0 18px 22px rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(6,182,212,.55));}
+  .obj .scan{position:absolute;left:50%;top:50%;width:120px;height:120px;border-radius:50%;transform:translate(-50%,-50%);border:1px solid var(--cyan);opacity:0;}
+  .obj:hover .scan{animation:scan 1.4s ease-out infinite;}
+  @keyframes scan{0%{opacity:.6;transform:translate(-50%,-50%) scale(.5);}100%{opacity:0;transform:translate(-50%,-50%) scale(1.4);}}
+  /* holo label */
+  /* 吹き出し（テーマのみ・後方席対応） */
+  .card{position:absolute;left:50%;bottom:100%;transform:translate(-50%,-14px) scale(.96);transform-origin:bottom center;
+    width:max-content;max-width:min(460px,46vw);text-align:center;
+    background:linear-gradient(180deg,rgba(12,21,40,.97),rgba(7,13,26,.95));border:1px solid rgba(6,182,212,.42);border-radius:18px;padding:15px 30px 17px;margin-bottom:22px;
+    box-shadow:0 22px 54px rgba(0,0,0,.6),0 0 38px rgba(6,182,212,.2);opacity:0;visibility:hidden;transition:.24s cubic-bezier(.2,.8,.2,1);pointer-events:none;backdrop-filter:blur(12px);}
+  .card::before{content:"";position:absolute;left:24px;right:24px;top:0;height:2px;border-radius:0 0 2px 2px;background:var(--grad);opacity:.85;}
+  .obj:hover .card{opacity:1;visibility:visible;transform:translate(-50%,-14px) scale(1);}
+  .card::after{content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);border:12px solid transparent;border-top-color:rgba(9,16,32,.97);}
+  /* 吹き出しを道具の「下」に出す（theater用） */
+  .card.below{bottom:auto;top:100%;transform:translate(-50%,14px) scale(.96);transform-origin:top center;margin-bottom:0;margin-top:22px;}
+  .card.below::before{top:auto;bottom:0;border-radius:2px 2px 0 0;}
+  .obj:hover .card.below{transform:translate(-50%,14px) scale(1);}
+  .card.below::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:rgba(9,16,32,.97);}
+  .card .ctop{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:9px;}
+  .card .cnum{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;font-family:var(--en);font-weight:600;font-size:16px;color:#eaf7ff;background:linear-gradient(135deg,var(--blue),var(--violet));box-shadow:0 0 14px rgba(59,130,246,.5);}
+  .card .cey{font-family:var(--en);letter-spacing:.28em;text-transform:uppercase;font-size:12px;color:var(--cyan);}
+  .card .cwip{font-family:var(--en);letter-spacing:.16em;font-size:12px;color:#9fb2cc;border:1px dashed rgba(148,163,192,.5);border-radius:99px;padding:3px 13px;}
+  .card.wip{border-color:rgba(148,163,192,.38);box-shadow:0 22px 54px rgba(0,0,0,.6),0 0 30px rgba(148,163,192,.14);}
+  .card.wip::before{background:rgba(148,163,192,.5);}
+  .card .th{font-family:var(--serif);font-weight:700;font-size:clamp(22px,2.1vw,31px);line-height:1.35;color:var(--ink);}
+  .card.wip .th{color:#c4d0e2;}
+
+  /* warp */
+  #warp{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:0;transform-origin:50% 50%;
+    background:radial-gradient(circle at var(--wx,50%) var(--wy,50%),#eafcff 0%,#7fe9ff 14%,#06b6d4 30%,#3b82f6 50%,transparent 72%);}
+  #warp.go{animation:warpgo .8s ease-in forwards;}
+  @keyframes warpgo{0%{opacity:0;transform:scale(.1);}50%{opacity:.85;}100%{opacity:1;transform:scale(4);}}
+  #warp.in{opacity:1;transform:scale(2.6);} #warp.in.fade{animation:warpfade .9s ease-out forwards;}
+  @keyframes warpfade{from{opacity:1;transform:scale(2.4);}to{opacity:0;transform:scale(1);}}
+
+  /* intro / FV */
+  #intro{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:clamp(140px,28vh,320px);text-align:center;background:radial-gradient(900px 600px at 50% 60%,#0a1428,var(--bg) 72%);transition:opacity .8s;}
+  #fv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:0;transform:scale(1.02);transition:opacity 1s,transform 1.2s;}
+  #fv.on{opacity:1;transform:scale(1);} #fv.zoom{opacity:0;transform:scale(1.22);}
+  #intro .scrim{position:absolute;inset:0;z-index:-1;background:radial-gradient(900px 600px at 50% 52%,rgba(5,12,26,.1),rgba(5,12,26,.72) 78%),linear-gradient(180deg,rgba(5,12,26,.5),rgba(5,12,26,.15) 40%,rgba(5,12,26,.88));}
+  #intro .core{width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#cfeffd,var(--cyan) 30%,var(--violet) 74%,transparent 78%);box-shadow:0 0 70px rgba(6,182,212,.6),0 0 120px rgba(139,92,246,.4);animation:bz 3.4s ease-in-out infinite;}
+  #intro.has-fv .core{width:74px;height:74px;opacity:.8;margin-bottom:22px;}
+  @keyframes bz{0%,100%{transform:scale(1);}50%{transform:scale(1.09);}}
+  #intro .ey{font-family:var(--en);font-size:14px;letter-spacing:.3em;color:var(--cyan);text-transform:uppercase;margin:24px 0 14px;}
+  #intro h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,6vw,58px);line-height:1.16;}
+  #intro h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  #intro p{color:#aebfd6;margin-top:16px;font-size:clamp(13px,2.4vw,17px);line-height:1.8;}
+  #intro .ph2{margin-top:10px;font-size:11px;color:#4a5a7a;letter-spacing:.1em;}
+  .enter{margin-top:0;padding:clamp(12px,1.4vw,15px) clamp(28px,3.4vw,44px);border-radius:8px;cursor:pointer;font-weight:700;font-size:clamp(14px,1.6vw,18px);letter-spacing:.08em;color:#fff;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(59,130,246,.78),rgba(139,92,246,.78));backdrop-filter:blur(5px);box-shadow:0 0 34px rgba(59,130,246,.4);transition:transform .2s,box-shadow .2s;}
+  .enter:hover{transform:translateY(-2px);box-shadow:0 0 48px rgba(59,130,246,.65);}
+  @media (max-width:760px){header{right:20px;left:auto;top:18px;}.credit,.hintR{left:20px;right:auto;}.card{width:200px;}}
+  /* 入口ゲート（合言葉） */
+  #gate{position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(900px 600px at 50% 42%,#0a1428,var(--bg) 74%);}
+  .gate-box{text-align:center;max-width:440px;width:100%;padding:44px 36px;background:rgba(8,15,31,.72);border:1px solid var(--glassb);border-radius:20px;backdrop-filter:blur(14px);box-shadow:0 30px 72px rgba(0,0,0,.5),0 0 52px rgba(6,182,212,.14);}
+  .gate-ey{font-family:var(--en);letter-spacing:.3em;text-transform:uppercase;font-size:12px;color:var(--cyan);margin-bottom:16px;}
+  .gate-box h2{font-family:var(--serif);font-weight:700;font-size:clamp(20px,3vw,26px);line-height:1.4;margin-bottom:10px;}
+  .gate-box .gate-lead{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.8;}
+  #gateForm{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  #gatePw{flex:1;min-width:190px;padding:13px 16px;border-radius:10px;border:1px solid var(--glassb);background:rgba(4,16,28,.82);color:var(--ink);font-size:15px;outline:none;transition:.18s;}
+  #gatePw::placeholder{color:#5c6f8c;}
+  #gatePw:focus{border-color:var(--cyan);box-shadow:0 0 18px rgba(6,182,212,.3);}
+  #gateForm button{padding:13px 28px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(59,130,246,.85),rgba(139,92,246,.85));color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:.2s;}
+  #gateForm button:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(59,130,246,.5);}
+  .gate-err{margin-top:15px;font-size:13px;color:#e0b877;min-height:18px;letter-spacing:.02em;}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="scene"><img id="deskimg" src="assets/desk_bg.png" alt=""><div class="stage" id="stage"></div></div></div>
+<header>
+  <div class="ey en">Neon AI ・ The Holo Desk</div>
+  <h1 class="serif">机の上から、<span class="g">AIの世界へ。</span></h1>
+  <p>ホログラムの道具にカーソルを置くと、中身がのぞけます。気になったものに触れてください。</p>
+</header>
+<div class="credit">合同会社BWH総合研究所 ／ AI初級研修</div>
+<div class="hintR">道具に<span class="k">hover</span> → <span class="k">tap</span> で突入</div>
+<div class="vig"></div>
+<div id="warp"></div>
+
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-ey en">AI Training ・ Access</div>
+    <h2 class="serif">合言葉を入力してください</h2>
+    <p class="gate-lead">この体験は、BWHのAI研修 参加者向けです。</p>
+    <form id="gateForm" autocomplete="off">
+      <input id="gatePw" type="password" placeholder="合言葉" autocomplete="off" autofocus>
+      <button type="submit">入る</button>
+    </form>
+    <div id="gateErr" class="gate-err"></div>
+  </div>
+</div>
+
+<div id="intro">
+  <video id="fv" autoplay muted loop playsinline preload="auto"><source src="assets/hero.webm" type="video/webm"><source src="assets/hero.mp4" type="video/mp4"></video>
+  <div class="scrim"></div>
+  <button class="enter" id="enterBtn">AI研修を始める</button>
+</div>
+
+<script>
+const OBJ=[
+  {id:'workshop',n:'07',t:'ノートPC',label:'5',theme:'AIの右腕',              x:24,y:44,w:20, ph:'laptop'},
+  {id:'checkpoint',n:'06',t:'付箋',  label:'4',theme:'なぜ、中小企業ではAI導入・活用が進まない？',   x:37,y:41,w:9,  ph:'sticky'},
+  {id:'library',n:'04',t:'ノート',   label:'3',theme:'AI導入が中小企業にもたらすもの',    x:46,y:57,w:18, ph:'note'},
+  {id:'guide', n:'02', t:'万年筆',   label:'1',theme:'自己紹介',                x:55,y:47,w:8,  ph:'pen'},
+  {id:'theater',n:'05',t:'本',       label:'2',theme:'AIに出来ること',  x:68,y:55,w:15, ph:'books', below:true},
+  {id:'gate',  n:'03', t:'地図',     wip:true, below:true, theme:'AIについての知識',                x:80,y:43,w:19, ph:'map', f:'saturate(1.35) brightness(1.12) contrast(1.05)'},
+];
+const PH={ /* 仮ホロアイコン（実画像 assets/<id>.png が来たら差し替え） */
+  pen:`<svg width="150" height="56"><rect x="20" y="20" width="100" height="13" rx="6" transform="rotate(-12 70 26)" fill="rgba(6,182,212,.18)" stroke="#7fe9ff" stroke-width="2"/><path d="M118 14 L140 6" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round"/></svg>`,
+  map:`<svg width="150" height="110"><path d="M14 24 L54 12 L98 24 L138 12 L138 90 L98 102 L54 90 L14 102 Z" fill="rgba(59,130,246,.12)" stroke="#7fe9ff" stroke-width="2"/><path d="M28 80 Q66 38 96 64 T132 38" stroke="#46e0ff" stroke-width="3" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/></svg>`,
+  note:`<svg width="160" height="120"><rect x="20" y="12" width="120" height="98" rx="6" fill="rgba(6,182,212,.1)" stroke="#7fe9ff" stroke-width="2"/><g stroke="#46e0ff" stroke-width="2" opacity=".7"><path d="M36 38H128M36 56H128M36 74H120M36 92H108"/></g></svg>`,
+  books:`<svg width="150" height="100"><g stroke="#7fe9ff" stroke-width="2"><rect x="22" y="66" width="106" height="20" rx="3" fill="rgba(59,130,246,.18)"/><rect x="28" y="46" width="94" height="20" rx="3" fill="rgba(6,182,212,.18)" transform="rotate(-3 75 56)"/><rect x="34" y="26" width="84" height="20" rx="3" fill="rgba(139,92,246,.18)" transform="rotate(2 75 36)"/></g></svg>`,
+  sticky:`<svg width="140" height="120"><rect x="18" y="22" width="52" height="52" rx="3" fill="rgba(6,182,212,.2)" stroke="#7fe9ff" stroke-width="2" transform="rotate(-7 44 48)"/><rect x="58" y="40" width="52" height="52" rx="3" fill="rgba(139,92,246,.2)" stroke="#c9b6ff" stroke-width="2" transform="rotate(6 84 66)"/><rect x="36" y="58" width="52" height="52" rx="3" fill="rgba(59,130,246,.2)" stroke="#9be8ff" stroke-width="2" transform="rotate(-3 62 84)"/></svg>`,
+  laptop:`<svg width="170" height="110"><path d="M42 20 H128 V74 H42 Z" fill="rgba(6,20,30,.7)" stroke="#46e0ff" stroke-width="2"/><rect x="56" y="32" width="44" height="5" rx="2" fill="#46e0ff"/><rect x="56" y="44" width="60" height="5" rx="2" fill="#8b5cf6"/><path d="M42 74 L142 74 L160 92 L24 92 Z" fill="rgba(59,130,246,.18)" stroke="#7fb0ff" stroke-width="2"/></svg>`,
+};
+const touch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+const EDIT=new URLSearchParams(location.search).get('edit')==='1';   /* 配置モード */
+let readoutEl=null;
+function updateReadout(){if(!EDIT)return;
+  if(!readoutEl){readoutEl=document.createElement('pre');readoutEl.style.cssText='position:fixed;right:14px;top:14px;z-index:99;background:rgba(0,0,0,.82);color:#bfeefb;font:11px/1.55 monospace;padding:10px 12px;border:1px solid #2dd4bf;border-radius:8px;white-space:pre-wrap;pointer-events:none;';document.body.appendChild(readoutEl);}
+  readoutEl.textContent='EDIT（ドラッグ移動／ホイールでサイズ）\n'+OBJ.map(o=>`${o.id}: x:${o.x}, y:${o.y}, w:${o.w}`).join('\n');}
+const stage=document.getElementById('stage');
+OBJ.forEach(o=>{
+  const b=document.createElement('button');b.className='obj';b.style.left=o.x+'%';b.style.top=o.y+'%';b.style.width=o.w+'%';b.setAttribute('aria-label',o.t);
+  const art=document.createElement('img');art.className='art';art.src='assets/tool_'+o.id+'.png';art.alt='';
+  art.style.filter=(o.f?o.f+' ':'')+'drop-shadow(0 0 14px rgba(70,160,255,.35))';
+  const ph=document.createElement('span');ph.className='ph';ph.innerHTML=PH[o.ph];
+  art.style.display='none'; ph.style.display='block';
+  art.onload=()=>{art.style.display='block';ph.style.display='none';};
+  const scan=document.createElement('span');scan.className='scan';
+  const card=document.createElement('div');card.className='card'+(o.below?' below':'')+(o.wip?' wip':'');
+  card.innerHTML=(o.wip?`<div class="ctop"><span class="cwip">工事中</span></div>`:`<div class="ctop"><span class="cnum">${o.label}</span><span class="cey">EXPLORE</span></div>`)+`<div class="th">${o.theme}</div>`;
+  b.append(scan,art,ph,card);
+  let tapped=false;
+  b.addEventListener('click',e=>{ if(EDIT)return; if(touch&&!tapped){tapped=true;return;} warpTo(o,e); });
+  if(EDIT){let dg=false;
+    b.addEventListener('pointerdown',e=>{e.preventDefault();dg=true;b.setPointerCapture(e.pointerId);});
+    b.addEventListener('pointermove',e=>{if(!dg)return;const r=stage.getBoundingClientRect();o.x=Math.round((e.clientX-r.left)/r.width*1000)/10;o.y=Math.round((e.clientY-r.top)/r.height*1000)/10;b.style.left=o.x+'%';b.style.top=o.y+'%';updateReadout();});
+    b.addEventListener('pointerup',()=>dg=false);
+    b.addEventListener('wheel',e=>{e.preventDefault();o.w=Math.max(4,Math.min(30,Math.round((o.w+(e.deltaY<0?0.5:-0.5))*10)/10));b.style.width=o.w+'%';updateReadout();},{passive:false});}
+  stage.appendChild(b);
+});
+let warping=false;
+function warpTo(o,e){ if(warping)return; warping=true;
+  const w=document.getElementById('warp');
+  w.style.setProperty('--wx',(e?(e.clientX/innerWidth*100):50)+'%');
+  w.style.setProperty('--wy',(e?(e.clientY/innerHeight*100):50)+'%');
+  w.className='';void w.offsetWidth;w.classList.add('go');
+  setTimeout(()=>{sessionStorage.setItem('holodesk_return','1');location.href='section.html?id='+o.id;},800);}
+
+/* particles */
+for(let i=0;i<22;i++){const p=document.createElement('div');p.className='pcl';p.style.left=(Math.random()*100)+'%';p.style.top=(40+Math.random()*60)+'%';p.style.animationDuration=(5+Math.random()*7)+'s';p.style.animationDelay=(-Math.random()*7)+'s';if(Math.random()<.5){p.style.background='var(--violet)';p.style.boxShadow='0 0 8px var(--violet)';}document.body.appendChild(p);}
+
+
+/* intro / FV (button enter) + warp-in on return */
+const fv=document.getElementById('fv');
+fv.addEventListener('canplay',()=>{document.getElementById('intro').classList.add('has-fv');fv.classList.add('on');const h=document.getElementById('fvhint');if(h)h.style.display='none';fv.play().catch(()=>{});},{once:true});
+document.getElementById('enterBtn').onclick=()=>{const intro=document.getElementById('intro');fv.classList.add('zoom');intro.style.opacity='0';setTimeout(()=>{intro.style.display='none';try{fv.pause();}catch(e){}},900);};
+if(sessionStorage.getItem('holodesk_return')){sessionStorage.removeItem('holodesk_return');document.getElementById('intro').style.display='none';
+  const w=document.getElementById('warp');w.classList.add('in');requestAnimationFrame(()=>w.classList.add('fade'));setTimeout(()=>{w.className='';},950);}
+if(EDIT){document.getElementById('intro').style.display='none';updateReadout();}
+
+/* 入口ゲート（合言葉・クライアント側の軽いゲート） */
+(function(){
+  const PW='Ginzo1212', KEY='holodesk_gate_ok';
+  const gate=document.getElementById('gate'); if(!gate)return;
+  if(EDIT||sessionStorage.getItem(KEY)==='1'){gate.style.display='none';return;}
+  const form=document.getElementById('gateForm'),pw=document.getElementById('gatePw'),err=document.getElementById('gateErr');
+  form.addEventListener('submit',e=>{e.preventDefault();
+    if(pw.value.trim()===PW){sessionStorage.setItem(KEY,'1');gate.style.display='none';setTimeout(()=>{try{pw.blur();}catch(_){}} ,0);}
+    else{err.textContent='合言葉が違います。';pw.value='';pw.focus();}
+  });
+})();
+</script>
+</body>
+</html>
