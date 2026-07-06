@@ -80,6 +80,9 @@
   .svc .it p{font-size:14px;line-height:1.6;color:#aebccf;}
   .cases{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;}
   .cases span{font-size:17px;color:#dbe6f5;border:1px solid var(--glassb);border-radius:10px;padding:12px 18px;background:rgba(255,255,255,.03);}
+  .callbox{margin:22px 0 6px;text-align:center;background:linear-gradient(90deg,rgba(6,182,212,.1),rgba(139,92,246,.1));border:1px solid var(--glassb);border-radius:16px;padding:26px 30px;}
+  .callbox-ey{font-family:var(--en);letter-spacing:.2em;text-transform:uppercase;font-size:12px;color:var(--cyan);margin-bottom:12px;}
+  .callbox-t{font-family:var(--serif);font-weight:700;font-size:clamp(18px,2.1vw,26px);line-height:1.85;color:#eaf3ff;} .callbox-t b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .define{margin-top:18px;font-size:clamp(15px,1.5vw,18px);line-height:1.85;color:#aebccf;border-left:3px solid var(--cyan);padding-left:16px;max-width:880px;}
   .define b{color:#dbe6f5;} .define .dim{color:#7f93a9;}
   /* 連鎖ステップ（AI導入がもたらすこと） */
@@ -461,17 +464,13 @@ const CASES={
         {label:'① このフォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\handwrite`},
         {label:'② Claude に入れるプロンプト（手書き読み取り＋Excel整理）',text:`次のフォルダにある手書きの作業日報（画像）をすべて読み取って、1枚のExcelにまとめて。\n対象フォルダ：C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\handwrite\n列は 日付・現場名・作業箇所・天候・作業員数・作業内容・使用資材と数量・特記事項。\n読みにくい字は推測し、不明な箇所は空欄に。出力ファイル名は「作業日報まとめ.xlsx」。`}
       ]}},
-  video:{cat:'動画',title:'クオリティの高い<g>動画</g>を作る',one:'絵コンテから、社内で高品質な動画。',thumb:'video',primary:true,
-    task:'商品紹介やお知らせの<b>動画</b>を、外注せず社内で。各シーンの絵コンテ（下絵）をAIに描かせ、それをそのまま動画へ変換します。',
+  video:{cat:'動画',title:'その場で、<g>動画</g>をつくる',one:'お題は会場から。いま欲しい動画を、その場で。',thumb:'video',primary:true,
+    call:'「こんな動画があったらいいな」を、<b>いま挙げてください</b>。<br>——商品のCM、採用ムービー、研修動画、お店の紹介…。<br>そのお題を、この場でAIに作らせてみます。',
+    task:'お題は事前に決めません。<b>会場のみなさんから「作りたい動画」を集めて</b>、その場でAIに作らせます。',
     before:'動画は<b>撮影・編集・外注</b>が前提。1本に数万〜数十万円、納期は数週間。「作りたいけど手が出ない」で止まりがち。',
-    after:'構成を言葉で渡すと、<b>GPT-image-2が絵コンテを生成</b>し、<b>Seedanceが動画化</b>。下絵から完成イメージまで<b>その場で数分</b>、しかも高品質。<span class="dim">※ここで実演します。</span>',
+    after:'構成を言葉で渡すと、<b>GPT-image-2が絵コンテを生成</b>し、<b>Seedanceが動画化</b>。会場のお題から、<b>その場で数分</b>で高品質に。<span class="dim">※ここで実演します。</span>',
     tools:[['GPT-image-2','各シーンの絵コンテ画像を生成'],['Seedance','絵コンテをもとに動画を生成']],
-    steps:[['STEP 1','作りたい動画の構成を決める（例：福井PVアニメ・8カット・15秒）'],['STEP 2','下の①プロンプトを GPT-image-2 に貼り、8カットの絵コンテを生成'],['STEP 3','その絵コンテと下の②プロンプトを一緒に Seedance に入れて動画化'],['STEP 4','出てきた15秒の動画を確認して完成']],
-    demo:{intro:'下の2つを使います。① で16:9の8分割絵コンテ（8カット）を1枚生成し、その絵コンテと ② を一緒に Seedance に渡して、通しの15秒アニメPVにします。',
-      items:[
-        {label:'① 絵コンテ生成プロンプト（GPT-image-2）',text:`福井県の魅力を伝える15秒アニメPVの絵コンテを1枚で。横長16:9・セルアニメ調・2段×4列の8コマ、各コマも16:9のワイド構図。\n01＝朝焼けの山並みと恐竜のシルエット\n02＝恐竜博物館、卵から差す光\n03＝東尋坊の断崖に打ち寄せる日本海の波\n04＝越前海岸の夕日と越前がに\n05＝永平寺の静かな石段と杉木立\n06＝鯖江の工房、眼鏡を磨く少女の手元\n07＝田園を走る北陸新幹線\n08＝夜、街の灯りと空を見上げる少女\n各コマの隅に小さく番号。番号以外の文字は入れない。`},
-        {label:'② 動画化プロンプト（①の絵コンテと一緒に Seedance へ）',text:`添付画像はカットの順番を示す絵コンテです。グリッド（2×4の枠線・分割・番号）は動画に映さないでください。特に冒頭にグリッド全体を出さず、最初からカット01のフル画面（16:9）で始め、常に1枚の連続シーンにしてください。下の8カットを順に、各約2秒で滑らかに切り替える15秒のアニメPVにして。セルアニメ調、やわらかい光、爽やかで前向きな雰囲気。\nカット01＝夜明け、福井の山並みのシルエットに大きな恐竜が静かに佇み、空が朝焼けに染まる。\nカット02＝恐竜博物館の館内、巨大な卵から光が差し込む。\nカット03＝東尋坊の断崖に日本海の波が打ち寄せ、しぶきが舞う。\nカット04＝越前海岸、夕日に照らされた海と岩場の越前がに。\nカット05＝永平寺の静かな石段と杉木立に木漏れ日。\nカット06＝鯖江の工房、眼鏡を磨く少女の手元のアップ、レンズがきらりと光る。\nカット07＝広い田園を北陸新幹線が走り抜ける、青空。\nカット08＝夜、高台から街の灯りを見上げる少女。最後に「ふくい」の文字がふわっと浮かぶ。\n通して：ゆっくりしたパン／ズーム、滑らかなクロスフェード、急なカットや点滅はなし。常に1枚の連続シーン、グリッドにしないこと。16:9・約15秒。`}
-      ]}},
+    steps:[['STEP 1','会場から「作りたい動画」のお題を1つ選ぶ'],['STEP 2','構成を言葉にして GPT-image-2 で絵コンテを生成'],['STEP 3','その絵コンテを Seedance に渡して動画化'],['STEP 4','出てきた動画をその場で確認']]},
   website:{cat:'開発',title:'<g>バイブコーディング</g>でHPを作る',one:'会話するだけで、HPが立ち上がる。',thumb:'code',
     task:'「こんなHPが欲しい」と<b>話すだけ</b>で、AIがコードを書いてホームページを形にします。デザインの修正も会話でOK。',
     before:'制作会社に外注し、数十万円〜・数週間。修正のたびに追加費用と待ち時間がかかる。',
@@ -479,24 +478,13 @@ const CASES={
     tools:[['Claude Code','会話からコードを生成'],['Vercel','作ったHPを無料で公開']],
     steps:[['STEP 1','どんなHPか・載せる内容を言葉で伝える'],['STEP 2','AIがコードを生成し、その場でプレビュー'],['STEP 3','「ここをこう」と会話で修正'],['STEP 4','無料で公開して完成']],
     prompts:[['HP作成プロンプト','学習塾の1ページHPを作って。明るく信頼できる印象で、コース紹介→料金→お問い合わせの順。スマホ対応で。']]},
-  system:{cat:'開発',title:'<g>バイブコーディング</g>で仕組みを作る',one:'現場の工程表を、話すだけでアプリに。',thumb:'app',primary:true,
-    task:'中小の建設現場で要る<b>工程表（ガントチャート）</b>を、エンジニアなしで“動くアプリ”にします。自社の現場に合った工程管理ツールを、その場で。',
-    before:'工程はホワイトボードやExcelで手管理。更新が手間で、全体像や「遅れ」が見えにくく、共有もしづらい。',
-    after:'「こんな工程表が欲しい」と話すだけで、<b>Claude Code が数分で動くアプリを生成</b>。バーをドラッグして日程変更、進捗を色分け、今日の線も表示。<span class="dim">※ここで実演します。「色を変えて」「作業を足して」も会話でその場で直せます。</span>',
-    learn:{title:'バイブコーディングとは？',body:`<p class="lead">コードを自分で書く代わりに、<b>「こんなものが欲しい」と言葉でAIに伝え、AIにプログラムを書かせて作る</b>やり方です。</p>
-      <p class="define">2025年にAI研究者 <b>アンドレイ・カーパシー</b>が広めた言葉。「vibe（ノリ・雰囲気）」のとおり、細かい専門用語は気にせず、AIと対話しながら“ノリよく”形にしていくのが特徴。提唱の翌月には辞書（Merriam-Webster）にも登場した、いま世界的に注目の作り方です。<span class="dim">出典：Wikipedia／MIT Technology Review ほか</span></p>
-      <div class="svc">
-        <div class="it"><h3>専門知識がいらない</h3><p>現場の人が「欲しい仕組み」を言葉にするだけ。</p></div>
-        <div class="it"><h3>自社専用が作れる</h3><p>既製ソフトに業務を合わせず、業務に合う道具を。</p></div>
-        <div class="it"><h3>とにかく速い</h3><p>数分で動くものができ、その場で直せる。</p></div>
-      </div>`},
-    tools:[['Claude Code','会話から動くアプリ（単一HTML）を生成']],
-    steps:[['STEP 1','下の①フォルダ（生成先）を Claude Code で開く'],['STEP 2','下の②プロンプトを貼り付けて実行（数分で生成）'],['STEP 3','生成された index.html をブラウザで開き、バーをドラッグして調整']],
-    demo:{intro:'下の①フォルダを Claude Code で開き、②のプロンプトを貼り付けてください。数分で工程表アプリ（index.html）が生成されます。',
-      items:[
-        {label:'① 生成先フォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\system`},
-        {label:'② Claude に入れるプロンプト（工程表アプリを生成）',text:`建設現場の工程管理に使う「工程表（ガントチャート）アプリ」を作って。追加ライブラリなしの単一HTMLファイル（index.html）として、このフォルダに出力して。\n\n【目的】中小の建設現場で、誰でも直感的に使える工程管理ツール。\n\n【画面】\n・上部に工事名と全体期間（開始日〜終了日）。\n・左に作業（タスク）名の一覧、右に日付の横軸を引いたガントチャート。\n・各作業は横棒（バー）で表示。バーの色は工種ごとに分ける。\n・「今日」の位置に縦線を引く。\n・各バーに進捗（％）を色の塗りで重ねて表示。\n\n【操作】\n・バーを左右にドラッグして日程を移動。端をドラッグで期間を伸縮。\n・「＋作業を追加」ボタンで行を追加、各行は削除可能。\n・作業名・開始日・日数・進捗・工種を編集できる。\n・入力内容はブラウザに自動保存（localStorage）。再読み込みしても残る。\n\n【デザイン】ダーク基調・視認性重視・スマホでも見やすいレスポンシブ。\n\n【初期データ】次の作業を入れておいて（順に少しずつ重ね、全体で約4週間に）：\n1. 仮設・準備（3日）2. 基礎配筋（4日）3. 基礎コンクリート打設（2日）4. 型枠（5日）5. 鉄骨建方（4日）6. 内装下地（6日）7. 仕上げ（5日）8. 検査・引渡し（2日）\n\n【その他】専門用語の説明は不要。まず動くものを最優先で作って。`}
-      ]}},
+  pptslide:{cat:'資料',title:'その場で、<g>スライド</g>をつくる',one:'欲しい資料を、会場のお題からその場で。',thumb:'deck',primary:true,
+    call:'「こんな資料が欲しい」を、<b>いま教えてください</b>。<br>——提案書、会社紹介、勉強会のスライド…。<br><b>PPT MASTER</b> で、骨子からその場で組み上げます。',
+    task:'お題は事前に決めません。<b>会場のみなさんの「作りたい資料」</b>を、PPT MASTER でその場でスライドにします。',
+    before:'資料は毎回ゼロから作成。担当者によって体裁も品質もバラバラで、作り直しも多い。',
+    after:'テーマと要点を言葉で渡すと、<b>PPT MASTER が構成・デザイン込みでスライドを生成</b>。会場のお題から、<b>その場で</b>形に。<span class="dim">※ここで実演します。</span>',
+    tools:[['PPT MASTER','テーマから高品質スライドを自動生成'],['Claude Code','会話でその場で修正']],
+    steps:[['STEP 1','会場から「作りたい資料」のお題を1つ選ぶ'],['STEP 2','テーマと入れたい要点を PPT MASTER に渡す'],['STEP 3','生成されたスライドをその場で確認・微調整']]},
   slides:{cat:'資料',title:'<g>Skills</g>で資料を作る',one:'いつもの型を、AIが再現して量産。',thumb:'deck',
     task:'よく作る資料の<b>「型」をAIに覚えさせる（Skills）</b>と、テーマを渡すだけで毎回同じ品質の資料が作れます。',
     before:'毎回ゼロから作成。担当者によって体裁も品質もバラバラで、作り直しも多い。',
@@ -526,7 +514,7 @@ const CASES={
     steps:[['STEP 1','何の告知か・載せたい文字・雰囲気を決める'],['STEP 2','GPT-image-2に内容と雰囲気を伝える'],['STEP 3','出てきた画像を選び、文字を調整して完成']],
     prompts:[['画像生成プロンプト','「夏祭り 7/20 開催」の告知ポスター。提灯と夜空、和モダン、上部に文字を入れる余白。縦長A4サイズで。']]},
 };
-const ORDER=['invoice','handwrite','video','system','website','slides','report','flyer','autoreport'];
+const ORDER=['invoice','handwrite','pptslide','video','website','slides','report','flyer','autoreport'];
 const ICON={
   invoice:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><path d="M18 8 H46 V56 L40 51 L34 56 L28 51 L22 56 L18 51 Z"/><path d="M26 22H38M26 30H38M26 38H34" stroke-linecap="round"/></svg>`,
   data:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="12" y="14" width="40" height="36" rx="4"/><path d="M12 26H52M12 38H52M28 14V50M40 14V50"/></svg>`,
@@ -608,11 +596,9 @@ function buildIntro(){
     {k:'描く',cat:'Design',svg:ICO.paint,type:'gallery',
       lead:'言葉ひとつで、<b>ここまで描けます。</b>',
       tiles:[['Théâtre D\'opéra Spatial ｜ Midjourney','#3b82f6','#8b5cf6','g1.jpg'],['アボカドのセラピスト ｜ DALL·E 3','#06b6d4','#3b82f6','g2.jpg'],['水中でAI研究するクマ ｜ DALL·E 2','#8b5cf6','#06b6d4','g3.jpg'],['チュチュを着た大根 ｜ DALL·E','#3b82f6','#06b6d4','g4.jpg'],['銀河に浮かぶロゴ ｜ DALL·E 3','#8b5cf6','#3b82f6','g5.jpg'],['Edmond de Belamy ｜ GAN（競売落札）','#06b6d4','#8b5cf6','g6.jpg']]},
-    {k:'スライドをつくる',cat:'Slides',svg:ICO.slide,type:'livedemo',
-      lead:'その場で、<b>スライドをつくります。</b>',
-      call:'「こんな資料が欲しい」を、いま教えてください。<br>——提案書、会社紹介、勉強会のスライド…。<br><b>PPT MASTER</b> で、骨子からその場で組み上げます。',
-      slides:['assets/slides_library/01.png','assets/slides_library/05.png','assets/slides_library/08.png'],
-      badge:'この後、みなさんのお題で 実演します'},
+    {k:'撮る',cat:'Video',svg:ICO.film,type:'videos',
+      lead:'文章から、<b>CM品質の動画</b>まで。',
+      tiles:[{c:'伊藤園「お～いお茶」AI CM',yt:'XhJQhXI4tXc'},{c:'Google Veo 3 — 対話するAI',yt:'QYnJ3qJ5qJQ'},{c:'Google Veo 3 — 海と光',yt:'mCFMn0UkRt0'},{c:'Runway Gen-4.5 デモ',yt:'yNXxuzmiwEo'},{c:'OpenAI Sora — 東京の街',yt:'tRSdt5kmeW0'},{c:'Coca-Cola AIクリスマス広告',yt:'IQWUKWM2JrQ'}]},
     {k:'話す',cat:'Voice',svg:ICO.voice,type:'voice',
       speak:'本日は、AI研修にお集まりいただき、ありがとうございます。実は、いまお聞きいただいているこの声も、AIが読み上げています。',
       speakEn:'This voice is also generated by AI. It sounds natural, doesn\'t it?',
@@ -630,11 +616,10 @@ function buildIntro(){
       lead:'“聞く”から、<b>“任せる”</b>へ。',
       body:'調べて、まとめて、資料にする——そんな一連の仕事を、AIが自分で進めます。理想は、<b>AIが24時間はたらく仕組み。</b>',
       badge:'その一部を、今日この後 実演します'},
-    {k:'動画をつくる',cat:'Video',svg:ICO.film,type:'livedemo',
-      lead:'その場で、<b>動画をつくります。</b>',
-      call:'「こんな動画があったら」を、いま挙げてください。<br>——商品のCM、採用ムービー、研修動画、お店の紹介…。<br>お題は<b>みなさんから</b>。その場でAIに作らせてみます。',
-      videos:[{c:'伊藤園「お～いお茶」AI CM',yt:'XhJQhXI4tXc'},{c:'Google Veo 3 — 対話するAI',yt:'QYnJ3qJ5qJQ'},{c:'Runway Gen-4.5 デモ',yt:'yNXxuzmiwEo'},{c:'OpenAI Sora — 東京の街',yt:'tRSdt5kmeW0'},{c:'Coca-Cola AIクリスマス広告',yt:'IQWUKWM2JrQ'},{c:'Google Veo 3 — 海と光',yt:'mCFMn0UkRt0'}],
-      badge:'この後、みなさんのお題で 実演します'},
+    {k:'動く',cat:'Robotics',svg:ICO.car,type:'future',fbadge:'この先の話',
+      lead:'AIが、体を持って動きはじめた。',
+      body:'無人タクシーが月100万回、人を運ぶ。工場ではヒト型ロボットが働く。AIは画面の外へ出て、物理世界で動きはじめています。',
+      src:'Waymo / Figure',yt:'tv90GFM9RAo'},
     {k:'解く',cat:'Science',svg:ICO.atom,type:'future',fbadge:'この先の話',
       lead:'AIが、人類の難問を解きはじめた。',
       body:'タンパク質の形を解き明かしたAIが、ノーベル化学賞を受賞。新薬・新素材の発見が加速しています。',
@@ -767,6 +752,7 @@ function renderCase(cid){
     demoHtml=`<div class="g-block"><div class="eyebrow-en">デモ環境（実演用）</div>${c.demo.intro?`<p class="define" style="margin-top:6px">${c.demo.intro}</p>`:''}${links?`<div class="demolinks">${links}</div>`:''}${items}</div>`;
   }
   sheet.innerHTML=`<div class="ey en">Case ・ ${c.cat}</div><h1 class="serif">${gx(c.title)}</h1><div class="sub">${c.one}</div>
+    ${c.call?`<div class="callbox"><div class="callbox-ey en">Your turn ・ その場でつくります</div><div class="callbox-t">${c.call}</div></div>`:''}
     <div class="g-block" style="border:none;padding-top:18px;margin-top:18px"><div class="eyebrow-en">業務内容</div><p class="lead">${c.task}</p></div>
     <div class="ba"><div class="ba-tabs"><button class="ba-tab active" data-k="b">Before</button><button class="ba-tab" data-k="a">After（実演）</button></div>
       <div class="ba-panel before" data-k="b">${c.before}</div><div class="ba-panel after" data-k="a" hidden>${c.after}</div></div>
