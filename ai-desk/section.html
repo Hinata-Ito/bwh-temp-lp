@@ -273,6 +273,7 @@
   .tlchip.now{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.12);} .tlchip.now b{color:#c4b5fd;}
   .tlarrow{color:var(--muted);}
   .metalead{font-family:var(--serif);font-weight:700;font-size:clamp(25px,3.6vw,42px);color:#eaf3ff;line-height:1.4;} .metalead b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .metadoor{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.5vw,30px);line-height:1.6;color:#dbe6f5;margin-top:18px;} .metadoor b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .meta p{font-size:clamp(16px,1.9vw,21px);line-height:1.9;color:#cfe0f5;margin-top:16px;} .meta p .dim{color:#7f93a9;font-size:.82em;}
   .meta .small{font-family:var(--en);letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-size:13px;}
   .metadiv{width:70px;height:2px;background:var(--grad);margin:4.4vh auto;border-radius:2px;opacity:.7;}
@@ -611,6 +612,13 @@ function buildIntro(){
         ['探究アイランド','歩ける2.5Dの探究学習ワールド','https://tankyu-islands-3d.pages.dev/'],
         ['誰が飲む？','飲み会の人間関係が“カード”になるアプリ','https://dare-ga-nomu.vercel.app/'],
       ],
+      label1:'私が、AIで作ったもの',
+      label2:'ネットで有名な、AIで作られたWebサービス',
+      projects2:[
+        ['fly.pieter.com','AIに作らせた多人数フライトシム（月商100万ドル超と話題）','https://fly.pieter.com'],
+        ['websim','プロンプトから“架空のWeb”をその場で無限生成','https://websim.com'],
+        ['Vibe Jam','AIで作ったゲームだけの、世界的ゲームジャム','https://jam.pieter.com'],
+      ],
       cost:'これまでなら、制作会社に頼んで <b>数か月・数百万〜数千万円</b>。<br>それが、AIと二人なら <b>実質 数日</b>。'},
     {k:'任せる',cat:'Agent',svg:ICO.agent,type:'demo',
       lead:'“聞く”から、<b>“任せる”</b>へ。',
@@ -664,6 +672,7 @@ function buildIntro(){
       <div class="metadiv"></div>
       <div class="small">Your turn</div>
       <h2 class="serif">次は、<span class="reveal">あなたの会社の番。</span></h2>
+      <p class="metadoor">AIは、あなたの<b>新たな創造性と可能性</b>への、扉。</p>
       <p>この地図の“できること”を、御社の仕事に一つずつ。<br>まずは、案内人の自己紹介から。</p>
       <div class="intro-nav"><button class="inbtn ghost" data-prev>← もどる</button><button class="inbtn" id="startBtn">案内人に会う →</button></div>
     </div>
@@ -706,7 +715,11 @@ function buildIntro(){
       `<div class="nc-livedemo-foot"><div class="demobadge">▶ ${n.badge}</div></div>`;
     if(n.type==='videos')return `<div class="nc-lead">${n.lead}</div><div class="nc-vids">${n.tiles.map(t=>t.yt?`<div class="vtile" data-yt="${t.yt}"><img class="ythumb" src="https://img.youtube.com/vi/${t.yt}/hqdefault.jpg" alt="" onerror="this.remove()"><span class="play">▶</span><span class="cap">${t.c}</span></div>`:t.src?`<div class="vtile"><video src="${t.src}" autoplay muted loop playsinline></video><span class="cap">${t.c}</span></div>`:`<div class="vtile"><span class="play">▶</span><span class="cap">${t.c}</span></div>`).join('')}</div><div class="nc-src">※ タイルをクリックで再生（実在のAI生成動画）</div>`;
     if(n.type==='voice')return `<div class="nc-voice"><div class="wave">${'<i></i>'.repeat(9)}</div><div class="vspeak">「${n.speak}」</div><div class="vspeak" style="margin-top:14px;font-size:.86em;color:#bcd0ea">${n.speakEn}</div><div style="margin-top:26px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><button class="inbtn ghost" id="vreJa">🔊 日本語</button><button class="inbtn ghost" id="vreEn">🔊 English</button></div><div class="nc-src">${n.lead}</div></div>`;
-    if(n.type==='made')return `<div class="nc-lead">${n.lead}</div><div class="pjcards">${n.projects.map(p=>{const inner=`<h4>${p[0]}</h4><p>${p[1]}</p>`;return p[2]?`<a class="pjcard" href="${p[2]}" target="_blank" rel="noopener">${inner}<div class="lp-map" style="margin-top:12px">ひらく ↗</div></a>`:`<div class="pjcard">${inner}<div class="lp-map" style="margin-top:12px">近日公開</div></div>`;}).join('')}</div><div class="costnote">${n.cost}</div>`;
+    if(n.type==='made'){const pj=arr=>`<div class="pjcards">${arr.map(p=>{const inner=`<h4>${p[0]}</h4><p>${p[1]}</p>`;return p[2]?`<a class="pjcard" href="${p[2]}" target="_blank" rel="noopener">${inner}<div class="lp-map" style="margin-top:12px">ひらく ↗</div></a>`:`<div class="pjcard">${inner}<div class="lp-map" style="margin-top:12px">近日公開</div></div>`;}).join('')}</div>`;
+      return `<div class="nc-lead">${n.lead}</div>`+
+        `<div class="exlabel">${n.label1||'私が、AIで作ったもの'}</div>`+pj(n.projects)+
+        (n.projects2?`<div class="exlabel">${n.label2||'世界で話題の、AI製Webサービス'}</div>`+pj(n.projects2):'')+
+        `<div class="costnote">${n.cost}</div>`;}
     if(n.type==='demo')return `<div class="nc-demo"><div class="nc-lead">${n.lead}</div><p class="body">${n.body}</p><div class="demobadge">▶ ${n.badge}</div></div>`;
     if(n.type==='future')return `<div class="nc-future"><div class="bgfallback"></div>${n.yt?`<div class="ytbg"><iframe src="https://www.youtube.com/embed/${n.yt}?autoplay=1&mute=1&loop=1&playlist=${n.yt}&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1" allow="autoplay; encrypted-media" frameborder="0"></iframe></div>`:(n.vid?`<video class="bgv" autoplay muted loop playsinline><source src="${n.vid}"></video>`:'')}<div class="fov"><span class="fbadge">${n.fbadge||'この先の話'}</span><h3>${n.lead}</h3><p>${n.body}</p>${n.src?`<p style="margin-top:14px;font-size:12px;color:#c3d2e8">出典：${n.src}</p>`:''}</div></div>`;
     return '';
