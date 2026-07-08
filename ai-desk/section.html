@@ -472,13 +472,19 @@ const CASES={
     after:'構成を言葉で渡すと、<b>GPT-image-2が絵コンテを生成</b>し、<b>Seedanceが動画化</b>。会場のお題から、<b>その場で数分</b>で高品質に。<span class="dim">※ここで実演します。</span>',
     tools:[['GPT-image-2','各シーンの絵コンテ画像を生成'],['Seedance','絵コンテをもとに動画を生成']],
     steps:[['STEP 1','会場から「作りたい動画」のお題を1つ選ぶ'],['STEP 2','構成を言葉にして GPT-image-2 で絵コンテを生成'],['STEP 3','その絵コンテを Seedance に渡して動画化'],['STEP 4','出てきた動画をその場で確認']]},
-  website:{cat:'開発',title:'<g>バイブコーディング</g>でHPを作る',one:'会話するだけで、HPが立ち上がる。',thumb:'code',
-    task:'「こんなHPが欲しい」と<b>話すだけ</b>で、AIがコードを書いてホームページを形にします。デザインの修正も会話でOK。',
-    before:'制作会社に外注し、数十万円〜・数週間。修正のたびに追加費用と待ち時間がかかる。',
-    after:'AIと会話しながら<b>その場で形に</b>。<b>0525では塾のHPリデザインで、時間99%・コスト100%削減</b>を実演しました。<span class="dim">※ここで実演します。</span>',
-    tools:[['Claude Code','会話からコードを生成'],['Vercel','作ったHPを無料で公開']],
-    steps:[['STEP 1','どんなHPか・載せる内容を言葉で伝える'],['STEP 2','AIがコードを生成し、その場でプレビュー'],['STEP 3','「ここをこう」と会話で修正'],['STEP 4','無料で公開して完成']],
-    prompts:[['HP作成プロンプト','学習塾の1ページHPを作って。明るく信頼できる印象で、コース紹介→料金→お問い合わせの順。スマホ対応で。']]},
+  website:{cat:'開発',title:'<g>バイブコーディング</g>でHPを作る',one:'いまあるHPを、その場で洗練されたデザインへ。',thumb:'code',primary:true,tag:'LIVE',
+    task:'いま公開されている<b>実在のホームページ</b>を題材に、AIと会話するだけで<b>その場で見違えるデザインへアップデート</b>します。コードの知識は不要。',
+    before:'<b>制作会社に委託</b>。<b>50万円〜数百万円</b>かけて、<b>数か月</b>。公開後の修正も、そのたびに追加費用と待ち時間がかかる。',
+    after:'すべて<b>手元で完結</b>。<b>0円〜・即日</b>で作れる。「ここをこう」と話すだけで、目の前でデザインが変わっていく。<span class="dim">※ここで実演します。</span>',
+    learn:{title:'そもそも「バイブコーディング」とは？',body:`<p class="define"><b>バイブコーディング（Vibe Coding）</b>とは、コードを自分で書かず、<b>「こんな感じにして」と言葉で伝えるだけ</b>でAIにプログラムを書かせる作り方のこと。<br><span class="dim">2025年にAI研究者アンドレイ・カルパシー氏が広めた言葉。文法や専門知識ではなく、"こうしたい"という感覚（vibe）で開発を進められるのが特徴です。だからエンジニアでなくても、会話するだけでHPやアプリが形になります。</span></p>`},
+    tools:[['Claude Code','会話からコードを生成・修正'],['Vercel','作ったHPを無料で公開']],
+    steps:[['STEP 1','いまのHP（Before）をAIに見せて、良くしたい方向を言葉で伝える'],['STEP 2','AIがコードを書き換え、その場でローカルプレビュー'],['STEP 3','「配色を」「ここをもっと」と会話で微調整'],['STEP 4','無料で公開して完成']],
+    demo:{intro:'まず下のリンクで「いまのHP（Before）」を開いて現状を共有します。次に①のフォルダを Claude Code で開き、②のプロンプトを貼り付けると、洗練されたHP（After）がローカルで立ち上がります。',
+      links:[{label:'いまのHPを見る（Before）',url:'http://miraie-t.com/'}],
+      items:[
+        {label:'① このフォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\website`},
+        {label:'② Claude に入れるプロンプト（HPアップデート）',text:`before フォルダにある miraie-t.com（敦賀港イルミネーション「ミライエ」）のHTMLを読み込んで、after/index.html として洗練された1ページのHPに作り替えて。\n対象フォルダ：C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\website\n・夜空に光が灯るような、上品でモダンな配色（深い紺×金の光）\n・開催期間 / 点灯時間 / 会場 / アクセス などの情報は before の内容を正確に引き継ぐ\n・スマホ対応。完成したら after/index.html をブラウザで開いて見せて。`}
+      ]}},
   pptslide:{cat:'資料',title:'その場で、<g>スライド</g>をつくる',one:'欲しい資料を、会場のお題からその場で。',thumb:'deck',primary:true,
     call:'「こんな資料が欲しい」を、<b>いま教えてください</b>。<br>——提案書、会社紹介、勉強会のスライド…。<br><b>PPT MASTER</b> で、骨子からその場で組み上げます。',
     task:'お題は事前に決めません。<b>会場のみなさんの「作りたい資料」</b>を、PPT MASTER でその場でスライドにします。',
@@ -515,7 +521,7 @@ const CASES={
     steps:[['STEP 1','何の告知か・載せたい文字・雰囲気を決める'],['STEP 2','GPT-image-2に内容と雰囲気を伝える'],['STEP 3','出てきた画像を選び、文字を調整して完成']],
     prompts:[['画像生成プロンプト','「夏祭り 7/20 開催」の告知ポスター。提灯と夜空、和モダン、上部に文字を入れる余白。縦長A4サイズで。']]},
 };
-const ORDER=['invoice','handwrite','pptslide','video','website','slides','report','flyer','autoreport'];
+const ORDER=['invoice','handwrite','website','video','pptslide','slides','report','flyer','autoreport'];
 const ICON={
   invoice:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><path d="M18 8 H46 V56 L40 51 L34 56 L28 51 L22 56 L18 51 Z"/><path d="M26 22H38M26 30H38M26 38H34" stroke-linecap="round"/></svg>`,
   data:`<svg viewBox="0 0 64 64" fill="none" stroke="#7fe9ff" stroke-width="2.4"><rect x="12" y="14" width="40" height="36" rx="4"/><path d="M12 26H52M12 38H52M28 14V50M40 14V50"/></svg>`,
