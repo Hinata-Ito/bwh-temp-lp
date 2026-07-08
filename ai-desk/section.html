@@ -479,11 +479,11 @@ const CASES={
     learn:{title:'そもそも「バイブコーディング」とは？',body:`<p class="define"><b>バイブコーディング（Vibe Coding）</b>とは、コードを自分で書かず、<b>「こんな感じにして」と言葉で伝えるだけ</b>でAIにプログラムを書かせる作り方のこと。<br><span class="dim">2025年にAI研究者アンドレイ・カルパシー氏が広めた言葉。文法や専門知識ではなく、"こうしたい"という感覚（vibe）で開発を進められるのが特徴です。だからエンジニアでなくても、会話するだけでHPやアプリが形になります。</span></p>`},
     tools:[['Claude Code','会話からコードを生成・修正'],['Vercel','作ったHPを無料で公開']],
     steps:[['STEP 1','いまのHP（Before）をAIに見せて、良くしたい方向を言葉で伝える'],['STEP 2','AIがコードを書き換え、その場でローカルプレビュー'],['STEP 3','「配色を」「ここをもっと」と会話で微調整'],['STEP 4','無料で公開して完成']],
-    demo:{intro:'まず下のリンクで「いまのHP（Before）」を開いて現状を共有します。次に①のフォルダを Claude Code で開き、②のプロンプトを貼り付けると、洗練されたHP（After）がローカルで立ち上がります。',
+    demo:{intro:'まず下のリンクで「いまのHP（Before）」を開いて現状を共有します。次に①のフォルダを Claude Code で開き、②の一言を入れるだけで、洗練されたHP（After）がその場で立ち上がります。',
       links:[{label:'いまのHPを見る（Before）',url:'http://miraie-t.com/'}],
       items:[
-        {label:'① このフォルダを開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\website`},
-        {label:'② Claude に入れるプロンプト（HPアップデート）',text:`before フォルダにある miraie-t.com（敦賀港イルミネーション「ミライエ」）のHTMLを読み込んで、after/index.html として洗練された1ページのHPに作り替えて。\n対象フォルダ：C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\02_services\\ai_training\\web_experience\\demo_env\\website\n・夜空に光が灯るような、上品でモダンな配色（深い紺×金の光）\n・開催期間 / 点灯時間 / 会場 / アクセス などの情報は before の内容を正確に引き継ぐ\n・スマホ対応。完成したら after/index.html をブラウザで開いて見せて。`}
+        {label:'① このフォルダを Claude Code で開く（パス）',text:`C:\\Users\\ginzo\\OneDrive - Kyoto University\\デスクトップ\\Claude CODE\\01_BWH\\05_website\\bwh-temp-lp\\ai-desk\\hp-demo`},
+        {label:'② Claude に入れる一言',text:`このHPを修正して`}
       ]}},
   pptslide:{cat:'資料',title:'その場で、<g>スライド</g>をつくる',one:'欲しい資料を、会場のお題からその場で。',thumb:'deck',primary:true,
     call:'「こんな資料が欲しい」を、<b>いま教えてください</b>。<br>——提案書、会社紹介、勉強会のスライド…。<br><b>PPT MASTER</b> で、骨子からその場で組み上げます。',
