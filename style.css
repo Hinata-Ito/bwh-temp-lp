@@ -2146,13 +2146,14 @@ img {
 
 .founder-layout {
   display: grid;
-  grid-template-columns: 420px 1fr;
-  gap: 80px;
+  grid-template-columns: 220px 1fr;
+  gap: 56px;
   align-items: center;
 }
 
 .founder-img-wrap {
   position: relative;
+  max-width: 200px;
 }
 .founder-img-wrap::before {
   content: '';
@@ -2231,14 +2232,18 @@ img {
 
 @media (max-width: 1024px) {
   .founder-layout {
-    grid-template-columns: 320px 1fr;
-    gap: 48px;
+    grid-template-columns: 190px 1fr;
+    gap: 36px;
   }
 }
 @media (max-width: 768px) {
   .founder-layout {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+  .founder-img-wrap {
+    max-width: 170px;
+    margin: 0 auto;
   }
   .founder-img-wrap::before {
     top: 12px; left: 12px; right: -12px; bottom: -12px;
@@ -2545,4 +2550,30 @@ img {
   font-size: 0.9rem;
   color: var(--color-text-muted);
   line-height: 2;
+}
+
+/* =================================================
+   フォワード人材セクション
+   ================================================= */
+.forward-section { position: relative; padding: 120px 0; background: var(--color-bg-2); }
+.forward-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 60px; }
+.forward-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  font-weight: 500; color: var(--color-heading);
+  line-height: 1.5; letter-spacing: 0.03em; margin-bottom: 28px;
+}
+.forward-heading em { font-style: normal; color: var(--color-accent-1); }
+.forward-lead { max-width: 720px; font-size: 1rem; color: var(--color-text); line-height: 2.2; margin-bottom: 56px; }
+.forward-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 40px; }
+.forward-point { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 32px 28px; transition: transform 0.4s var(--transition), box-shadow 0.4s; }
+.forward-point:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(30,58,138,0.08); }
+.forward-point .fp-num { font-family: var(--font-en); font-size: 1.7rem; color: var(--color-accent-2); line-height: 1; }
+.forward-point h3 { font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-heading); margin: 12px 0 8px; }
+.forward-point p { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.9; }
+.forward-fde { font-size: 0.92rem; color: var(--color-text-muted); letter-spacing: 0.04em; border-left: 3px solid var(--color-accent-2); padding-left: 16px; line-height: 1.9; }
+@media (max-width: 768px) {
+  .forward-section { padding: 80px 0; }
+  .forward-inner { padding: 0 24px; }
+  .forward-points { grid-template-columns: 1fr; gap: 16px; }
 }

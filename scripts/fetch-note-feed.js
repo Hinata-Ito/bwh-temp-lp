@@ -11,7 +11,8 @@ const fs = require('fs');
 const NOTE_USER = 'ginzoshizuki_bwh';
 const MAGAZINES = {
   cases:     'm582db0aec069', // BWH支援事例
-  knowledge: 'm17ec54167d82'  // BWH知見・講演
+  knowledge: 'm17ec54167d82', // BWH知見・講演
+  ai:        ''               // BWH AI支援事例（AI推進の右腕LP用）※マガジン作成後にIDを設定
 };
 const MAX_ITEMS = 6;
 
@@ -89,6 +90,11 @@ function parseFeed(xml) {
   const out = { _updated: new Date().toISOString() };
   let anyError = false;
   for (const [key, id] of Object.entries(MAGAZINES)) {
+    if (!id) {                     // 未設定マガジン（例: ai）は空配列でスキップ（エラー扱いにしない）
+      out[key] = [];
+      console.log('  ' + key + ': skipped (no magazine id)');
+      continue;
+    }
     const rssUrl = 'https://note.com/' + NOTE_USER + '/m/' + id + '/rss';
     try {
       const xml = await get(rssUrl);
