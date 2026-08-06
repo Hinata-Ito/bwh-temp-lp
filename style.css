@@ -2577,3 +2577,100 @@ img {
   .forward-inner { padding: 0 24px; }
   .forward-points { grid-template-columns: 1fr; gap: 16px; }
 }
+
+/* =================================================
+   Flow / 動き方（みぎ腕の5段階）  ── #howitworks
+   ================================================= */
+.hiw-section { position: relative; padding: 120px 0; background: var(--color-bg); --accent: var(--color-accent-1); }
+.hiw-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 60px; }
+.hiw-heading { font-family: var(--font-serif); font-weight: 700; color: var(--color-heading); font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.45; margin-bottom: 18px; }
+.hiw-heading em { font-style: normal; color: var(--accent); }
+.hiw-lead { max-width: 700px; font-size: 0.94rem; color: var(--color-text-muted); line-height: 2.1; margin-bottom: 48px; }
+
+/* ---------- 受け渡しの行 ---------- */
+.hiw-handoff { display: flex; align-items: center; gap: 22px; padding-bottom: 36px; margin-bottom: 36px; border-bottom: 1px solid var(--color-border); }
+.hiw-cast { display: flex; flex-direction: column; align-items: center; gap: 5px; position: relative; flex: none; }
+.hiw-cast .ph { width: 112px; height: 180px; display: flex; align-items: flex-end; justify-content: center; }
+.hiw-cast .ph img { height: 100%; width: auto; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(13,31,60,0.10)); }
+.hiw-cast .nm { font-family: var(--font-serif); font-size: 0.78rem; font-weight: 600; color: var(--color-heading); letter-spacing: 0.06em; text-align: center; white-space: nowrap; }
+.hiw-cast .nm small { display: block; font-family: var(--font-sans); font-size: 0.62rem; font-weight: 400; color: var(--color-text-muted); letter-spacing: 0.08em; }
+.hiw-cast.fw .nm { color: var(--accent); }
+.hiw-cast::before { content: ""; position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); width: 120px; height: 18px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(30,58,138,0.11), rgba(30,58,138,0) 70%); }
+
+.hiw-bubble { position: relative; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 4px; padding: 17px 22px; font-family: var(--font-serif); font-weight: 500; font-size: 0.95rem; line-height: 1.7; color: var(--color-heading); box-shadow: 0 14px 30px rgba(13,31,60,0.06); flex: none; max-width: 300px; }
+.hiw-bubble::before { content: ""; position: absolute; top: 50%; left: -7px; margin-top: -6px; width: 12px; height: 12px; background: var(--color-surface); border-left: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); transform: rotate(45deg); }
+.hiw-bubble b { color: var(--accent); font-weight: 700; }
+.hiw-bubble em { display: block; font-style: normal; font-family: var(--font-sans); font-size: 0.66rem; font-weight: 400; letter-spacing: 0.1em; color: var(--color-text-muted); margin-top: 8px; }
+
+.hiw-arrow { flex: none; width: 58px; height: 1px; background: linear-gradient(90deg, rgba(30,58,138,0), var(--accent)); position: relative; }
+.hiw-arrow::after { content: ""; position: absolute; top: 50%; right: -1px; transform: translateY(-50%); border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 7px solid var(--accent); }
+
+.hiw-handcap { font-family: var(--font-serif); font-size: 0.88rem; font-weight: 600; color: var(--color-heading); line-height: 1.75; border-left: 2px solid var(--accent); padding-left: 16px; }
+.hiw-handcap small { display: block; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 400; color: var(--color-text-muted); margin-top: 4px; letter-spacing: 0.04em; }
+
+/* ---------- 5段階の帯 ---------- */
+.hiw-bandtitle { font-size: 0.69rem; letter-spacing: 0.18em; color: var(--color-text-muted); margin-bottom: 12px; }
+.hiw-band { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.hiw-col { position: relative; background: var(--color-surface); border: 1px solid var(--color-border); border-top: 3px solid var(--accent); border-radius: 3px; padding: 18px 17px 20px; box-shadow: 0 8px 20px rgba(13,31,60,0.04); }
+.hiw-col .n { font-family: var(--font-en); font-size: 1.7rem; font-weight: 400; line-height: 1; color: var(--accent); opacity: 0.8; display: block; margin-bottom: 8px; }
+.hiw-col b { display: block; font-family: var(--font-serif); font-size: 0.88rem; font-weight: 700; color: var(--color-heading); line-height: 1.5; }
+.hiw-col small { display: block; font-size: 0.72rem; color: var(--color-text-muted); line-height: 1.75; margin-top: 6px; }
+.hiw-col .ex { display: block; font-size: 0.69rem; color: var(--accent); line-height: 1.65; margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--color-border); }
+.hiw-col:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: -12px; width: 12px; height: 1px; background: rgba(30,58,138,0.22); }
+
+/* ---------- カバレッジ（帯と同じ5列グリッドを共有＝左端が揃う） ---------- */
+.hiw-cov { margin-top: 24px; display: flex; flex-direction: column; gap: 15px; }
+.hiw-covrow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0 12px; row-gap: 6px; }
+.hiw-covl { grid-row: 1; font-size: 0.69rem; letter-spacing: 0.06em; color: var(--color-text-muted); white-space: nowrap; line-height: 1.4; }
+.hiw-covl.on { color: var(--accent); font-weight: 700; font-size: 0.72rem; }
+.hiw-covb { grid-row: 2; height: 7px; border-radius: 99px; background: linear-gradient(90deg, #9fb0d3, #c2cde3); }
+.hiw-covb.mine { height: 11px; background: linear-gradient(90deg, var(--accent), var(--color-accent-2)); box-shadow: 0 5px 14px rgba(37,99,235,0.25); }
+.hiw-covscale { display: none; }
+.hiw-covnote { font-size: 0.66rem; letter-spacing: 0.06em; color: #95a1b5; }
+
+.hiw-foot { margin-top: 40px; border-left: 3px solid var(--color-accent-2); padding-left: 18px; font-size: 0.84rem; line-height: 1.95; color: var(--color-text-muted); max-width: 820px; }
+.hiw-foot b { display: block; font-family: var(--font-serif); font-size: 0.97rem; color: var(--color-heading); font-weight: 700; margin-bottom: 5px; }
+
+/* ---------- バーの伸長アニメーション ---------- */
+.hiw-cov .hiw-covb { transform: scaleX(0); transform-origin: left; transition: transform 0.9s cubic-bezier(0.22,1,0.36,1) 0.25s; }
+.hiw-cov.visible .hiw-covb { transform: scaleX(1); }
+.hiw-col.fade-up, .hiw-handoff.fade-up, .hiw-cov.fade-up { transition-delay: calc(var(--i, 0) * 70ms); }
+
+/* ---------- スマホ：バーを先頭に出し、5段階は縦積みで読ませる ---------- */
+@media (max-width: 780px) {
+  .hiw-section { padding: 80px 0; }
+  .hiw-inner { padding: 0 24px; }
+  .hiw-lead { margin-bottom: 32px; }
+
+  .hiw-handoff { flex-wrap: wrap; justify-content: center; gap: 0 14px; padding-bottom: 24px; margin-bottom: 26px; }
+  .hiw-cast { order: 1; }
+  .hiw-arrow { order: 1; width: 34px; }
+  .hiw-cast .ph { width: 78px; height: 124px; }
+  .hiw-cast::before { width: 84px; height: 13px; bottom: 20px; }
+  .hiw-bubble { order: 3; width: 100%; max-width: none; margin-top: 18px; }
+  .hiw-bubble::before { top: -7px; left: 34px; margin-top: 0; transform: rotate(135deg); }
+  .hiw-handcap { order: 4; width: 100%; margin-top: 14px; }
+
+  .hiw-bandwrap { display: flex; flex-direction: column; }
+  .hiw-cov { order: 1; margin: 0 0 26px; gap: 12px; }
+  .hiw-covrow { gap: 0 6px; row-gap: 4px; }
+  .hiw-covscale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: -4px; }
+  .hiw-covscale span { font-family: var(--font-en); font-size: 0.88rem; color: var(--color-text-muted); text-align: center; line-height: 1; }
+  .hiw-covl { font-size: 0.63rem; letter-spacing: 0; }
+  .hiw-covl.on { font-size: 0.66rem; }
+  .hiw-covb { height: 6px; }
+  .hiw-covb.mine { height: 9px; }
+
+  .hiw-bandtitle { order: 2; margin-bottom: 10px; }
+  .hiw-band { order: 3; grid-template-columns: 1fr; gap: 8px; }
+  .hiw-col { display: grid; grid-template-columns: 28px 1fr; gap: 0 12px; padding: 14px 16px; border-top: 1px solid var(--color-border); border-left: 3px solid var(--accent); }
+  .hiw-col .n { font-size: 1.35rem; margin: 0; grid-row: 1 / span 3; align-self: start; padding-top: 3px; }
+  .hiw-col:not(:last-child)::after { display: none; }
+
+  .hiw-foot { margin-top: 28px; padding-left: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hiw-cov .hiw-covb { transition: none !important; transform: none !important; }
+  .hiw-col.fade-up, .hiw-handoff.fade-up, .hiw-cov.fade-up { transition-delay: 0s !important; }
+}
