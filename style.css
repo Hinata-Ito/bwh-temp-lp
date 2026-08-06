@@ -1691,7 +1691,7 @@ img {
 
   .message-inner {
     grid-template-columns: 1fr;
-    padding: 40px 24px 0;
+    padding: 72px 24px 0;
     gap: 48px;
   }
 
@@ -2287,7 +2287,7 @@ img {
     padding: 80px 0 60px;
   }
   .message-inner {
-    padding: 32px 16px 0;
+    padding: 64px 16px 0;
     gap: 32px;
   }
   .message-heading {
@@ -2556,7 +2556,7 @@ img {
    フォワード人材セクション
    ================================================= */
 .forward-section { position: relative; padding: 120px 0; background: var(--color-bg-2); }
-.forward-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 60px; }
+.forward-inner { max-width: var(--max-width); margin: 0 auto; padding: 80px 60px 0; }
 .forward-heading {
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3.4vw, 2.8rem);
@@ -2574,7 +2574,7 @@ img {
 .forward-fde { font-size: 0.92rem; color: var(--color-text-muted); letter-spacing: 0.04em; border-left: 3px solid var(--color-accent-2); padding-left: 16px; line-height: 1.9; }
 @media (max-width: 768px) {
   .forward-section { padding: 80px 0; }
-  .forward-inner { padding: 0 24px; }
+  .forward-inner { padding: 60px 24px 0; }
   .forward-points { grid-template-columns: 1fr; gap: 16px; }
 }
 
@@ -2582,7 +2582,7 @@ img {
    Flow / 動き方（みぎ腕の5段階）  ── #howitworks
    ================================================= */
 .hiw-section { position: relative; padding: 120px 0; background: var(--color-bg); --accent: var(--color-accent-1); }
-.hiw-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 60px; }
+.hiw-inner { max-width: var(--max-width); margin: 0 auto; padding: 80px 60px 0; }
 .hiw-heading { font-family: var(--font-serif); font-weight: 700; color: var(--color-heading); font-size: clamp(1.5rem, 3.2vw, 2.3rem); line-height: 1.45; margin-bottom: 18px; }
 .hiw-heading em { font-style: normal; color: var(--accent); }
 .hiw-lead { max-width: 700px; font-size: 0.94rem; color: var(--color-text-muted); line-height: 2.1; margin-bottom: 48px; }
@@ -2639,7 +2639,7 @@ img {
 /* ---------- スマホ：バーを先頭に出し、5段階は縦積みで読ませる ---------- */
 @media (max-width: 780px) {
   .hiw-section { padding: 80px 0; }
-  .hiw-inner { padding: 0 24px; }
+  .hiw-inner { padding: 60px 24px 0; }
   .hiw-lead { margin-bottom: 32px; }
 
   .hiw-handoff { flex-wrap: wrap; justify-content: center; gap: 0 14px; padding-bottom: 24px; margin-bottom: 26px; }
