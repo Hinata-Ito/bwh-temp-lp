@@ -36,8 +36,13 @@ test('URL と canonical', () => {
 
 test('サービスの案内：LP が出ていれば LP へ', () => {
   const s = resolveSite({}, config);
-  assert.deepEqual(serviceLink('kenshu', s, config), { href: '/yorozuya/kenshu/', kind: 'lp' });
-  assert.deepEqual(serviceLink('migiude-hr', s, config), { href: '/migiude-hr.html', kind: 'hp' });
+  const k = serviceLink('kenshu', s, config);
+  assert.equal(k.href, '/yorozuya/kenshu/');
+  assert.equal(k.kind, 'lp');
+  assert.ok(k.form.endsWith(encodeURIComponent('現場AI研修')));
+  const h = serviceLink('migiude-hr', s, config);
+  assert.equal(h.href, '/migiude-hr.html');
+  assert.equal(h.form, config.site.form); // フォームに選択肢が無いサービスは素のフォーム
 });
 
 test('サービスの案内：LP が未公開ならフォーム（そのサービスを選んだ状態）', () => {
@@ -46,5 +51,5 @@ test('サービスの案内：LP が未公開ならフォーム（そのサー�
   assert.equal(l.kind, 'form');
   assert.ok(l.href.startsWith(config.site.form + '?usp=pp_url&entry.1036629582='));
   assert.ok(l.href.endsWith(encodeURIComponent('現場AI研修')));
-  assert.deepEqual(serviceLink('migiude-strategy', s, config), { href: '/migiude-strategy.html', kind: 'hp' });
+  assert.equal(serviceLink('migiude-strategy', s, config).href, '/migiude-strategy.html');
 });

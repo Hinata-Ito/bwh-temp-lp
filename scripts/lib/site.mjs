@@ -30,7 +30,8 @@ export function formUrl(choice, config) {
 
 export function serviceLink(service, site, config) {
   const s = config.services[service];
-  if (s.hp) return { href: s.hp, kind: 'hp' };
-  if (site.lpLive && s.lp) return { href: s.lp, kind: 'lp' };
-  return { href: formUrl(s.form_choice, config), kind: 'form' };
+  const form = formUrl(s.form_choice, config); // 相談ボタン（cta_click）はどの場合も置く
+  if (s.hp) return { href: s.hp, kind: 'hp', form };
+  if (site.lpLive && s.lp) return { href: s.lp, kind: 'lp', form };
+  return { href: form, kind: 'form', form };
 }

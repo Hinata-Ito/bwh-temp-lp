@@ -1,0 +1,13 @@
+# GitHub Pages（legacy＝Jekyll）に、原稿・スクリプト・テストを公開させない。
+# 前付けつきの Markdown を置くと、Jekyll が勝手に HTML にして公開してしまうため（下書きも読めてしまう）。
+# exclude を書くと既定の除外が上書きされるので、node_modules なども明示する。
+exclude:
+  - content
+  - scripts
+  - templates
+  - tests
+  - node_modules
+  - package.json
+  - package-lock.json
+  - .preview
+  - .github
