@@ -1,0 +1,73 @@
+name: Build Content
+
+# content/ の原稿（コラム・AI瓦版）から HTML・一覧・sitemap.xml を作り、変わった生成物だけをコミットする。
+# - main への push（原稿・テンプレート・ビルドの変更時）
+# - 毎朝 6:00 JST（未来の日付で置いた記事を、その日に出すため）
+# - GitHub UI から手動実行
+# 瓦版の出し先は、リポジトリ変数 KAWARABAN_BASE（Settings → Variables）。未設定なら /yorozuya/kawaraban/。
+# LP が未公開のうちは /kawaraban/ にする。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'templates/**'
+      - 'scripts/build-content.mjs'
+      - 'scripts/lib/**'
+      - 'assets/content.css'
+      - '.github/workflows/build-content.yml'
+  schedule:
+    - cron: '0 21 * * *'   # UTC 21:00 = JST 6:00
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-content
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        env:
+          KAWARABAN_BASE: ${{ vars.KAWARABAN_BASE }}
+        run: node scripts/build-content.mjs
+
+      - name: Commit if changed
+        run: |
+          # 生成物だけを1つずつ足す（まだ無いパスがあっても、ほかのパスは足せるように）
+          for p in column kawaraban yorozuya/kawaraban sitemap.xml content-index.json index.html; do
+            git add -A -- "$p" 2>/dev/null || true
+          done
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: build content [skip ci]"
+          # noteフィードの更新（30分ごと）と重なっても落ちないように、取り込んでから push する
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
