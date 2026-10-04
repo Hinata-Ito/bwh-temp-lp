@@ -308,6 +308,24 @@ test('boot: sessionStorage へのアクセス自体が例外でも動く（Revie
   assert.doesNotThrow(() => A.boot(win));
 });
 
+test('boot: 保存できない環境でも、そのページの UTM とリファラは流入元に入る（Review Focus 3）', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: '', BWH_FORM: CFG });
+  win.sessionStorage = broken;
+  win.document.referrer = 'https://l.instagram.com/';
+  win.location.search = '?utm_source=instagram&utm_medium=social&utm_campaign=profile';
+  A.boot(win);
+  const a = link(FORM, 'kenshu');
+  clickOn(listeners, a);
+  assert.equal(new URL(a.href).searchParams.get('entry.999'), 'instagram/social/profile/- | in:/column/a/ | btn:/column/a/');
+  const b = fakeWin({ BWH_GA4_ID: '', BWH_FORM: CFG });
+  b.win.sessionStorage = null;
+  b.win.document.referrer = 'https://www.google.com/';
+  A.boot(b.win);
+  const c = link(FORM);
+  clickOn(b.listeners, c);
+  assert.equal(new URL(c.href).searchParams.get('entry.999'), 'ref:www.google.com | in:/column/a/ | btn:/column/a/');
+});
+
 test('boot: 設定ファイルを analytics.js の隣から読み、読めたら GA を始める', () => {
   const { win, scripts } = fakeWin({});
   win.document.head.appendChild = s => {

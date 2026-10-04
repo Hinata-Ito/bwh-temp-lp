@@ -143,7 +143,9 @@
   function boot(win) {
     var doc = win.document, loc = win.location, store = null, seen = [];
     try { store = win.sessionStorage; } catch (e) { store = null; }
-    rememberTouch(store, loc.search, doc.referrer || '', loc.hostname, loc.pathname);
+    // 保存できない環境では、少なくともこのページで分かることを流入元に使う
+    var here = rememberTouch(store, loc.search, doc.referrer || '', loc.hostname, loc.pathname) ||
+      { utm: parseUtm(loc.search), ref: refHost(doc.referrer || '', loc.hostname), landing: String(loc.pathname || '/').slice(0, 120) };
 
     // 相談リンクは押した瞬間に href を書き換える（新しいタブで開くので、書き換えた URL がそのまま開く）
     doc.addEventListener('click', function (ev) {
@@ -155,7 +157,7 @@
         if (hit.event === 'cta_click') {
           var svc = a.getAttribute('data-cta-service') || 'general';
           hit.params.cta_service = svc;
-          a.setAttribute('href', formUrl(a.href, { service: svc, source: sourceValue(readTouch(store), loc.pathname), form: win.BWH_FORM || DEFAULT_FORM }));
+          a.setAttribute('href', formUrl(a.href, { service: svc, source: sourceValue(readTouch(store) || here, loc.pathname), form: win.BWH_FORM || DEFAULT_FORM }));
         }
         send(win, hit.event, hit.params);
       } catch (e) { /* 計測の失敗でリンクを止めない */ }
