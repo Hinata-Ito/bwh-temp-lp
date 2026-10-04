@@ -191,3 +191,160 @@ test('validId: G- で始まる形だけ', () => {
   assert.ok(!A.validId('UA-1234-1'));
   assert.ok(!A.validId('G-<script>'));
 });
+
+// ---- Task 2: ブラウザでの起動（偽の window で動かす） ----
+
+function fakeWin(extra) {
+  const listeners = {};
+  const scripts = [];
+  const doc = {
+    referrer: '',
+    currentScript: { src: 'https://bwh-research.com/assets/analytics.js' },
+    head: { appendChild: s => { scripts.push(s); if (s.onload) s.onload(); } },
+    createElement: () => ({}),
+    addEventListener: (t, f) => { (listeners[t] = listeners[t] || []).push(f); },
+    activeElement: null,
+  };
+  const win = Object.assign({
+    document: doc,
+    location: { search: '', hostname: 'bwh-research.com', origin: 'https://bwh-research.com', pathname: '/column/a/' },
+    sessionStorage: mem(),
+    addEventListener: (t, f) => { (listeners['win:' + t] = listeners['win:' + t] || []).push(f); },
+    setTimeout: f => f(),
+  }, extra);
+  return { win, listeners, scripts };
+}
+function link(href, svc) {
+  return {
+    href,
+    getAttribute(n) { return n === 'href' ? this.href : n === 'data-cta-service' ? (svc || null) : null; },
+    setAttribute(n, v) { if (n === 'href') this.href = v; },
+  };
+}
+function clickOn(listeners, a) { listeners.click.forEach(f => f({ target: { closest: () => a } })); }
+const gtm = scripts => scripts.filter(s => /googletagmanager/.test(s.src || ''));
+
+test('initGa: ID が空なら gtag も dataLayer も作らず、何も読み込まない', () => {
+  const { win, scripts } = fakeWin({ BWH_GA4_ID: '' });
+  assert.equal(A.initGa(win), false);
+  assert.equal(win.gtag, undefined);
+  assert.equal(win.dataLayer, undefined);
+  assert.equal(gtm(scripts).length, 0);
+  assert.equal(A.send(win, 'cta_click', {}), false);
+});
+
+test('initGa: DRYRUN は dataLayer に積むが gtag.js を読み込まない', () => {
+  const { win, scripts } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  assert.equal(A.initGa(win), true);
+  assert.equal(gtm(scripts).length, 0);
+  assert.equal(A.send(win, 'cta_click', { cta_service: 'kenshu' }), true);
+  const last = win.dataLayer[win.dataLayer.length - 1];
+  assert.equal(last[0], 'event');
+  assert.equal(last[1], 'cta_click');
+});
+
+test('initGa: 本番の形の ID なら gtag.js を1回だけ読み込む', () => {
+  const { win, scripts } = fakeWin({ BWH_GA4_ID: 'G-TEST1234' });
+  A.initGa(win); A.initGa(win);
+  assert.equal(gtm(scripts).length, 1);
+  assert.match(gtm(scripts)[0].src, /gtag\/js\?id=G-TEST1234$/);
+});
+
+test('initGa: ga_debug=1 では debug_mode、ふだんは付けない', () => {
+  const a = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  a.win.location.search = '?ga_debug=1';
+  A.initGa(a.win);
+  assert.deepEqual(a.win.dataLayer.find(x => x[0] === 'config')[2], { debug_mode: true });
+  const b = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  A.initGa(b.win);
+  assert.deepEqual(b.win.dataLayer.find(x => x[0] === 'config')[2], {});
+});
+
+test('send: 4つ以外のイベント名は送らない', () => {
+  const { win } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  A.initGa(win);
+  assert.equal(A.send(win, 'generate_lead', {}), false);
+  assert.equal(win.dataLayer.filter(x => x[1] === 'generate_lead').length, 0);
+});
+
+test('boot: UTM つきで来て相談リンクを押すと、href に選択肢と流入元が入り cta_click が積まれる', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true,
+    BWH_FORM: { entries: { service: '1036629582', source: '999' }, choices: { kenshu: '現場AI研修' } } });
+  win.location.search = '?utm_source=instagram&utm_medium=social&utm_campaign=profile';
+  A.boot(win);
+  const a = link(FORM, 'kenshu');
+  clickOn(listeners, a);
+  const u = new URL(a.href);
+  assert.equal(u.searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(u.searchParams.get('entry.999'), 'instagram/social/profile/- | in:/column/a/ | btn:/column/a/');
+  const last = win.dataLayer[win.dataLayer.length - 1];
+  assert.equal(last[1], 'cta_click');
+  assert.equal(last[2].cta_service, 'kenshu');
+  assert.equal(last[2].page_path, '/column/a/');
+});
+
+test('boot: data-cta-service が無い相談リンクは general', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  A.boot(win);
+  clickOn(listeners, link(FORM));
+  assert.equal(win.dataLayer[win.dataLayer.length - 1][2].cta_service, 'general');
+});
+
+test('boot: 設定が読めず sessionStorage も壊れていても、例外を出さず何も送らない', () => {
+  const { win, listeners, scripts } = fakeWin({});
+  win.document.head.appendChild = s => { scripts.push(s); if (s.onerror) s.onerror(); };
+  win.sessionStorage = broken;
+  assert.doesNotThrow(() => A.boot(win));
+  const a = link(FORM + '?usp=pp_url&entry.1036629582=x', 'kenshu');
+  assert.doesNotThrow(() => clickOn(listeners, a));
+  assert.equal(new URL(a.href).searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(win.dataLayer, undefined);
+  assert.equal(gtm(scripts).length, 0);
+});
+
+test('boot: sessionStorage へのアクセス自体が例外でも動く（Review Focus 3）', () => {
+  const { win } = fakeWin({ BWH_GA4_ID: '' });
+  Object.defineProperty(win, 'sessionStorage', { get() { throw new Error('SecurityError'); } });
+  assert.doesNotThrow(() => A.boot(win));
+});
+
+test('boot: 設定ファイルを analytics.js の隣から読み、読めたら GA を始める', () => {
+  const { win, scripts } = fakeWin({});
+  win.document.head.appendChild = s => {
+    scripts.push(s);
+    if (/analytics\.config\.js$/.test(s.src)) { win.BWH_GA4_ID = 'G-TEST1234'; win.BWH_GA4_DRYRUN = true; }
+    if (s.onload) s.onload();
+  };
+  A.boot(win);
+  assert.equal(scripts[0].src, 'https://bwh-research.com/assets/analytics.config.js');
+  assert.equal(typeof win.gtag, 'function');
+});
+
+test('boot: LP への移動は to_lp、note は note_click、ページ内リンクは送らない', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  A.boot(win);
+  clickOn(listeners, link('/yorozuya/kenshu/'));
+  clickOn(listeners, link('https://note.com/ginzoshizuki_bwh/m/m582db0aec069'));
+  clickOn(listeners, link('#top'));
+  assert.deepEqual(win.dataLayer.filter(x => x[0] === 'event').map(x => x[1]), ['to_lp', 'note_click']);
+});
+
+test('boot: 埋め込みの iframe にフォーカスが移ったら embed_play を1回だけ', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  win.location.pathname = '/yorozuya/kawaraban/20261026-runway-gen5/';
+  A.boot(win);
+  win.document.activeElement = { tagName: 'IFRAME', src: 'https://www.youtube-nocookie.com/embed/abc', getAttribute: () => null };
+  listeners['win:blur'].forEach(f => f());
+  listeners['win:blur'].forEach(f => f());
+  const plays = win.dataLayer.filter(x => x[1] === 'embed_play');
+  assert.equal(plays.length, 1);
+  assert.deepEqual(plays[0][2], { kawaraban_id: '20261026-runway-gen5', embed_host: 'www.youtube-nocookie.com', method: 'iframe_focus' });
+});
+
+test('boot: iframe でないものにフォーカスが移っても送らない', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true });
+  A.boot(win);
+  win.document.activeElement = { tagName: 'BODY' };
+  listeners['win:blur'].forEach(f => f());
+  assert.equal(win.dataLayer.filter(x => x[1] === 'embed_play').length, 0);
+});
