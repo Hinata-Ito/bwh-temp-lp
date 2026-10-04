@@ -86,7 +86,7 @@ export function serviceBox(item, link, config) {
 export function authorBox(config) {
   const a = config.site.author;
   return `<section class="author-box" aria-label="監修">
-  <img src="${esc(a.image)}" alt="${esc(a.name)}" width="72" height="72" loading="lazy">
+  <img src="${esc(a.image)}" alt="${esc(a.name)}" width="72" height="72">
   <div>
     <p class="author-role">監修</p>
     <p class="author-name">${esc(a.name)}<span>${esc(a.title)}</span></p>

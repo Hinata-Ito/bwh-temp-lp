@@ -19,7 +19,7 @@
   var tabs = document.querySelector('.kc-tabs');
   if (tabs) {
     var sec = tabs.closest('section') || document;
-    var btns = tabs.querySelectorAll('[data-kc-tab]');
+    var btns = sec.querySelectorAll('[data-kc-tab]'); // タブの帯は .kc-tabs の外（直前）にある
     function show(name) {
       btns.forEach(function (x) { x.setAttribute('aria-selected', x.getAttribute('data-kc-tab') === name ? 'true' : 'false'); });
       sec.setAttribute('data-kc-show', name);

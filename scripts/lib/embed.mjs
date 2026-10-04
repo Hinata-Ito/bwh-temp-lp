@@ -54,7 +54,7 @@ export function renderEmbed(parsed, { title } = {}) {
   }
   if (parsed.type === 'x') {
     return `<figure class="embed embed-x" data-embed-id="x-${esc(parsed.statusId)}" data-embed-type="x">
-  <blockquote class="twitter-tweet" data-dnt="true" data-lang="ja"><a href="${esc(parsed.url)}">@${esc(parsed.user)} の投稿を X で見る</a></blockquote>
+  <blockquote class="twitter-tweet" data-dnt="true" data-conversation="none" data-lang="ja"><a href="${esc(parsed.url)}">@${esc(parsed.user)} の投稿を X で見る</a></blockquote>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <figcaption>公式の投稿（X）</figcaption>
 </figure>`;

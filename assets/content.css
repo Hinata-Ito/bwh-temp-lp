@@ -121,8 +121,8 @@
 .service-box-lead { margin: 0 0 20px; font-size: 14px; }
 .service-box-acts { display: flex; flex-wrap: wrap; gap: 12px; }
 .service-box-go, .service-box-cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; font-size: 14px; font-weight: 700; text-decoration: none; border: 1px solid var(--cx-accent); border-radius: var(--cx-radius); }
-.service-box-go { color: var(--cx-accent); background: transparent; }
-.service-box-cta { color: #fff; background: var(--cx-accent); }
+.cx .service-box-go { color: var(--cx-accent); background: transparent; }
+.cx .service-box-cta { color: #fff; background: var(--cx-accent); }
 .cx-hp .service-box-go, .cx-hp .service-box-cta { border-radius: 999px; }
 .service-box-go:hover { background: var(--cx-pale); }
 .service-box-cta:hover { opacity: .88; }
