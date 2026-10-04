@@ -8,7 +8,11 @@ export function resolveSite(env, config) {
   if (!base) base = BASES[0];
   if (!base.startsWith('/')) base = '/' + base;
   if (!base.endsWith('/')) base += '/';
-  if (!BASES.includes(base)) throw new Error(`KAWARABAN_BASE は ${BASES.join(' か ')} にしてください（いまの値：${env.KAWARABAN_BASE}）`);
+  if (!BASES.includes(base)) {
+    // Git Bash は /kawaraban/ を C:/Program Files/Git/kawaraban/ に書き換えてしまう
+    const hint = /:[\\/]/.test(base) ? '。Git Bash では MSYS_NO_PATHCONV=1 を付けて実行してください' : '';
+    throw new Error(`KAWARABAN_BASE は ${BASES.join(' か ')} にしてください（いまの値：${env.KAWARABAN_BASE}）${hint}`);
+  }
   const lpLive = base === BASES[0];
   return {
     origin: config.site.origin,
