@@ -207,6 +207,25 @@ test('前付けの誤りには行番号が付く', () => {
   assert.throws(() => build({ root, contentDir: d, outDir: root, env: {}, today: '2026-10-31' }), /a\.md：6行目：pillar/);
 });
 
+test('瓦版のファイル名の日付と date のずれにも、date の行番号が付く', () => {
+  const root = tempRoot();
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 's2-kwline-'));
+  fs.mkdirSync(path.join(d, 'kawaraban'));
+  const src = fs.readFileSync(path.join(FIX, 'kawaraban/20261026-dummy-gemini-demo.md'), 'utf8').replace('date: 2026-10-26', 'date: 2026-10-25');
+  fs.writeFileSync(path.join(d, 'kawaraban/20261026-dummy-gemini-demo.md'), src);
+  assert.throws(() => build({ root, contentDir: d, outDir: root, env: {}, today: '2026-10-31' }), /20261026-dummy-gemini-demo\.md：4行目：ファイル名の日付/);
+});
+
+test('LP の事例ページは、実在すれば sitemap に載る', () => {
+  const root = tempRoot();
+  fs.mkdirSync(path.join(root, 'yorozuya/cases/pv-video'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'yorozuya/cases/pv-video/index.html'), '<html></html>');
+  run(root);
+  const sm = read(root, 'sitemap.xml');
+  assert.match(sm, /\/yorozuya\/cases\/pv-video\//);
+  assert.doesNotMatch(sm, /\/yorozuya\/cases\/lp-site\//);
+});
+
 test('転送ページも analytics.js を読み込む（I3）', () => {
   const root = tempRoot();
   run(root);

@@ -38,7 +38,8 @@ function readSources(contentDir, config) {
         const { data, body, bodyLine, keyLines } = parseFrontmatter(fs.readFileSync(path.join(d, filename), 'utf8'));
         // 前付けの誤りは、そのキーの行番号を付ける
         const errs = validateMeta(data, { dir, filename, config }).map((e) => {
-          const k = Object.keys(keyLines).find((key) => e.startsWith(key));
+          const k = Object.keys(keyLines).find((key) => e.startsWith(key))
+            || (e.startsWith('ファイル名の日付') && 'date' in keyLines ? 'date' : null);
           return k ? `${keyLines[k]}行目：${e}` : e;
         });
         // 本文の禁止語（前付けは validateMeta が見る）
