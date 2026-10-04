@@ -33,6 +33,13 @@ test('目印の外は1バイトも変えない', () => {
   assert.equal(injectBetweenMarkers(after, 'knowledge', '<div>新</div>'), after); // 何度回しても同じ
 });
 
+test('中身が空なら、字下げした目印はそのまま（差分を出さない）', () => {
+  const html = '<div>\n      <!-- build-content:knowledge:start -->\n      <!-- build-content:knowledge:end -->\n</div>';
+  assert.equal(injectBetweenMarkers(html, 'knowledge', ''), html);
+  const filled = injectBetweenMarkers(html, 'knowledge', '<p>x</p>');
+  assert.equal(injectBetweenMarkers(filled, 'knowledge', ''), html);
+});
+
 test('目印が無ければ止める', () => {
   assert.throws(() => injectBetweenMarkers('<p>x</p>', 'knowledge', 'a'), /目印/);
 });

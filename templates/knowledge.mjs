@@ -35,5 +35,8 @@ export function injectBetweenMarkers(html, name, inner) {
   const i = html.indexOf(start);
   const j = html.indexOf(end);
   if (i < 0 || j < 0 || j < i) throw new Error(`目印 ${start} 〜 ${end} が見つかりません`);
-  return html.slice(0, i + start.length) + (inner ? `\n${inner}\n` : '\n') + html.slice(j);
+  // 終わりの目印の行の字下げは残す（中身が空のビルドで index.html に差分を出さない）
+  const lineStart = html.lastIndexOf('\n', j - 1) + 1;
+  const indent = lineStart > i && /^[ \t]*$/.test(html.slice(lineStart, j)) ? html.slice(lineStart, j) : '';
+  return html.slice(0, i + start.length) + '\n' + (inner ? `${inner}\n` : '') + indent + html.slice(j);
 }
