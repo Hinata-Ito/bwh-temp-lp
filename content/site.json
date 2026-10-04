@@ -1,0 +1,22 @@
+{
+  "origin": "https://bwh-research.com",
+  "org_name": "合同会社 BWH総合研究所",
+  "author": { "name": "静木 銀蔵", "title": "合同会社BWH総合研究所 代表", "url": "https://bwh-research.com/#founder", "image": "/img/shizuki.jpg" },
+  "brand_kawaraban": "福井「AI よろづや」",
+  "form": "https://docs.google.com/forms/d/e/1FAIpQLSc2eHUy1JeRPg17E6asX3A_j6NY2b4Jxyb1N6jSdifA1vU_gQ/viewform",
+  "form_entry": "1036629582",
+  "note_url": "https://note.com/ginzoshizuki_bwh",
+  "og": {
+    "column": "/assets/og/column.png",
+    "kawaraban": "/assets/og/kawaraban.png"
+  },
+  "static_pages": [
+    { "path": "/", "file": "index.html" },
+    { "path": "/migiude-strategy.html", "file": "migiude-strategy.html" },
+    { "path": "/migiude-hr.html", "file": "migiude-hr.html" },
+    { "path": "/yorozuya/", "file": "yorozuya/index.html" },
+    { "path": "/yorozuya/kenshu/", "file": "yorozuya/kenshu/index.html" },
+    { "path": "/yorozuya/sagyou/", "file": "yorozuya/sagyou/index.html" },
+    { "path": "/yorozuya/migiude/", "file": "yorozuya/migiude/index.html" }
+  ]
+}

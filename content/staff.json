@@ -1,0 +1,12 @@
+{
+  "joh":    { "name": "丸岡 ジョウ",   "role": "戦略・事業のコンサルタント", "initial": "ジ" },
+  "sakura": { "name": "足羽 サクラ",   "role": "組織・人事のコンサルタント", "initial": "サ" },
+  "sora":   { "name": "九頭竜 ソラ",   "role": "AX推進のコンサルタント",     "initial": "ソ" },
+  "aya":    { "name": "一乗谷 アヤ",   "role": "研修の担当",                 "initial": "ア" },
+  "hanabi": { "name": "三国 ハナビ",   "role": "動画の担当",                 "initial": "ハ" },
+  "nami":   { "name": "若狭 ナミ",     "role": "音声動画の担当",             "initial": "ナ" },
+  "ren":    { "name": "鯖江 レン",     "role": "ホームページの担当",         "initial": "レ" },
+  "ryu":    { "name": "勝山 リュウ",   "role": "Webシステムの担当",          "initial": "リ" },
+  "sumi":   { "name": "今立 スミ",     "role": "資料づくりの担当",           "initial": "ス" },
+  "yui":    { "name": "大野 ユイ",     "role": "ブンショの担当",             "initial": "ユ" }
+}

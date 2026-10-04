@@ -1,0 +1,37 @@
+{
+  "kenshu": {
+    "name": "現場AI研修",
+    "lead": "御社の実際の仕事を題材に、明日から自分の仕事でAIを動かせる人を育てます。助成金の活用は、提携の社会保険労務士にご相談いただけます。",
+    "lp": "/yorozuya/kenshu/",
+    "hp": null,
+    "form_choice": "現場AI研修"
+  },
+  "sagyou": {
+    "name": "AIおまかせ制作",
+    "lead": "動画・ホームページ・Webシステム・資料を、AIを使って安く、早く、何度でも直せる形で作ります。",
+    "lp": "/yorozuya/sagyou/",
+    "hp": null,
+    "form_choice": "AIおまかせ制作"
+  },
+  "migiude": {
+    "name": "AXの右腕",
+    "lead": "どの仕事をAIに任せるかを一緒に決め、現場で回り続けるところまで伴走します。",
+    "lp": "/yorozuya/migiude/",
+    "hp": null,
+    "form_choice": "AXのみぎうで（AIの右腕）"
+  },
+  "migiude-hr": {
+    "name": "組織・人事のみぎ腕",
+    "lead": "人事評価・育成・採用の仕組みを、御社の中に入って現場に根付かせます。",
+    "lp": null,
+    "hp": "/migiude-hr.html",
+    "form_choice": null
+  },
+  "migiude-strategy": {
+    "name": "戦略・実行のみぎ腕",
+    "lead": "新規事業や経営戦略を、構想で止めずに実行まで一緒に進めます。",
+    "lp": null,
+    "hp": "/migiude-strategy.html",
+    "form_choice": null
+  }
+}
