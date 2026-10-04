@@ -6,7 +6,7 @@ import path from 'node:path';
 import { Marked } from 'marked';
 import { loadConfig } from './config.mjs';
 import { parseFrontmatter } from './frontmatter.mjs';
-import { validateMeta } from './validate.mjs';
+import { validateMeta, BANNED } from './validate.mjs';
 import { splitStaffBlocks, renderStaff, countStaff } from './staff.mjs';
 import { parseEmbed, renderEmbed } from './embed.mjs';
 import { resolveSite, columnPath, kawarabanPath, serviceLink } from './site.mjs';
@@ -35,8 +35,16 @@ function readSources(contentDir, config) {
     for (const filename of fs.readdirSync(d).filter((f) => f.endsWith('.md') && !f.startsWith('_')).sort()) {
       const rel = `${dir}/${filename}`;
       try {
-        const { data, body, bodyLine } = parseFrontmatter(fs.readFileSync(path.join(d, filename), 'utf8'));
-        const errs = validateMeta(data, { dir, filename, config });
+        const { data, body, bodyLine, keyLines } = parseFrontmatter(fs.readFileSync(path.join(d, filename), 'utf8'));
+        // 前付けの誤りは、そのキーの行番号を付ける
+        const errs = validateMeta(data, { dir, filename, config }).map((e) => {
+          const k = Object.keys(keyLines).find((key) => e.startsWith(key));
+          return k ? `${keyLines[k]}行目：${e}` : e;
+        });
+        // 本文の禁止語（前付けは validateMeta が見る）
+        body.split('\n').forEach((l, i) => {
+          for (const w of BANNED) if (l.includes(w)) errs.push(`${bodyLine + i}行目：本文に「${w}」があります（使わない約束の言葉です）`);
+        });
         if (errs.length) { errors.push(...errs.map((e) => `${rel}：${e}`)); continue; }
         const id = dir === 'column' ? data.slug : filename.replace(/\.md$/, '');
         items.push({ ...data, id, rel, body, bodyLine });
@@ -122,6 +130,17 @@ export function build({ root, contentDir, outDir, env = {}, drafts = false, toda
   const kawaraban = items.filter((x) => x.type === 'kawaraban').sort(byDate);
   const publicItems = items.filter((x) => !x.isDraft);
 
+  site.hasColumns = columns.length > 0; // 0本のときはナビとフッターに /column/ を出さない（404 にしない）
+
+  // index.html の差し込みを先に組み立てる（目印が無ければ、何も書かずにここで止まる）
+  const srcIndex = fs.existsSync(path.join(outDir, 'index.html')) ? path.join(outDir, 'index.html') : path.join(root, 'index.html');
+  let indexOut = null;
+  if (fs.existsSync(srcIndex)) {
+    const html = fs.readFileSync(srcIndex, 'utf8');
+    const next = injectBetweenMarkers(html, 'knowledge', renderKnowledge(columns, knowledgeVariant));
+    if (next !== html || srcIndex !== path.join(outDir, 'index.html')) indexOut = next;
+  }
+
   // 3) 前回の生成物を片づける
   for (const d of ['column', 'kawaraban', 'yorozuya/kawaraban']) cleanGenerated(path.join(outDir, d));
 
@@ -183,12 +202,7 @@ export function build({ root, contentDir, outDir, env = {}, drafts = false, toda
   write(outDir, 'content-index.json', JSON.stringify(index, null, 2) + '\n', written);
 
   // 9) トップの #knowledge（index.html があるときだけ。目印が無ければ止める）
-  const srcIndex = fs.existsSync(path.join(outDir, 'index.html')) ? path.join(outDir, 'index.html') : path.join(root, 'index.html');
-  if (fs.existsSync(srcIndex)) {
-    const html = fs.readFileSync(srcIndex, 'utf8');
-    const next = injectBetweenMarkers(html, 'knowledge', renderKnowledge(columns, knowledgeVariant));
-    if (next !== html || srcIndex !== path.join(outDir, 'index.html')) write(outDir, 'index.html', next, written);
-  }
+  if (indexOut !== null) write(outDir, 'index.html', indexOut, written);
 
   return { written, warnings, items };
 }

@@ -3,7 +3,7 @@
 const REQUIRED = ['title', 'slug', 'date', 'type', 'pillar', 'service', 'description'];
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const EMBED_TYPES = ['youtube', 'x', 'none'];
-const BANNED = ['実質無料'];
+export const BANNED = ['実質無料'];
 
 export function isRealDate(s) {
   if (typeof s !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;

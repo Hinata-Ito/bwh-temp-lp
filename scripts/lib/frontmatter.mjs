@@ -32,6 +32,7 @@ export function parseFrontmatter(text) {
   if (close < 0) throw new Error('前付けが閉じていません（2つ目の --- がありません）');
 
   const data = {};
+  const keyLines = {}; // キー → ファイルの行番号（誤りの案内に使う）
   let container = null; // { key, kind: 'map'|'list'|null }
   for (let i = 1; i < close; i++) {
     const lineNo = i; // 前付けの中の行番号（1始まり）
@@ -43,6 +44,7 @@ export function parseFrontmatter(text) {
       if (!m) throw new Error(`前付けの${lineNo}行目：「キー: 値」の形になっていません`);
       const [, key, rest] = m;
       if (key in data) throw new Error(`前付けの${lineNo}行目：キー「${key}」が重複しています`);
+      keyLines[key] = i + 1;
       const value = scalar(rest, lineNo);
       if (value === '') { data[key] = null; container = { key, kind: null }; }
       else { data[key] = value; container = null; }
@@ -64,5 +66,5 @@ export function parseFrontmatter(text) {
       data[container.key][m[1]] = scalar(m[2], lineNo);
     }
   }
-  return { data, body: lines.slice(close + 1).join('\n'), bodyLine: close + 2 };
+  return { data, body: lines.slice(close + 1).join('\n'), bodyLine: close + 2, keyLines };
 }

@@ -45,20 +45,20 @@ export function siteHeader(theme, site) {
     const home = site.lpLive ? '/yorozuya/' : site.kawarabanBase;
     return `<header class="cx-header"><div class="cx-header-in">
   <a class="cx-brand-yz" href="${home}"><span class="cx-brand-fukui">福井</span>「AI よろづや」</a>
-  <nav class="cx-nav" aria-label="メニュー">${site.lpLive ? '<a href="/yorozuya/#staff">AI社員</a>' : ''}<a href="${site.kawarabanBase}">AI瓦版</a><a href="/column/">コラム</a></nav>
+  <nav class="cx-nav" aria-label="メニュー">${site.lpLive ? '<a href="/yorozuya/#staff">AI社員</a>' : ''}<a href="${site.kawarabanBase}">AI瓦版</a>${site.hasColumns === false ? '' : '<a href="/column/">コラム</a>'}</nav>
 </div></header>`;
   }
   return `<header class="cx-header"><div class="cx-header-in">
   <a class="cx-brand-hp" href="/"><span class="logo-mark">BWH</span><span class="logo-text">総合研究所</span></a>
-  <nav class="cx-nav" aria-label="メニュー"><a href="/#service">サービス</a><a href="/column/">コラム</a><a href="/#contact">お問い合わせ</a></nav>
+  <nav class="cx-nav" aria-label="メニュー"><a href="/#service">サービス</a>${site.hasColumns === false ? '' : '<a href="/column/">コラム</a>'}<a href="/#contact">お問い合わせ</a></nav>
 </div></header>`;
 }
 
-export function siteFooter(theme) {
+export function siteFooter(theme, site = {}) {
   const run = theme === 'yz' ? '<p class="cx-run">福井「AI よろづや」の運営：<a href="/">合同会社 BWH総合研究所</a>。記事に出てくる社員は、AIのスタッフです。</p>' : '';
   return `<footer class="cx-footer"><div class="cx-footer-in">
   ${run}
-  <nav aria-label="フッター"><a href="/">BWH総合研究所 トップ</a><a href="/column/">コラム</a><a href="/#contact">お問い合わせ</a></nav>
+  <nav aria-label="フッター"><a href="/">BWH総合研究所 トップ</a>${site.hasColumns === false ? '' : '<a href="/column/">コラム</a>'}<a href="/#contact">お問い合わせ</a></nav>
   <p class="cx-copy">&copy; 合同会社 BWH総合研究所</p>
 </div></footer>`;
 }

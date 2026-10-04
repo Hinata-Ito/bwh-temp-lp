@@ -32,7 +32,7 @@ ${authorBox(config)}
 ${related(relatedItems, item.type === 'column' ? '関連するコラム' : 'ほかの瓦版')}
 <p class="cx-back"><a href="${item.type === 'column' ? '/column/' : esc(site.kawarabanBase)}">${item.type === 'column' ? 'コラムの一覧へ' : 'AI瓦版の一覧へ'}</a></p>
 </main>
-${siteFooter(theme)}
+${siteFooter(theme, site)}
 </body>
 </html>
 `;
@@ -50,6 +50,7 @@ export function redirectPage({ to, site }) {
 <link rel="canonical" href="${esc(url)}">
 <meta http-equiv="refresh" content="0; url=${esc(to)}">
 <title>移転しました</title>
+<script src="/assets/analytics.js" defer></script>
 </head>
 <body><p>このページは <a href="${esc(to)}">${esc(url)}</a> に移りました。</p></body>
 </html>

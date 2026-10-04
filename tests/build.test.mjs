@@ -180,6 +180,47 @@ test('記事が0本なら一覧を作らず、sitemap にも載せない', () =>
   assert.deepEqual(JSON.parse(read(root, 'content-index.json')).items, []);
 });
 
+test('コラムが0本のときは、瓦版のページに /column/ へのリンクを出さない（404 にしない）', () => {
+  const root = tempRoot();
+  const onlyKw = fs.mkdtempSync(path.join(os.tmpdir(), 's2-kw-'));
+  fs.mkdirSync(path.join(onlyKw, 'kawaraban'));
+  fs.copyFileSync(path.join(FIX, 'kawaraban/20261026-dummy-gemini-demo.md'), path.join(onlyKw, 'kawaraban/20261026-dummy-gemini-demo.md'));
+  build({ root, contentDir: onlyKw, outDir: root, env: {}, today: '2026-10-31' });
+  for (const p of ['yorozuya/kawaraban/20261026-dummy-gemini-demo/index.html', 'yorozuya/kawaraban/index.html']) {
+    assert.doesNotMatch(read(root, p), /href="\/column\/"/, p);
+  }
+});
+
+test('本文に「実質無料」があれば、行番号つきで止める', () => {
+  const root = tempRoot();
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 's2-ban-'));
+  fs.mkdirSync(path.join(d, 'column'));
+  fs.writeFileSync(path.join(d, 'column/a.md'), '---\ntitle: a\nslug: a\ndate: 2026-10-01\ntype: column\npillar: trial\nservice: kenshu\ndescription: d\n---\n本文\n\n研修が実質無料になります。\n');
+  assert.throws(() => build({ root, contentDir: d, outDir: root, env: {}, today: '2026-10-31' }), /a\.md：12行目.*実質無料/);
+});
+
+test('前付けの誤りには行番号が付く', () => {
+  const root = tempRoot();
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 's2-line-'));
+  fs.mkdirSync(path.join(d, 'column'));
+  fs.writeFileSync(path.join(d, 'column/a.md'), '---\ntitle: a\nslug: a\ndate: 2026-10-01\ntype: column\npillar: triall\nservice: kenshu\ndescription: d\n---\n本文\n');
+  assert.throws(() => build({ root, contentDir: d, outDir: root, env: {}, today: '2026-10-31' }), /a\.md：6行目：pillar/);
+});
+
+test('転送ページも analytics.js を読み込む（I3）', () => {
+  const root = tempRoot();
+  run(root);
+  assert.match(read(root, 'kawaraban/20261026-dummy-gemini-demo/index.html'), /<script src="\/assets\/analytics\.js" defer><\/script>/);
+});
+
+test('index.html の目印が無ければ、何も書かずに止める', () => {
+  const root = tempRoot({ withIndex: false });
+  fs.writeFileSync(path.join(root, 'index.html'), '<html><body>目印なし</body></html>');
+  assert.throws(() => run(root), /目印/);
+  assert.ok(!exists(root, 'column'));
+  assert.ok(!exists(root, 'sitemap.xml'));
+});
+
 test('吹き出しが4か所以上なら警告（止めない）', () => {
   const root = tempRoot();
   const many = fs.mkdtempSync(path.join(os.tmpdir(), 's2-many-'));

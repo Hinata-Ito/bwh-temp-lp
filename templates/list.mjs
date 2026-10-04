@@ -19,7 +19,7 @@ ${crumbs(cr)}
 ${groups.length > 1 ? `<nav class="cx-toc" aria-label="柱"><ul>${groups.map((g) => `<li><a href="#p-${g.key}">${esc(g.name)}</a></li>`).join('')}</ul></nav>` : ''}
 ${groups.map((g) => `<section class="cx-group" id="p-${g.key}"><h2>${esc(g.name)}</h2><ul class="cx-rows">${g.rows.map((x) => listRow(x, null)).join('')}</ul></section>`).join('\n')}
 </main>
-${siteFooter('hp')}
+${siteFooter('hp', site)}
 </body>
 </html>
 `;
@@ -49,7 +49,7 @@ ${crumbs(cr)}
 ${items.length ? `<section class="cx-group" id="latest"><h2>新着</h2><ul class="cx-rows">${items.map((x) => listRow(x, config.pillars.kawaraban[x.pillar])).join('')}</ul></section>` : ''}
 ${feedHtml}
 </main>
-${siteFooter('yz')}
+${siteFooter('yz', site)}
 </body>
 </html>
 `;
