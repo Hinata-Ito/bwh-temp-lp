@@ -50,7 +50,7 @@ for (const p of pages) {
 
 test('外部送信のページに、送信先・送信される情報・目的・止め方がある', () => {
   const s = fs.readFileSync(path.join(ROOT, 'external-transmission/index.html'), 'utf8');
-  for (const w of ['Google LLC', 'Google アナリティクス', '送信される情報', '目的', 'tools.google.com/dlpage/gaoptout', 'YouTube', 'X Corp.', 'Google Fonts', '合同会社BWH総合研究所']) {
+  for (const w of ['Google LLC', 'Google アナリティクス', '送信される情報', '目的', 'tools.google.com/dlpage/gaoptout', 'YouTube', 'X Corp.', 'Google Fonts', 'note株式会社', '合同会社BWH総合研究所']) {
     assert.ok(s.includes(w), w);
   }
 });

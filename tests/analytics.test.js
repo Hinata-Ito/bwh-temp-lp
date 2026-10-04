@@ -160,6 +160,26 @@ test('classify: コラム・瓦版から LP → to_lp。LP の中の移動は数
   assert.equal(A.classify('../sagyou/', HERE_LP), null);
 });
 
+test('classify: LP の事例・個人情報のページから LP への移動も LP の中なので数えない（独立採点の指摘）', () => {
+  assert.equal(A.classify('../../kenshu/', { origin: 'https://bwh-research.com', pathname: '/yorozuya/cases/lp-site/' }), null);
+  assert.equal(A.classify('../kenshu/', { origin: 'https://bwh-research.com', pathname: '/yorozuya/privacy/' }), null);
+  assert.equal(A.classify('/yorozuya/', { origin: 'https://bwh-research.com', pathname: '/yorozuya/cases/' }), null);
+  // 瓦版は LP の外（記事の受け皿）として数える
+  assert.equal(A.classify('/yorozuya/sagyou/', { origin: 'https://bwh-research.com', pathname: '/yorozuya/kawaraban/' }).event, 'to_lp');
+  // LP が未公開のときの瓦版の置き場（KAWARABAN_BASE=/kawaraban/）からも数える
+  assert.equal(A.classify('/yorozuya/sagyou/', { origin: 'https://bwh-research.com', pathname: '/kawaraban/20261026-x/' }).event, 'to_lp');
+});
+
+test('DEFAULT_FORM の選択肢は analytics.config.js と同じ（片方だけ直してずれないように）', () => {
+  const fs = require('node:fs');
+  const path = require('node:path');
+  const win = {};
+  new Function('window', fs.readFileSync(path.join(__dirname, '../assets/analytics.config.js'), 'utf8'))(win);
+  assert.deepEqual(A.DEFAULT_FORM.choices, win.BWH_FORM.choices);
+  assert.equal(A.DEFAULT_FORM.entries.service, win.BWH_FORM.entries.service);
+  assert.equal(A.DEFAULT_FORM.entries.source, '');
+});
+
 test('classify: 相対リンクも解決する', () => {
   assert.deepEqual(A.classify('yorozuya/', { origin: 'https://bwh-research.com', pathname: '/' }), { event: 'to_lp', params: { from_path: '/', lp_service: 'top' } });
 });
@@ -281,6 +301,17 @@ test('boot: UTM つきで来て相談リンクを押すと、href に選択肢�
   assert.equal(last[1], 'cta_click');
   assert.equal(last[2].cta_service, 'kenshu');
   assert.equal(last[2].page_path, '/column/a/');
+});
+
+test('boot: 中クリック（auxclick）でも書き換えて cta_click を送る', () => {
+  const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true, BWH_FORM: CFG });
+  A.boot(win);
+  const a = link(FORM, 'kenshu');
+  listeners.auxclick.forEach(f => f({ button: 1, target: { closest: () => a } }));
+  assert.equal(new URL(a.href).searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(win.dataLayer.filter(x => x[1] === 'cta_click').length, 1);
+  listeners.auxclick.forEach(f => f({ button: 2, target: { closest: () => a } }));
+  assert.equal(win.dataLayer.filter(x => x[1] === 'cta_click').length, 1, '右クリックは数えない');
 });
 
 test('boot: data-cta-service が無い相談リンクは general', () => {

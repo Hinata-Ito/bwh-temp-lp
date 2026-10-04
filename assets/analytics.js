@@ -88,6 +88,11 @@
     return p.charAt(p.length - 1) === '/' ? p : p + '/';
   }
   function lpService(path) { return LP[normPath(path)] || ''; }
+  // LP の中（4ページ・事例・個人情報など /yorozuya/ 配下）。瓦版だけは記事の受け皿なので外とみなす
+  function inLp(path) {
+    var p = normPath(path);
+    return p.indexOf('/yorozuya/') === 0 && p.indexOf('/yorozuya/kawaraban/') !== 0;
+  }
 
   function classify(href, here) {
     if (!href || href.charAt(0) === '#') return null;
@@ -95,7 +100,7 @@
     try { u = new URL(href, here.origin + here.pathname); } catch (e) { return null; }
     if (isFormUrl(u.href)) return { event: 'cta_click', params: { page_path: here.pathname } };
     if (/(^|\.)note\.com$/.test(u.hostname)) return { event: 'note_click', params: { from_path: here.pathname, link_url: u.href } };
-    if (u.origin === here.origin && lpService(u.pathname) && !lpService(here.pathname)) {
+    if (u.origin === here.origin && lpService(u.pathname) && !inLp(here.pathname)) {
       return { event: 'to_lp', params: { from_path: here.pathname, lp_service: lpService(u.pathname) } };
     }
     return null;
@@ -148,7 +153,7 @@
       { utm: parseUtm(loc.search), ref: refHost(doc.referrer || '', loc.hostname), landing: String(loc.pathname || '/').slice(0, 120) };
 
     // 相談リンクは押した瞬間に href を書き換える（新しいタブで開くので、書き換えた URL がそのまま開く）
-    doc.addEventListener('click', function (ev) {
+    function onClick(ev) {
       try {
         var a = ev.target && ev.target.closest && ev.target.closest('a[href]');
         if (!a) return;
@@ -161,7 +166,9 @@
         }
         send(win, hit.event, hit.params);
       } catch (e) { /* 計測の失敗でリンクを止めない */ }
-    }, true);
+    }
+    doc.addEventListener('click', onClick, true);
+    doc.addEventListener('auxclick', function (ev) { if (ev.button === 1) onClick(ev); }, true);  // 中クリック（新しいタブで開く）
 
     // 埋め込み（YouTube・X）は iframe にフォーカスが移ったときを「押した」とみなす。再生の完了は取らない
     win.addEventListener('blur', function () {
@@ -187,6 +194,6 @@
   return {
     EVENTS: EVENTS, parseUtm: parseUtm, refHost: refHost, readTouch: readTouch, rememberTouch: rememberTouch,
     sourceValue: sourceValue, isFormUrl: isFormUrl, formUrl: formUrl, lpService: lpService, classify: classify,
-    kawarabanId: kawarabanId, validId: validId, initGa: initGa, send: send, boot: boot
+    kawarabanId: kawarabanId, validId: validId, DEFAULT_FORM: DEFAULT_FORM, initGa: initGa, send: send, boot: boot
   };
 });
