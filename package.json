@@ -1,11 +1,10 @@
 {
   "name": "bwh-temp-lp",
   "private": true,
-  "type": "module",
   "description": "bwh-research.com 本体。content/ の Markdown からコラムと AI瓦版を生成する",
   "engines": { "node": ">=22" },
   "scripts": {
-    "test": "node --test \"tests/*.test.mjs\"",
+    "test": "node --test \"tests/*.test.mjs\" \"tests/*.test.js\"",
     "build": "node scripts/build-content.mjs",
     "preview": "node scripts/build-content.mjs --content tests/fixtures/content --out .preview --drafts && node scripts/preview-server.mjs"
   },
