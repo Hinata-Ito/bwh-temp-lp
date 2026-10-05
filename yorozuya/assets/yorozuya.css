@@ -700,7 +700,7 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .art-pic img { width: 100%; height: 100%; object-fit: cover; }
 .art-body { max-width: calc(860px + var(--gutter) * 2); padding-bottom: var(--sec); }
 .art-sec { display: grid; grid-template-columns: 64px 1fr; column-gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line-soft); }
-.art-sec > h2, .art-sec > p, .art-sec > ul, .art-sec > ol { grid-column: 2; }
+.art-sec > h2, .art-sec > p, .art-sec > ul, .art-sec > ol, .art-sec > .art-table, .art-sec > .art-note { grid-column: 2; }
 .art-no { grid-column: 1 !important; grid-row: 1 / 3; font-size: 32px; font-weight: 500; line-height: 1; color: var(--ink-3); }
 .art-sec h2 { font-size: 20px; letter-spacing: .06em; }
 .art-lead { margin-top: 12px; font-size: clamp(16px, 1.5vw, 18px); line-height: 2; }
@@ -745,3 +745,71 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .art-ov > div { display: grid; grid-template-columns: 7em 1fr; gap: 14px; padding: 10px 4px; border-bottom: 1px solid var(--line-soft); }
 .art-ov dt { font-weight: 700; font-size: 14px; }
 .art-ov dd { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.8; }
+
+/* 解説記事：要点・まとめ・途中の相談枠・図解（2026-10 SEO） */
+.art-points { margin-top: 24px; padding: 22px 24px; border: 2px solid var(--ink); }
+.art-points > p { font-size: 13px; font-weight: 900; letter-spacing: .16em; margin-bottom: 8px; }
+.art-points ul, .art-summary ul { margin: 0; padding-left: 1.3em; line-height: 1.9; }
+.art-points li, .art-summary li { margin-bottom: .4em; }
+.art-points li::marker, .art-summary li::marker { color: var(--ink); }
+.art-summary ul { padding: 20px 24px 20px 2.6em; background: var(--bg-2); }
+.art-sec p { line-height: 2; }
+.art-sec p b, .art-sec li b { background: linear-gradient(transparent 62%, #fde68a 62%); }
+.art-cta { margin: 8px 0 28px; padding: 24px; background: var(--ink); color: #fff; }
+.art-cta-lead { font-weight: 700; line-height: 1.8; margin-bottom: 14px; }
+.art-cta-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.art-cta-main, .art-cta-sub { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; font-weight: 700; letter-spacing: .04em; text-decoration: none; }
+.art-cta-main { background: #fff; color: var(--ink); }
+.art-cta-main::after { content: "→"; margin-left: 10px; }
+.art-cta-sub { border: 1px solid rgba(255,255,255,.6); color: #fff; }
+.art-cta-main:hover { background: #fde68a; }
+.art-cta-sub:hover { background: rgba(255,255,255,.12); }
+.art-fig { margin: 8px 0 28px; }
+.art-fig img { width: 100%; height: auto; display: block; }
+.art-fig figcaption { margin-top: 8px; font-size: 13px; color: var(--ink-3); line-height: 1.7; }
+.fig-box { padding: 22px 20px; border: 1px solid var(--line-soft); background: #fff; }
+.fig-title { font-size: 14px; font-weight: 900; margin-bottom: 14px; }
+.fig-bars { display: grid; gap: 10px; }
+.fig-bar { display: grid; grid-template-columns: 7.5em 1fr 3.6em; align-items: center; gap: 10px; font-size: 14px; }
+.fig-bar .track { height: 18px; background: var(--bg-2); }
+.fig-bar .fill { display: block; height: 100%; background: var(--ink-3); }
+.fig-bar.is-hl .fill { background: var(--ink); }
+.fig-bar.is-hl { font-weight: 900; }
+.fig-bar .val { text-align: right; font-family: var(--latin); font-weight: 500; }
+.fig-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: st; }
+.fig-step { position: relative; padding: 16px 14px 16px 14px; border: 2px solid var(--ink); margin-right: 18px; background: #fff; }
+.fig-step:last-child { margin-right: 0; background: var(--ink); color: #fff; }
+.fig-step:not(:last-child)::after { content: ""; position: absolute; right: -16px; top: 50%; transform: translateY(-50%); border: 8px solid transparent; border-left: 10px solid var(--ink); }
+.fig-step .n { font-family: var(--latin); font-size: 12px; letter-spacing: .12em; }
+.fig-step b { display: block; font-size: 17px; margin: 2px 0 6px; }
+.fig-step small { display: block; font-size: 12.5px; line-height: 1.6; }
+.fig-flow { display: grid; gap: 0; }
+.fig-flow-row { display: grid; grid-template-columns: 2.4em 1fr auto; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--line-soft); }
+.fig-flow-row .n { width: 2.2em; height: 2.2em; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-family: var(--latin); font-weight: 500; }
+.fig-flow-row b { display: block; }
+.fig-flow-row small { color: var(--ink-3); font-size: 13px; }
+.fig-flow-row .tag { font-size: 12px; font-weight: 700; padding: 4px 10px; border: 1px solid var(--ink); white-space: nowrap; }
+.fig-flow-row .tag.is-free { background: #fde68a; border-color: #fde68a; }
+@media (max-width: 700px) {
+  .fig-steps { grid-template-columns: 1fr; }
+  .fig-step { margin: 0 0 18px; }
+  .fig-step:not(:last-child)::after { right: auto; left: 50%; top: auto; bottom: -18px; transform: translateX(-50%); border: 8px solid transparent; border-top: 10px solid var(--ink); }
+  .fig-bar { grid-template-columns: 6.5em 1fr 3.2em; font-size: 13px; }
+  .fig-flow-row { grid-template-columns: 2.4em 1fr; }
+  .fig-flow-row .tag { grid-column: 2; justify-self: start; }
+  .art-cta-btns > a { width: 100%; }
+}
+.art-points ul, .art-summary ul, .art-sec > ul { list-style: disc; }
+.art-sec > ol { list-style: decimal; }
+/* 記事の表と注意書き（解説記事の本文に表・箇条書き・注意を入れるため） */
+.art-sec > ul, .art-sec > ol { margin: 0 0 1.2em; padding-left: 1.4em; line-height: 1.9; }
+.art-sec > ul li, .art-sec > ol li { margin-bottom: .5em; }
+.art-table { overflow-x: auto; margin: 0 0 1.4em; }
+.art-table table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.7; }
+.art-table th, .art-table td { border: 1px solid var(--line-soft); padding: 10px 12px; text-align: left; vertical-align: top; }
+.art-table th { background: #f4f4f2; font-weight: 700; }
+.art-note { margin: 0 0 1.4em; padding: 16px 20px; border-left: 4px solid currentColor; background: #f7f7f5; line-height: 1.9; }
+.art-note b { display: block; margin-bottom: 4px; }
+.art-sources { font-size: 14px; word-break: break-all; }
+.fig-box, .fig-box * { word-break: normal; overflow-wrap: anywhere; }
+.fig-step em { display: block; margin-top: 8px; font-style: normal; font-size: 12px; font-weight: 700; opacity: .75; }
