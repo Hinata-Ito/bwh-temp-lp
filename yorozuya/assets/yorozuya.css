@@ -860,3 +860,16 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .kw-arts{margin:0 0 64px}
 
 .art-pic + .art-body .art-hook, .art-body > .art-hook:first-child{margin-top:36px}
+/* トップの事例は小さなカードで（課題などは記事ページで読む。静木さん 10/5「縦に幅取りすぎ」） */
+.case-grid-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.case-grid-compact .case h3 { font-size: 15px; line-height: 1.6; margin-top: 8px; }
+.case-grid-compact .case-read { margin-top: 10px; font-size: 13px; }
+.case-grid-compact .case-pic { aspect-ratio: 16 / 10; }
+@media (max-width: 700px) { .case-grid-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .case-grid-compact .case h3 { font-size: 13.5px; } .case-grid-compact .case-meta { font-size: 11px; } }
+.cases-box .case-group + .case-group { margin-top: 40px; }
+.case-grid-compact { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-top: 20px; }
+.case-grid-compact .case-pic { aspect-ratio: 16 / 9; }
+@media (max-width: 1000px) { .case-grid-compact { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .case-grid-compact { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.case-links { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: flex-end; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+.case-links .case-more { margin-left: 0; }
