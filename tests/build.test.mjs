@@ -279,3 +279,15 @@ test('生成したページは計測の決まりを満たす（タグ1つ・相�
     }
   }
 });
+
+// 記事は AI よろづや の記事ページ（/yorozuya/articles/）に一本化した（2026-10-05 静木さん 問1=b）。公開済みの記事だけ sitemap に載せる
+test('sitemap に LP の解説記事を載せる（noindex の下書きは載せない）', () => {
+  const root = tempRoot();
+  const art = (id, html) => { fs.mkdirSync(path.join(root, 'yorozuya/articles', id), { recursive: true }); fs.writeFileSync(path.join(root, 'yorozuya/articles', id, 'index.html'), html); };
+  art('fukui-ai-guide', '<html><head><title>x</title></head></html>');
+  art('draft-one', '<html><head><meta name="robots" content="noindex"></head></html>');
+  run(root);
+  const sm = read(root, 'sitemap.xml');
+  assert.match(sm, /<loc>https:\/\/bwh-research\.com\/yorozuya\/articles\/fukui-ai-guide\/<\/loc>/);
+  assert.doesNotMatch(sm, /draft-one/);
+});

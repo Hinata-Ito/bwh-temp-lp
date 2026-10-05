@@ -184,6 +184,7 @@ export function build({ root, contentDir, outDir, env = {}, drafts = false, toda
   const pubKw = publicItems.filter((x) => x.type === 'kawaraban');
   const entries = [
     ...config.site.static_pages.filter((p) => fs.existsSync(path.join(root, p.file))).map((p) => ({ loc: site.origin + p.path, lastmod: null })),
+    ...lpArticles(root).map((p) => ({ loc: site.origin + p, lastmod: null })),
     ...(pubCol.length ? [{ loc: site.origin + '/column/', lastmod: lastOf(pubCol) }] : []),
     ...pubCol.map((x) => ({ loc: site.origin + x.path, lastmod: x.updated || x.date })),
     ...(pubKw.length ? [{ loc: site.origin + site.kawarabanBase, lastmod: lastOf(pubKw) }] : []),
@@ -206,4 +207,15 @@ export function build({ root, contentDir, outDir, env = {}, drafts = false, toda
   if (indexOut !== null) write(outDir, 'index.html', indexOut, written);
 
   return { written, warnings, items };
+}
+
+// AI よろづや（LP）の解説記事。LP のビルドが書き出したもののうち、noindex でない（公開済みの）ものだけ
+function lpArticles(root) {
+  const dir = path.join(root, 'yorozuya', 'articles');
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'index.html')))
+    .filter((e) => !/<meta name="robots" content="noindex"/.test(fs.readFileSync(path.join(dir, e.name, 'index.html'), 'utf8')))
+    .map((e) => `/yorozuya/articles/${e.name}/`)
+    .sort();
 }
