@@ -858,3 +858,5 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .kw-h .en{font-size:.72rem;letter-spacing:.14em;color:var(--ink-3);font-weight:400}
 .kw-tag{font-size:.75rem;background:var(--ink);color:#fff;padding:3px 9px;border-radius:3px;font-weight:700}
 .kw-arts{margin:0 0 64px}
+
+.art-pic + .art-body .art-hook, .art-body > .art-hook:first-child{margin-top:36px}
