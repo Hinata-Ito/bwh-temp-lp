@@ -2674,3 +2674,13 @@ img {
   .hiw-cov .hiw-covb { transition: none !important; transform: none !important; }
   .hiw-col.fade-up, .hiw-handoff.fade-up, .hiw-cov.fade-up { transition-delay: 0s !important; }
 }
+
+/* ---------- AI よろづや への入口（サービス欄の下） ---------- */
+.yorozuya-banner { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 28px; margin-top: 48px; padding: 28px 32px; background: #111; color: #fff; border-radius: 4px; text-decoration: none; transition: background var(--transition); }
+.yorozuya-banner:hover { background: #26324a; }
+.yb-label { font-family: var(--font-en); font-size: 15px; letter-spacing: .2em; padding-right: 24px; border-right: 1px solid rgba(255,255,255,.3); white-space: nowrap; }
+.yb-body { display: flex; flex-direction: column; gap: 6px; }
+.yb-title { font-family: var(--font-sans); font-weight: 700; font-size: 18px; letter-spacing: .04em; }
+.yb-text { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,.78); }
+.yb-go { font-size: 14px; font-weight: 700; white-space: nowrap; }
+@media (max-width: 767px) { .yorozuya-banner { grid-template-columns: 1fr; gap: 12px; padding: 24px 20px; } .yb-label { border-right: 0; padding-right: 0; } }
