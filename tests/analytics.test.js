@@ -3,8 +3,8 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const A = require('../assets/analytics.js');
 
-const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSc2eHUy1JeRPg17E6asX3A_j6NY2b4Jxyb1N6jSdifA1vU_gQ/viewform';
-const CFG = { entries: { service: '1036629582', source: '999' }, choices: { kenshu: '現場AI研修', 'migiude-hr': '組織の右腕' } };
+const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLScLlULntBIHOOq0jX4yH4r5693CTsszvkHEWwah1__Yfy3R7w/viewform';
+const CFG = { entries: { service: '523560967', source: '999' }, choices: { kenshu: '現場AI研修', 'migiude-hr': '組織の右腕' } };
 function mem() { const m = {}; return { getItem: k => (k in m ? m[k] : null), setItem: (k, v) => { m[k] = String(v); } }; }
 const broken = { getItem() { throw new Error('SecurityError'); }, setItem() { throw new Error('QuotaExceeded'); } };
 
@@ -100,14 +100,14 @@ test('isFormUrl', () => {
 test('formUrl: サービスと流入元を事前入力する', () => {
   const u = new URL(A.formUrl(FORM, { service: 'kenshu', source: 'direct | btn:/', form: CFG }));
   assert.equal(u.searchParams.get('usp'), 'pp_url');
-  assert.equal(u.searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(u.searchParams.get('entry.523560967'), '現場AI研修');
   assert.equal(u.searchParams.get('entry.999'), 'direct | btn:/');
 });
 
 test('formUrl: 既にある事前入力を二重にせず置き換える（Review Focus 4）', () => {
-  const pre = FORM + '?usp=pp_url&entry.1036629582=%E7%8F%BE%E5%A0%B4AI%E7%A0%94%E4%BF%AE';
+  const pre = FORM + '?usp=pp_url&entry.523560967=%E7%8F%BE%E5%A0%B4AI%E7%A0%94%E4%BF%AE';
   const u = new URL(A.formUrl(pre, { service: 'migiude-hr', source: '', form: CFG }));
-  assert.deepEqual(u.searchParams.getAll('entry.1036629582'), ['組織の右腕']);
+  assert.deepEqual(u.searchParams.getAll('entry.523560967'), ['組織の右腕']);
   assert.deepEqual(u.searchParams.getAll('usp'), ['pp_url']);
 });
 
@@ -118,13 +118,13 @@ test('formUrl: 2回押しても流入元は1つ', () => {
 });
 
 test('formUrl: general や不明なサービスは元の選択を残す', () => {
-  const pre = FORM + '?usp=pp_url&entry.1036629582=%E7%8F%BE%E5%A0%B4AI%E7%A0%94%E4%BF%AE';
-  assert.equal(new URL(A.formUrl(pre, { service: 'general', source: '', form: CFG })).searchParams.get('entry.1036629582'), '現場AI研修');
-  assert.equal(new URL(A.formUrl(FORM, { service: 'nazo', source: '', form: CFG })).searchParams.get('entry.1036629582'), null);
+  const pre = FORM + '?usp=pp_url&entry.523560967=%E7%8F%BE%E5%A0%B4AI%E7%A0%94%E4%BF%AE';
+  assert.equal(new URL(A.formUrl(pre, { service: 'general', source: '', form: CFG })).searchParams.get('entry.523560967'), '現場AI研修');
+  assert.equal(new URL(A.formUrl(FORM, { service: 'nazo', source: '', form: CFG })).searchParams.get('entry.523560967'), null);
 });
 
 test('formUrl: 流入元の entry ID が空なら足さず、何も変えないときは元の href のまま', () => {
-  const cfg = { entries: { service: '1036629582', source: '' }, choices: CFG.choices };
+  const cfg = { entries: { service: '523560967', source: '' }, choices: CFG.choices };
   assert.equal(A.formUrl(FORM, { service: 'general', source: 'direct', form: cfg }), FORM);
   assert.equal(A.formUrl(FORM, { service: 'general', source: 'direct' }), FORM);
 });
@@ -289,13 +289,13 @@ test('send: 4つ以外のイベント名は送らない', () => {
 
 test('boot: UTM つきで来て相談リンクを押すと、href に選択肢と流入元が入り cta_click が積まれる', () => {
   const { win, listeners } = fakeWin({ BWH_GA4_ID: 'G-TEST1234', BWH_GA4_DRYRUN: true,
-    BWH_FORM: { entries: { service: '1036629582', source: '999' }, choices: { kenshu: '現場AI研修' } } });
+    BWH_FORM: { entries: { service: '523560967', source: '999' }, choices: { kenshu: '現場AI研修' } } });
   win.location.search = '?utm_source=instagram&utm_medium=social&utm_campaign=profile';
   A.boot(win);
   const a = link(FORM, 'kenshu');
   clickOn(listeners, a);
   const u = new URL(a.href);
-  assert.equal(u.searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(u.searchParams.get('entry.523560967'), '現場AI研修');
   assert.equal(u.searchParams.get('entry.999'), 'instagram/social/profile/- | in:/column/a/ | btn:/column/a/');
   const last = win.dataLayer[win.dataLayer.length - 1];
   assert.equal(last[1], 'cta_click');
@@ -308,7 +308,7 @@ test('boot: 中クリック（auxclick）でも書き換えて cta_click を送�
   A.boot(win);
   const a = link(FORM, 'kenshu');
   listeners.auxclick.forEach(f => f({ button: 1, target: { closest: () => a } }));
-  assert.equal(new URL(a.href).searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(new URL(a.href).searchParams.get('entry.523560967'), '現場AI研修');
   assert.equal(win.dataLayer.filter(x => x[1] === 'cta_click').length, 1);
   listeners.auxclick.forEach(f => f({ button: 2, target: { closest: () => a } }));
   assert.equal(win.dataLayer.filter(x => x[1] === 'cta_click').length, 1, '右クリックは数えない');
@@ -326,9 +326,9 @@ test('boot: 設定が読めず sessionStorage も壊れていても、例外を�
   win.document.head.appendChild = s => { scripts.push(s); if (s.onerror) s.onerror(); };
   win.sessionStorage = broken;
   assert.doesNotThrow(() => A.boot(win));
-  const a = link(FORM + '?usp=pp_url&entry.1036629582=x', 'kenshu');
+  const a = link(FORM + '?usp=pp_url&entry.523560967=x', 'kenshu');
   assert.doesNotThrow(() => clickOn(listeners, a));
-  assert.equal(new URL(a.href).searchParams.get('entry.1036629582'), '現場AI研修');
+  assert.equal(new URL(a.href).searchParams.get('entry.523560967'), '現場AI研修');
   assert.equal(win.dataLayer, undefined);
   assert.equal(gtm(scripts).length, 0);
 });

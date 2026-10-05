@@ -6,8 +6,8 @@ window.BWH_GA4_ID = '';
 window.BWH_GA4_DRYRUN = false; // true にすると、送らずに dataLayer に積むだけ（プレビューでの確かめ用）
 window.BWH_FORM = {
   entries: {
-    service: '1036629582', // ご相談したいこと（チェックボックス）
-    source: ''             // 流入元（自動で入ります）。フォームに設問を足した後に entry ID を入れる
+    service: '523560967', // ご相談したいこと（チェックボックス）
+    source: '1182345841'   // 流入元（自動で入ります）
   },
   choices: {               // フォームの選択肢と1字でも違うと事前入力されない
     kenshu: '現場AI研修',

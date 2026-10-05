@@ -115,7 +115,7 @@
 
   // 設定ファイルがまだ読めていないときの事前入力。流入元の entry は設定ファイルにだけ書く
   var DEFAULT_FORM = {
-    entries: { service: '1036629582', source: '' },
+    entries: { service: '523560967', source: '' },
     choices: { kenshu: '現場AI研修', sagyou: 'AIおまかせ制作', migiude: 'AXのみぎうで（AIの右腕）', 'migiude-hr': '組織の右腕', 'migiude-strategy': '戦略の右腕' }
   };
 

@@ -49,7 +49,7 @@ test('サービスの案内：LP が未公開ならフォーム（そのサー�
   const s = resolveSite({ KAWARABAN_BASE: '/kawaraban/' }, config);
   const l = serviceLink('kenshu', s, config);
   assert.equal(l.kind, 'form');
-  assert.ok(l.href.startsWith(config.site.form + '?usp=pp_url&entry.1036629582='));
+  assert.ok(l.href.startsWith(config.site.form + '?usp=pp_url&entry.523560967='));
   assert.ok(l.href.endsWith(encodeURIComponent('現場AI研修')));
   assert.equal(serviceLink('migiude-strategy', s, config).href, '/migiude-strategy.html');
 });

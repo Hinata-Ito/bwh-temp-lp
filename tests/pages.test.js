@@ -60,7 +60,7 @@ test('設定ファイルの選択肢は、フォームの選択肢と一字一�
   const FORM_CHOICES = ['戦略の右腕', '組織の右腕', '現場AI研修', 'AIおまかせ制作', 'AXのみぎうで（AIの右腕）', 'まだ決めていない・その他'];
   const win = {};
   new Function('window', fs.readFileSync(path.join(ROOT, 'assets/analytics.config.js'), 'utf8'))(win);
-  assert.equal(win.BWH_FORM.entries.service, '1036629582');
+  assert.equal(win.BWH_FORM.entries.service, '523560967');
   for (const [k, v] of Object.entries(win.BWH_FORM.choices)) {
     assert.ok(KEYS.has(k), k);
     assert.ok(FORM_CHOICES.includes(v), v);
