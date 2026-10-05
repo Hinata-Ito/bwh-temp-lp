@@ -286,8 +286,11 @@ test('sitemap に LP の解説記事を載せる（noindex の下書きは載せ
   const art = (id, html) => { fs.mkdirSync(path.join(root, 'yorozuya/articles', id), { recursive: true }); fs.writeFileSync(path.join(root, 'yorozuya/articles', id, 'index.html'), html); };
   art('fukui-ai-guide', '<html><head><title>x</title></head></html>');
   art('draft-one', '<html><head><meta name="robots" content="noindex"></head></html>');
+  fs.mkdirSync(path.join(root, 'yorozuya/cases/new-case'), { recursive: true });
+  fs.writeFileSync(path.join(root, 'yorozuya/cases/new-case/index.html'), '<html><head><title>x</title></head></html>');
   run(root);
   const sm = read(root, 'sitemap.xml');
   assert.match(sm, /<loc>https:\/\/bwh-research\.com\/yorozuya\/articles\/fukui-ai-guide\/<\/loc>/);
   assert.doesNotMatch(sm, /draft-one/);
+  assert.match(sm, /<loc>https:\/\/bwh-research\.com\/yorozuya\/cases\/new-case\/<\/loc>/);
 });

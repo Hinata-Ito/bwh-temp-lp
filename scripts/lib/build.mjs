@@ -209,13 +209,16 @@ export function build({ root, contentDir, outDir, env = {}, drafts = false, toda
   return { written, warnings, items };
 }
 
-// AI よろづや（LP）の解説記事。LP のビルドが書き出したもののうち、noindex でない（公開済みの）ものだけ
+// AI よろづや（LP）の解説記事と事例。LP のビルドが書き出したもののうち、noindex でない（公開済みの）ものだけ
 function lpArticles(root) {
-  const dir = path.join(root, 'yorozuya', 'articles');
-  if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir, { withFileTypes: true })
-    .filter((e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'index.html')))
-    .filter((e) => !/<meta name="robots" content="noindex"/.test(fs.readFileSync(path.join(dir, e.name, 'index.html'), 'utf8')))
-    .map((e) => `/yorozuya/articles/${e.name}/`)
-    .sort();
+  const out = [];
+  for (const kind of ['articles', 'cases']) {
+    const dir = path.join(root, 'yorozuya', kind);
+    if (!fs.existsSync(dir)) continue;
+    out.push(...fs.readdirSync(dir, { withFileTypes: true })
+      .filter((e) => e.isDirectory() && fs.existsSync(path.join(dir, e.name, 'index.html')))
+      .filter((e) => !/<meta name="robots" content="noindex"/.test(fs.readFileSync(path.join(dir, e.name, 'index.html'), 'utf8')))
+      .map((e) => `/yorozuya/${kind}/${e.name}/`));
+  }
+  return out.sort();
 }
