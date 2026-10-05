@@ -813,3 +813,19 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .art-sources { font-size: 14px; word-break: break-all; }
 .fig-box, .fig-box * { word-break: normal; overflow-wrap: anywhere; }
 .fig-step em { display: block; margin-top: 8px; font-style: normal; font-size: 12px; font-weight: 700; opacity: .75; }
+/* 記事の最後の「AI よろづやについて」 */
+.art-about { margin-top: 56px; padding: 32px 28px; border: 2px solid var(--ink); }
+.art-about-label { font-family: var(--latin); font-size: 12px; letter-spacing: .2em; color: var(--ink-3); }
+.art-about h2 { font-size: 22px; margin: 4px 0 12px; }
+.art-about > p { line-height: 2; }
+.art-about-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+.art-about-card { display: block; padding: 16px; border: 1px solid var(--line-soft); text-decoration: none; color: var(--ink); background: #fff; transition: border-color .2s; }
+.art-about-card:hover { border-color: var(--ink); }
+.art-about-card.is-cur { border: 2px solid var(--ink); }
+.art-about-card small { display: block; font-family: var(--latin); font-size: 11px; letter-spacing: .14em; color: var(--ink-3); }
+.art-about-card b { display: block; font-size: 17px; margin: 2px 0 6px; }
+.art-about-card span { display: block; font-size: 13px; line-height: 1.7; color: var(--ink-2); }
+.art-about-cta { padding: 22px 24px; background: var(--ink); color: #fff; }
+.art-about-cta p { line-height: 1.9; margin-bottom: 14px; }
+.art-about-cta p b { display: block; font-size: 18px; }
+@media (max-width: 700px) { .art-about { padding: 24px 18px; } .art-about-cards { grid-template-columns: 1fr; } }
