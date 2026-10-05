@@ -700,7 +700,7 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .art-pic img { width: 100%; height: 100%; object-fit: cover; }
 .art-body { max-width: calc(860px + var(--gutter) * 2); padding-bottom: var(--sec); }
 .art-sec { display: grid; grid-template-columns: 64px 1fr; column-gap: 24px; padding: 40px 0; border-bottom: 1px solid var(--line-soft); }
-.art-sec > h2, .art-sec > p, .art-sec > ul, .art-sec > ol { grid-column: 2; }
+.art-sec > h2, .art-sec > p, .art-sec > ul, .art-sec > ol, .art-sec > .art-table, .art-sec > .art-note { grid-column: 2; }
 .art-no { grid-column: 1 !important; grid-row: 1 / 3; font-size: 32px; font-weight: 500; line-height: 1; color: var(--ink-3); }
 .art-sec h2 { font-size: 20px; letter-spacing: .06em; }
 .art-lead { margin-top: 12px; font-size: clamp(16px, 1.5vw, 18px); line-height: 2; }
@@ -733,3 +733,14 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 .art-svc { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 48px; padding: 22px 26px; background: var(--ink); color: #fff; }
 .art-svc small { display: block; font-size: 12px; opacity: .7; }
 .art-svc b { font-size: 20px; }
+
+/* 記事の表と注意書き（解説記事の本文に表・箇条書き・注意を入れるため） */
+.art-sec > ul, .art-sec > ol { margin: 0 0 1.2em; padding-left: 1.4em; line-height: 1.9; }
+.art-sec > ul li, .art-sec > ol li { margin-bottom: .5em; }
+.art-table { overflow-x: auto; margin: 0 0 1.4em; }
+.art-table table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.7; }
+.art-table th, .art-table td { border: 1px solid var(--line-soft); padding: 10px 12px; text-align: left; vertical-align: top; }
+.art-table th { background: #f4f4f2; font-weight: 700; }
+.art-note { margin: 0 0 1.4em; padding: 16px 20px; border-left: 4px solid currentColor; background: #f7f7f5; line-height: 1.9; }
+.art-note b { display: block; margin-bottom: 4px; }
+.art-sources { font-size: 14px; word-break: break-all; }
