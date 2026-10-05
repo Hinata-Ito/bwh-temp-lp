@@ -58,7 +58,7 @@ export function siteFooter(theme, site = {}) {
   const run = theme === 'yz' ? '<p class="cx-run">福井「AI よろづや」の運営：<a href="/">合同会社 BWH総合研究所</a>。記事に出てくる社員は、AIのスタッフです。</p>' : '';
   return `<footer class="cx-footer"><div class="cx-footer-in">
   ${run}
-  <nav aria-label="フッター"><a href="/">BWH総合研究所 トップ</a>${site.hasColumns === false ? '' : '<a href="/column/">コラム</a>'}<a href="/#contact">お問い合わせ</a></nav>
+  <nav aria-label="フッター"><a href="/">BWH総合研究所 トップ</a>${site.hasColumns === false ? '' : '<a href="/column/">コラム</a>'}<a href="/#contact">お問い合わせ</a><a href="/external-transmission/">外部送信について</a></nav>
   <p class="cx-copy">&copy; 合同会社 BWH総合研究所</p>
 </div></footer>`;
 }

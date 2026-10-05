@@ -256,3 +256,26 @@ test('_config.yml が原稿とスクリプトを Jekyll の公開から外して
     assert.match(yml, new RegExp(`^\\s+- ${d.replace('.', '\\.')}\\s*$`, 'm'), d);
   }
 });
+
+// S1 の決まり（I3 の補足1〜3）を、生成したページにも求める。統合（feature/seo-integrate）で見つかった漏れの再発防止
+test('生成したページは計測の決まりを満たす（タグ1つ・相談リンクの属性・フッターに外部送信）', () => {
+  const root = tempRoot();
+  run(root);
+  const pages = [];
+  const walk = (d) => { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) walk(p); else if (e.name.endsWith('.html') && ['column', 'kawaraban'].some((k) => path.relative(root, p).split(path.sep).includes(k))) pages.push(p); } };
+  walk(root);
+  assert.ok(pages.length >= 4, String(pages.length));
+  for (const p of pages) {
+    const s = fs.readFileSync(p, 'utf8');
+    const rel = path.relative(root, p);
+    const head = (/<head[\s\S]*?<\/head>/i.exec(s) || [''])[0];
+    assert.equal(head.split('<script src="/assets/analytics.js" defer></script>').length - 1, 1, `${rel}: タグ`);
+    for (const t of s.match(/<a\b[^>]*href="https:\/\/(docs\.google\.com\/forms|forms\.gle)[^"]*"[^>]*>/g) || []) {
+      assert.match(t, /data-cta-service="[a-z-]+"/, `${rel}: ${t.slice(0, 120)}`);
+    }
+    if (/<footer\b/i.test(s)) {
+      const foot = (/<footer\b[\s\S]*?<\/footer>/i.exec(s) || [''])[0];
+      assert.match(foot, /href="\/external-transmission\/"/, `${rel}: フッターに外部送信のリンクが無い`);
+    }
+  }
+});
