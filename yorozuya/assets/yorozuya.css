@@ -879,3 +879,10 @@ a.case:hover .case-read .circ { background: var(--ink); color: #fff; }
 /* 小カードの区分名が狭い幅で横にはみ出さないように（10/5） */
 .case-grid-compact .case-meta { flex-wrap: wrap; gap: 4px 8px; min-width: 0; }
 .case-grid-compact .case-svc { min-width: 0; overflow-wrap: anywhere; }
+/* 記事のひな形（そのまま直して使える文案） */
+.art-template { margin: 8px 0 28px; padding: 24px 26px; border: 2px dashed var(--ink-3); background: #fff; }
+.art-template-title { font-weight: 900; font-size: 17px; margin-bottom: 12px; }
+.art-template ol { list-style: decimal; padding-left: 1.4em; line-height: 1.9; }
+.art-template li { margin-bottom: .7em; }
+.art-template-note { margin-top: 12px; font-size: 13px; color: var(--ink-3); }
+@media (max-width: 700px) { .art-template { padding: 18px 16px; } }
