@@ -180,19 +180,42 @@
     });
   });
 
-  // AI瓦版の解説記事：data-limit の枚数だけ見せ、残りは「もっと見る」で開く
+  // AI瓦版の解説記事：data-popular（閲覧数の多い順の一覧）で並べ替え、data-limit の枚数だけ見せて、残りは「もっと見る」で開く。
+  // 一覧が読めないときや、載っていない記事は、HTML の並び（新着順）のまま。
   document.querySelectorAll(".kw-arts[data-limit]").forEach(function (grid) {
     var n = parseInt(grid.getAttribute("data-limit"), 10);
-    var cards = [].slice.call(grid.children);
     var more = grid.nextElementSibling;
-    if (!n || cards.length <= n || !more || !more.classList.contains("feed-more")) return;
-    cards.slice(n).forEach(function (c) { c.hidden = true; });
-    more.hidden = false;
-    more.querySelector("button").addEventListener("click", function () {
-      cards.slice(n).forEach(function (c) { c.hidden = false; });
-      more.hidden = true;
-      cards[n].focus({ preventScroll: true });
+    if (!more || !more.classList.contains("feed-more")) more = null;
+    var open = false;
+    function apply() {
+      var cards = [].slice.call(grid.children);
+      var folded = !!(n && more && !open && cards.length > n);
+      cards.forEach(function (c, i) { c.hidden = folded && i >= n; });
+      if (more) more.hidden = !folded;
+    }
+    apply();
+    if (more) more.querySelector("button").addEventListener("click", function () {
+      open = true; apply();
+      var next = grid.children[n];
+      if (next) next.focus({ preventScroll: true });
     });
+    var src = grid.getAttribute("data-popular");
+    if (!src || !window.fetch) return;
+    fetch(src, { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) {
+        var rank = {};
+        (data.items || []).forEach(function (it, i) { if (!(it.path in rank)) rank[it.path] = i; });
+        [].slice.call(grid.children)
+          .map(function (c, i) {
+            var p = new URL(c.getAttribute("href"), location.href).pathname;
+            return { c: c, k: p in rank ? rank[p] : Infinity, i: i };
+          })
+          .sort(function (a, b) { return a.k - b.k || a.i - b.i; })
+          .forEach(function (x) { grid.appendChild(x.c); });
+        apply();
+      })
+      .catch(function () {});
   });
 
   // AI瓦版：data/feed.json を読んで一覧にする

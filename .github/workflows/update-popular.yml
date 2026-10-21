@@ -1,0 +1,60 @@
+name: Update Popular Articles
+
+# GA4 の閲覧数から、よろづやの解説記事の人気順（yorozuya/data/popular.json）を作り直す。
+# - 毎朝 5:30 JST（build-content の 6:00 より前）
+# - GitHub UI から手動実行
+# 要るもの：Secrets の GA4_SA_KEY（サービスアカウントの鍵の JSON をそのまま）、Variables の GA4_PROPERTY_ID（GA4 のプロパティ ID の数字）。
+# 手順書：01_BWH/00_strategy/20261004_広報とSEO/S1_計測/06_人気記事の鍵の作り方.md（OneDrive 側）
+
+on:
+  schedule:
+    - cron: '30 20 * * *'   # UTC 20:30 = JST 5:30
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-popular
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch GA4 page views
+        env:
+          GA4_PROPERTY_ID: ${{ vars.GA4_PROPERTY_ID }}
+          GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
+        run: |
+          # 鍵を設定するまでは何もしない（毎朝の失敗の通知を出さないため）
+          if [ -z "$GA4_PROPERTY_ID" ] || [ -z "$GA4_SA_KEY" ]; then
+            echo "GA4_PROPERTY_ID か GA4_SA_KEY が未設定なので、今日は飛ばします。"
+            exit 0
+          fi
+          node scripts/fetch-popular.mjs
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- yorozuya/data/popular.json; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add yorozuya/data/popular.json
+          git commit -m "chore: refresh popular articles [skip ci]"
+          # noteフィードの更新（30分ごと）と重なっても落ちないように、取り込んでから push する
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
