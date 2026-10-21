@@ -180,6 +180,21 @@
     });
   });
 
+  // AI瓦版の解説記事：data-limit の枚数だけ見せ、残りは「もっと見る」で開く
+  document.querySelectorAll(".kw-arts[data-limit]").forEach(function (grid) {
+    var n = parseInt(grid.getAttribute("data-limit"), 10);
+    var cards = [].slice.call(grid.children);
+    var more = grid.nextElementSibling;
+    if (!n || cards.length <= n || !more || !more.classList.contains("feed-more")) return;
+    cards.slice(n).forEach(function (c) { c.hidden = true; });
+    more.hidden = false;
+    more.querySelector("button").addEventListener("click", function () {
+      cards.slice(n).forEach(function (c) { c.hidden = false; });
+      more.hidden = true;
+      cards[n].focus({ preventScroll: true });
+    });
+  });
+
   // AI瓦版：data/feed.json を読んで一覧にする
   var feed = document.querySelector("[data-feed]");
   if (!feed) return;
