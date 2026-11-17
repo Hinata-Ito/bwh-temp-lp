@@ -14,6 +14,7 @@
     { "path": "/", "file": "index.html" },
     { "path": "/migiude-strategy.html", "file": "migiude-strategy.html" },
     { "path": "/migiude-hr.html", "file": "migiude-hr.html" },
+    { "path": "/cases/tenkin-datanet/", "file": "cases/tenkin-datanet/index.html" },
     { "path": "/yorozuya/", "file": "yorozuya/index.html" },
     { "path": "/yorozuya/kenshu/", "file": "yorozuya/kenshu/index.html" },
     { "path": "/yorozuya/sagyou/", "file": "yorozuya/sagyou/index.html" },

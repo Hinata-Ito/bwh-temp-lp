@@ -17,6 +17,7 @@ export const SERVICE = {
   'migiude-strategy.html': 'migiude-strategy',
   'ai-desk/index.html': 'general',
   'ai-desk/section.html': 'general',
+  'cases/tenkin-datanet/index.html': 'general',
 };
 
 export function addTags(html, service) {

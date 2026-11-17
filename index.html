@@ -255,7 +255,7 @@
     </div>
     <div class="cases-inner">
       <h2 class="cases-heading">実績・支援事例</h2>
-      <p class="cases-sub">中小企業の経営者・後継者の方々と伴走してきた支援事例を、Noteで順次公開しています。</p>
+      <p class="cases-sub">中小企業の経営者・後継者の方々と伴走してきた支援事例です。</p>
       <div class="cases-grid">
         <!-- 初期表示（Note RSSが取得できれば置き換わる） -->
         <div class="cases-coming-soon fade-up" style="grid-column: 1 / -1;">
@@ -420,9 +420,31 @@
     }
     function escapeAttr(s) { return escapeHtml(s).replace(/"/g, '&quot;'); }
 
+    // 自社サイトの事例（cases/ 配下）。Note の記事より先に並べる
+    var LOCAL_CASES = [{
+      title: '開発力に、課題を見つけて提案する力を。天晴データネットが会社の方針として進める、段階的なロジカルシンキング研修',
+      excerpt: '全社員向けの初級から管理職の上級まで、3段階の研修を日本とフィリピンで。1か月後にもう一度測り、使い続ける仕組みの話し合いへ進んだ。',
+      link: 'cases/tenkin-datanet/',
+      thumbnail: 'cases/tenkin-datanet/img/ph-chukyu_photo_01_group.webp',
+      local: true,
+      replaces: '天晴データネット'
+    }];
+
     function renderCard(item) {
       var thumb = item.thumbnail || '';
       var link  = escapeAttr(item.link || '#');
+      if (item.local) {
+        return ''
+          + '<article class="case-card fade-up visible">'
+          +   '<a href="' + link + '" style="display:block;color:inherit;text-decoration:none;">'
+          +   '<div class="case-card-img"><img src="' + escapeAttr(thumb) + '" alt="" style="width:100%;height:100%;object-fit:cover;"></div>'
+          +   '<div class="case-card-body">'
+          +     '<h3 class="case-title">' + escapeHtml(item.title) + '</h3>'
+          +     '<p class="case-body">' + escapeHtml(item.excerpt || '') + '</p>'
+          +     '<span class="case-link">記事を読む →</span>'
+          +   '</div></a>'
+          + '</article>';
+      }
       return ''
         + '<article class="case-card fade-up visible note-card" '
         +   'onclick="window.open(\'' + link + '\',\'_blank\',\'noopener\')" '
@@ -443,7 +465,18 @@
         + '</article>';
     }
 
+    function showLocal(noteItems) {
+      var grid = document.querySelector('#cases .cases-grid');
+      if (!grid) return;
+      var skip = LOCAL_CASES.map(function(c){ return c.replaces; });
+      var rest = (noteItems || []).filter(function(it){
+        return !skip.some(function(w){ return w && String(it.title || '').indexOf(w) !== -1; });
+      });
+      grid.innerHTML = LOCAL_CASES.map(renderCard).join('') + rest.map(renderCard).join('');
+    }
+
     function load() {
+      showLocal([]);
       // キャッシュ無視で最新を取得
       fetch('note-feed.json?t=' + Date.now(), { cache: 'no-store' })
         .then(function(r){ return r.ok ? r.json() : null; })
@@ -452,8 +485,7 @@
 
           // Cases: cases-grid の innerHTML 全置換（Coming Soonプレースホルダーごと消える）
           if (d.cases && d.cases.length) {
-            var grid = document.querySelector('#cases .cases-grid');
-            if (grid) grid.innerHTML = d.cases.map(renderCard).join('');
+            showLocal(d.cases);
           }
 
           // Knowledge: Coming Soon プレースホルダーをカードグリッドに差し替え
